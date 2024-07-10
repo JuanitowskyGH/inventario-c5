@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import UserIcon from '../icons/UserIcon';
+import UserIcon from '../icons/UsersIcon';
 import AddUserIcon from '../icons/AddUserIcon';
 import InventoryIcon from '../icons/InventoryIcon';
 import AddInventoryIcon from '../icons/AddInventoryIcon';
+
+import { Link, Outlet } from 'react-router-dom';
 
 export const Menu = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -18,7 +20,7 @@ export const Menu = () => {
 
   return (
     <div>
-      <nav className="absolute left-0 top-0 h-20 w-full bg-white">
+      <nav className="absolute left-0 top-0 h-20 w-full bg-white shadow-black shadow-md">
         <div className="px-5 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
@@ -53,7 +55,7 @@ export const Menu = () => {
 
             <div
               id="drawer-navigation"
-              className={`fixed top-0 left-0 z-40 w-46 h-screen p-4 transition-transform bg-white dark:bg-gray-800 ${
+              className={`fixed top-0 left-0 z-40 w-46 h-screen p-4 shadow-lg shadow-black transition-transform bg-white dark:bg-gray-800 ${
                 isDrawerOpen ? 'transform-none' : '-translate-x-full'
               }`}
               tabIndex="-1"
@@ -85,10 +87,10 @@ export const Menu = () => {
               </button>
               <div className="py-4 overflow-y-auto">
                 <ul className="space-y-2 font-medium">
-                  <li className="mb-10">
-                    <a
-                      href="#"
-                      className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  <li className="mb-10 focus:text-blue-tlax">
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center p-2 text-gray-900 focus:text-blue-tlax rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                     >
                       <svg
                         className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -100,8 +102,8 @@ export const Menu = () => {
                         <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
                         <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                       </svg>
-                      <span className="pl-7 ms-3 text-center">Dashboard</span>
-                    </a>
+                      <span className="pl-7 ms-3 text-center focus:text-blue-tlax hover:text-blue-tlax">Dashboard</span>
+                    </Link>
                   </li>
                   <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <li>
@@ -225,5 +227,6 @@ export const Menu = () => {
         </div>
     </nav>
 </div>
+
   )
 }

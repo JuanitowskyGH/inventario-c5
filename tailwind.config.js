@@ -9,6 +9,9 @@ module.exports = {
     flowbite.content(),
   ],
   theme: {
+    colors: {
+      'blue-tlax': '#0B1556'
+    },
     extend: {},
   },
   plugins: [

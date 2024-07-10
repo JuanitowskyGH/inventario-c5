@@ -1,6 +1,6 @@
 import React from 'react'
 import { UserCircleIcon } from '@heroicons/react/16/solid'
-import UserIcon from '../icons/UserIcon'
+import UserIcon from '../icons/UsersIcon'
 import AddUserIcon from '../icons/AddUserIcon'
 import InventoryIcon from '../icons/InventoryIcon'
 import AddInventoryIcon from '../icons/AddInventoryIcon'
