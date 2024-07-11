@@ -10,7 +10,8 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'blue-tlax': '#0B1556'
+      'blue-tlax': '#0B1556',
+      'blue-tlax-light': '#293583',
     },
     extend: {},
   },

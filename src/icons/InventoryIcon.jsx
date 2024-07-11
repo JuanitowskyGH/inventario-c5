@@ -1,18 +1,18 @@
-// icon:file-document-multiple | Material Design Icons https://materialdesignicons.com/ | Austin Andrews
+// icon:boxes-stacked | Fontawesome https://fontawesome.com/ | Fontawesome
 import * as React from "react";
 
-function InventoryIcon(props) {
+function IconBoxesStacked(props) {
   return (
     <svg
-      viewBox="0 0 24 24"
+      viewBox="0 0 576 512"
       fill="currentColor"
       height="1em"
       width="1em"
       {...props}
     >
-      <path d="M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4h2m11 3h5.5L15 1.5V7M8 0h8l6 6v12c0 1.11-.89 2-2 2H8a2 2 0 01-2-2V2c0-1.11.89-2 2-2m9 16v-2H8v2h9m3-4v-2H8v2h12z" />
+      <path d="M160 48c0-26.5 21.5-48 48-48h48v80c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V0h48c26.5 0 48 21.5 48 48v128c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48zM48 288h48v80c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-80h48c26.5 0 48 21.5 48 48v128c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336c0-26.5 21.5-48 48-48zm320 0h48v80c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-80h48c26.5 0 48 21.5 48 48v128c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V336c0-26.5 21.5-48 48-48z" />
     </svg>
   );
 }
 
-export default InventoryIcon;
+export default IconBoxesStacked;

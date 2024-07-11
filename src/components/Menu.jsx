@@ -20,7 +20,7 @@ export const Menu = () => {
 
   return (
     <div>
-      <nav className="absolute left-0 top-0 h-20 w-full bg-white shadow-black shadow-md">
+      <nav className="absolute left-0 top-0 h-15 w-full bg-white shadow-black shadow-md">
         <div className="px-5 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
@@ -45,12 +45,12 @@ export const Menu = () => {
                   ></path>
                 </svg>
               </button>
-              <a href="https://flowbite.com" className="flex ms-2 md:me-24">
+              <Link to={"/dashboard"} className="flex ms-2 md:me-24">
                 <img src="/tlx.png" className="h-8 me-3" alt="FlowBite Logo" />
-                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
+                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white italic">
                   Inventario C5
                 </span>
-              </a>
+              </Link>
             </div>
 
             <div
@@ -112,8 +112,8 @@ export const Menu = () => {
                       </h5>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        to={"/usuarios"}
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       >
                         <UserIcon
@@ -123,7 +123,7 @@ export const Menu = () => {
                         <span className="pl-7 ms-3 whitespace-nowrap text-left">
                           Ver usuarios
                         </span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a
@@ -147,8 +147,8 @@ export const Menu = () => {
                       </h5>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        to={"/inventario"}
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       >
                         <InventoryIcon
@@ -158,11 +158,11 @@ export const Menu = () => {
                         <span className="pl-7 ms-3 whitespace-nowrap">
                           Ver inventario
                         </span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        to={"/addinventario"}
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       >
                         <AddInventoryIcon
@@ -172,7 +172,7 @@ export const Menu = () => {
                         <span className="pl-7 ms-3 whitespace-nowrap">
                           Agregar registro
                         </span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <div className="flex justify-center mt-auto pt-10">

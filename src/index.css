@@ -3,6 +3,19 @@
 @tailwind utilities;
 @import "flowbite/dist/flowbite.css";
 
+a {
+  font-weight: 500;
+  color: blue-tlx;
+  text-decoration: inherit;
+}
+a:hover {
+  color: blue-tlx;
+}
+
+body {
+  background-color: #000546;
+}
+
 /*:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -18,14 +31,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+
 
 body {
   margin: 0;

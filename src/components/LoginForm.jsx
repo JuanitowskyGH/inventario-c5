@@ -1,5 +1,4 @@
 import React from 'react'
-import InventoryIcon from '../icons/InventoryIcon';
 import UserIcon from '../icons/UserIcon';
 import PasswordIcon from '../icons/PasswordIcon';
 import { Link } from 'react-router-dom';

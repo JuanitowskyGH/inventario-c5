@@ -1,8 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import InventoryIcon from '../icons/InventoryIcon';
-import UserIcon from '../icons/UserIcon';
-import PasswordIcon from '../icons/PasswordIcon';
+
 import { LoginForm } from '../components/LoginForm';
 export const Login = () => {
   return (

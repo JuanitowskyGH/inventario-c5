@@ -1,10 +1,7 @@
 import React from 'react'
-import { useState } from 'react'
-import { Sidebar } from '../components/Sidebar'
-import { TopNavbar } from '../components/TopNavbar'
 import { Menu } from '../components/Menu'
-import { Footer } from '../components/Footer'
-import { Outlet } from 'react-router-dom'
+import { AccesoRapido } from '../components/AccesoRapido'
+import { Presentacion } from '../components/Presentacion'
 
 export const Dashboard = () => {
 
@@ -14,8 +11,23 @@ export const Dashboard = () => {
       <div>
         <Menu/>
       </div>
-      <div className='container-fluid bg-white w-96 h-72 mt-32 ml-20'>
-
+      <div className='container-fluid w-auto h-72 mt-28 mx-12'>
+        <div className="grid grid-cols-3 gap-4 p-2">
+          <div className='bg-gray-200 col-span-2 rounded-lg'>
+            <div className='flex justify-center pt-4 text-3xl text-default-400 italic'>
+                <b>Accesos Rapidos</b>
+            </div>
+            <AccesoRapido/>
+          </div>
+          <div className="bg-gray-200 rounded-lg">
+            <Presentacion/>
+          </div>
+          <div className="bg-red-800">03</div>
+          <div className="col-span-2 bg-green-100">04</div>
+          <div className="...">05</div>
+          <div className="...">06</div>
+          <div className="col-span-2 ...">07</div>
+        </div>
       </div>
     </div>
   )
