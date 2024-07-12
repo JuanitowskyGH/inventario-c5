@@ -2,12 +2,13 @@ import React from 'react'
 import { Menu } from '../components/Menu'
 import { AccesoRapido } from '../components/AccesoRapido'
 import { Presentacion } from '../components/Presentacion'
+import { Footer } from '../components/Footer'
 
 export const Dashboard = () => {
 
 
   return (
-    <div className='absolute w-full h-full'>
+    <div className='w-full h-full'>
       <div>
         <Menu/>
       </div>
@@ -19,10 +20,10 @@ export const Dashboard = () => {
             </div>
             <AccesoRapido/>
           </div>
-          <div className="bg-gray-200 rounded-lg">
+          <div className="bg-gray-200 rounded-lg row-span-12">
             <Presentacion/>
           </div>
-          <div className="bg-red-800">03</div>
+          <div className="bg-red-800 col-span-2">03</div>
           <div className="col-span-2 bg-green-100">04</div>
           <div className="...">05</div>
           <div className="...">06</div>

@@ -3,6 +3,7 @@ import UserIcon from '../icons/UsersIcon';
 import AddUserIcon from '../icons/AddUserIcon';
 import InventoryIcon from '../icons/InventoryIcon';
 import AddInventoryIcon from '../icons/AddInventoryIcon';
+import { AddUsuarios } from '../pages/AddUsuarios';
 
 import { Link, Outlet } from 'react-router-dom';
 
@@ -126,8 +127,8 @@ export const Menu = () => {
                       </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        to={"/addusuarios"}
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       >
                         <AddUserIcon
@@ -137,7 +138,7 @@ export const Menu = () => {
                         <span className="pl-7 ms-3 whitespace-nowrap">
                           Agregar nuevo usuario
                         </span>
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                   <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
