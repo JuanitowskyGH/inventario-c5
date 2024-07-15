@@ -1,6 +1,5 @@
 import React from 'react'
 import { Menu } from '../components/Menu'
-import { Pruebas } from '../components/Pruebas'
 import { FormCuenta } from '../components/FormCuenta'
 
 export const Cuenta = () => {

@@ -19,7 +19,6 @@ import { AccesoRapido } from './components/AccesoRapido'
 import { Presentacion} from './components/Presentacion'
 import { InventarioForm } from './components/InventarioForm'
 import { Footer } from './components/Footer'
-import { Pruebas } from './components/Pruebas'
 import { FormCuenta } from './components/FormCuenta'
 import { FormUpdateInventario } from './components/FormUpdateInventario'
 
@@ -50,7 +49,6 @@ function App() {
       <Route path="/presentacion" element={<Presentacion />} />
       <Route path="/inventarioform" element={<InventarioForm />} />
       <Route path="/footer" element={<Footer />} />
-      <Route path="/pruebas" element={<Pruebas />} />
       <Route path="/cuenta" element={<FormCuenta />} />
       <Route path="*" element={<h1 className='text-white'>Esta pagina no existe papi</h1>} />
     </Routes>
