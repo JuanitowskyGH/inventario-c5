@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu } from '../components/Menu'
 import { InventarioForm } from '../components/InventarioForm'
+import { Footer } from '../components/Footer'
 
 export const AddInventario = () => {
   return (
@@ -13,6 +14,7 @@ export const AddInventario = () => {
                 <InventarioForm/>
             </div>
         </div>
+        <Footer/>
     </div>
   )
 }

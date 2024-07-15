@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu } from '../components/Menu'
 import { TablaUsuarios } from '../components/TablaUsuarios'
+import { Footer } from '../components/Footer'
 
 export const Usuarios = () => {
   return (
@@ -13,6 +14,7 @@ export const Usuarios = () => {
                 <TablaUsuarios/>
             </div>
         </div>
+        <Footer/>
     </div>
   )
 }

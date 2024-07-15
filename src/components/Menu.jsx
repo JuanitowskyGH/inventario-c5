@@ -17,6 +17,10 @@ export const Menu = () => {
     setIsDrawerOpen(false);
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
     <div>
       <nav className="absolute left-0 top-0 h-15 w-full bg-white shadow-black shadow-md">
@@ -191,11 +195,17 @@ export const Menu = () => {
             <div className="flex items-center">
                 <div className="flex items-center ms-3">
                     <div>
-                    <button type="button" className="flex text-sm bg-gray-100 rounded-full focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                    <button 
+                      type="button"
+                      onClick={toggleDropdown}
+                      className="flex text-sm bg-gray-100 rounded-full focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600"
+                      aria-expanded={isDropdownOpen}
+                      data-dropdown-toggle="dropdown-user">
                         <span className="sr-only">Open user menu</span>
-                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo"/>
+                        <img className="w-8 h-8 rounded-full" src="/tlx.png" alt="user photo"/>
                     </button>
                     </div>
+                    {isDropdownOpen && (
                     <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                     <div className="px-4 py-3" role="none">
                         <p className="text-sm text-gray-900 dark:text-white" role="none">
@@ -220,6 +230,7 @@ export const Menu = () => {
                         </li>
                     </ul>
                     </div>
+                    )}
                 </div>
                 </div>
             </div>

@@ -28,6 +28,7 @@ export const Dashboard = () => {
           <div className="col-span-2 ...">07</div>
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }

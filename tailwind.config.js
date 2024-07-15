@@ -3,10 +3,8 @@ const flowbite = require("flowbite-react/tailwind");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    'node_modules/flowbite-react/lib/esm/**/*.js',
-    "./node_modules/flowbite/**/*.js",
-    flowbite.content(),
+    "./src/**/*.{html,js,jsx}",
+    "./node_modules/flowbite/**/*.jsx"
   ],
   theme: {
     colors: {
@@ -22,6 +20,5 @@ module.exports = {
   },
   plugins: [
     require('flowbite/plugin'),
-    flowbite.plugin(),
   ],
 }
