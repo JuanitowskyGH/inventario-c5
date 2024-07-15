@@ -14,13 +14,11 @@ export const Dashboard = () => {
       </div>
       <div className='container-fluid w-auto h-72 mt-28 mx-12'>
         <div className="grid grid-cols-3 gap-4 p-2">
-          <div className='bg-gray-200 col-span-2 rounded-lg'>
-            <div className='flex justify-center pt-4 text-3xl text-default-400 italic'>
-                <b>Accesos Rapidos</b>
-            </div>
+          <div className='bg-white col-span-2 rounded-lg'>
+
             <AccesoRapido/>
           </div>
-          <div className="bg-gray-200 rounded-lg row-span-12">
+          <div className="bg-white rounded-lg row-span-12">
             <Presentacion/>
           </div>
           <div className="bg-red-800 col-span-2">03</div>

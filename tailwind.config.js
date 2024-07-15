@@ -13,7 +13,12 @@ module.exports = {
       'blue-tlax': '#0B1556',
       'blue-tlax-light': '#293583',
     },
-    extend: {},
+    extend: {
+      screens:{
+        'xsm': '767px',
+      
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin'),

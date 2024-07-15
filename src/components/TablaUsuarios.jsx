@@ -59,7 +59,7 @@ export const TablaUsuarios = () => {
                     </td>
                     <td className="relative flex py-5 pl-10 items-center gap-2">
                         <Tooltip color='primary' content="Editar usuario">
-                        <Link>
+                        <Link to={"/updateusuarios"}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
                                 <EditUserIcon />
                             </span>
@@ -167,7 +167,7 @@ export const TablaUsuarios = () => {
                     </td>
                     <td className="relative flex py-5 pl-10 items-center gap-2">
                         <Tooltip color='primary' content="Editar usuario">
-                        <Link>
+                        <Link to={"/updateusuarios"}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
                                 <EditUserIcon />
                             </span>

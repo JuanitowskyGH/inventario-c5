@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu } from '../components/Menu'
-import { InventarioForm } from '../components/InventarioForm'
+import { FormUpdateUsuario } from '../components/FormUpdateUsuario'
 
 export const UpdateUsuarios = () => {
   return (
@@ -10,7 +10,7 @@ export const UpdateUsuarios = () => {
         </div>
         <div className='container-fluid w-auto px-10 py-10 rounded-md h-max mt-28 mx-12 bg-gray-200'>
             <div className=''>
-                <InventarioForm/>
+                <FormUpdateUsuario/>
             </div>
         </div>
     </div>

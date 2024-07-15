@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import UserIcon from '../icons/UsersIcon';
 import AddUserIcon from '../icons/AddUserIcon';
 import InventoryIcon from '../icons/InventoryIcon';
-import AddInventoryIcon from '../icons/AddInventoryIcon';
-import { AddUsuarios } from '../pages/AddUsuarios';
-
 import { Link, Outlet } from 'react-router-dom';
+import AddInventoryIcon from '../icons/EditInventoryIcon';
 
 export const Menu = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

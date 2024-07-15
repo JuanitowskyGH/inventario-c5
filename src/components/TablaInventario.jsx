@@ -1,6 +1,7 @@
 import React from 'react'
 import EditInventoryIcon from '../icons/EditInventoryIcon';
 import DeleteInventoryIcon from '../icons/DeleteInventoryIcon';
+import { FormUpdateInventario } from './FormUpdateInventario';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'flowbite-react';
 
@@ -101,7 +102,7 @@ export const TablaInventario = () => {
                     </td>
                     <td className="relative flex py-5 pl-10 items-center gap-2">
                         <Tooltip color='primary' content="Editar registro">
-                        <Link>
+                        <Link to={"/updateinventario"}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
                                 <EditInventoryIcon />
                             </span>

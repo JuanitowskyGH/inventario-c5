@@ -21,8 +21,11 @@ import { InventarioForm } from './components/InventarioForm'
 import { Footer } from './components/Footer'
 import { Pruebas } from './components/Pruebas'
 import { FormCuenta } from './components/FormCuenta'
+import { FormUpdateInventario } from './components/FormUpdateInventario'
 
 import { Routes, Route } from 'react-router-dom'
+import { UpdateInventario } from './pages/UpdateInventario'
+import { UpdateUsuarios } from './pages/UpdateUsuarios'
 
 
 function App() {
@@ -36,6 +39,8 @@ function App() {
       <Route path="/addinventario" element={<AddInventario />} />
       <Route path='/addusuarios' element={<AddUsuarios />} />
       <Route path="/cuenta" element={<Cuenta />} />
+      <Route path="/updateinventario" element={<UpdateInventario/>} />
+      <Route path='/updateusuarios' element={<UpdateUsuarios/>} />
 
       {/* PARA PRUEBA DE COMPONENTES */}
       <Route path="/usuarios" element={<TablaUsuarios />} />
