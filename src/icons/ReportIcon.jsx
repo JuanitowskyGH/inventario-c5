@@ -1,7 +1,7 @@
 // icon:file-document-multiple | Material Design Icons https://materialdesignicons.com/ | Austin Andrews
 import * as React from "react";
 
-function InventoryIcon(props) {
+function ReportIcon(props) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -15,4 +15,4 @@ function InventoryIcon(props) {
   );
 }
 
-export default InventoryIcon;
+export default ReportIcon;

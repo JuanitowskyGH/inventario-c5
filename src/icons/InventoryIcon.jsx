@@ -1,7 +1,7 @@
 // icon:boxes-stacked | Fontawesome https://fontawesome.com/ | Fontawesome
 import * as React from "react";
 
-function IconBoxesStacked(props) {
+function InventoryIcon(props) {
   return (
     <svg
       viewBox="0 0 576 512"
@@ -15,4 +15,4 @@ function IconBoxesStacked(props) {
   );
 }
 
-export default IconBoxesStacked;
+export default InventoryIcon;

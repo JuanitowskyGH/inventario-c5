@@ -11,24 +11,24 @@ export const FormUpdateUsuario = () => {
     <p>Actualiza los permisos necesarios y guarda los cambios</p>  
     <div className="grid lg:grid-cols-2 gap-4 pt-5">
         <div className="flex justify-center row-span-3">
-            <img src="/inventory.jpg" alt="imagen" className="w-auto h-auto rounded-md"/>
+            <img src="/inventory.jpg" alt="imagen" className="w-auto h-auto rounded-md shadow-xl "/>
         </div>
             <div className="grid grid-rows-3 grid-flow-col gap-4 mt-5">
                 <div className="mb-3">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-                        <input type="text" disabled placeholder='Aqui los nombres' className="cursor-not-allowed shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
+                        <input type="text" disabled placeholder='Aqui los nombres' className="cursor-not-allowed shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
                 </div>
                 <div className="mb-3 col-start-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                        <input type="text" disabled placeholder='Aqui los dos apellidos' className="cursor-not-allowed shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
+                        <input type="text" disabled placeholder='Aqui los dos apellidos' className="cursor-not-allowed shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
                 </div>
                 <div className="mb-3">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
-                        <input type="text" disabled placeholder='Aqui el username' className="cursor-not-allowed shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
+                        <input type="text" disabled placeholder='Aqui el username' className="cursor-not-allowed shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
                 </div>
                 <div className="mb-5 col-start-2">
                   <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Permisos</label>
-                      <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm shadow-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                           <option className='disabled'>Seleccione</option>
                           <option>Super Administrador</option>
                           <option>Administrador</option>
@@ -37,11 +37,11 @@ export const FormUpdateUsuario = () => {
                 </div>
             </div>
             <div className="grid lg:grid-cols-2 gap-5">
-            <button type="button" className="px-5 py-3 text-base font-medium text-center inline-flex items-center text-white bg-blue-tlax rounded-lg hover:bg-blue-tlax-light focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button type="button" className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
                 <EditUserIcon className="w-6 h-6 mr-2"/>
                 Actualizar Registro
             </button>                    
-            <button type="button" className="px-5 py-3 text-base font-medium text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button type="button" className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-red-600 hover:-translate-y-1 hover:scale-100 hover:bg-red-500 duration-300">
                 <Discard className="w-6 h-6 mr-2"/>
                 Cancelar
             </button>
