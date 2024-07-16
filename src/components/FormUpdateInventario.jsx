@@ -68,7 +68,7 @@ export const FormUpdateInventario = () => {
                         <textarea type="text" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
                     </div>
                 </div>
-                <div className="grid lg:grid-cols-2 gap-5 px-16 py-8">
+                <div className="grid lg:grid-cols-2 gap-5 px-16">
                 <button type="button" className="px-5 py-3 text-base font-medium text-center inline-flex items-center text-white bg-blue-tlax rounded-lg hover:bg-blue-tlax-light focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <EditInventoryIcon className="w-6 h-6 mr-2"/>
                     Actualizar Registro

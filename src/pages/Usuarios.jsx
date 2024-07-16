@@ -14,7 +14,6 @@ export const Usuarios = () => {
                 <TablaUsuarios/>
             </div>
         </div>
-        <Footer/>
     </div>
   )
 }

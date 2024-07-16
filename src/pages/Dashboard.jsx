@@ -2,7 +2,7 @@ import React from 'react'
 import { Menu } from '../components/Menu'
 import { AccesoRapido } from '../components/AccesoRapido'
 import { Presentacion } from '../components/Presentacion'
-import { Footer } from '../components/Footer'
+import { Carrusel } from '../components/Carrusel'
 
 export const Dashboard = () => {
 
@@ -18,17 +18,14 @@ export const Dashboard = () => {
 
             <AccesoRapido/>
           </div>
-          <div className="bg-white rounded-lg row-span-12">
+          <div className="bg-white rounded-lg row-span-2">
             <Presentacion/>
           </div>
-          <div className="bg-red-800 col-span-2">03</div>
-          <div className="col-span-2 bg-green-100">04</div>
-          <div className="...">05</div>
-          <div className="...">06</div>
-          <div className="col-span-2 ...">07</div>
+          <div className="bg-red-800 col-span-2">
+            <Carrusel/>
+          </div>
         </div>
       </div>
-      <Footer/>
     </div>
   )
 }

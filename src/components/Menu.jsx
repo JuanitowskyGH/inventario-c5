@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UserIcon from '../icons/UsersIcon';
 import AddUserIcon from '../icons/AddUserIcon';
 import InventoryIcon from '../icons/InventoryIcon';
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AddInventoryIcon from '../icons/EditInventoryIcon';
 
 export const Menu = () => {
@@ -158,8 +158,8 @@ export const Menu = () => {
                           className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                           aria-hidden="true"
                         />
-                        <span className="pl-7 ms-3 whitespace-nowrap">
-                          Ver inventario
+                        <span className="pl-7 ms-3 whitespace-nowrap text-left">
+                          Inventario
                         </span>
                       </Link>
                     </li>
@@ -177,66 +177,59 @@ export const Menu = () => {
                         </span>
                       </Link>
                     </li>
-                    <li>
-                      <div className="flex justify-center mt-auto pt-10">
-                        <img
-                          src="/tlx.png"
-                          alt=""
-                          className="w-40 h-50 items-center text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        />
-                      </div>
-                    </li>
                   </ul>
                 </ul>
               </div>
             </div>
 
-
             <div className="flex items-center">
-                <div className="flex items-center ms-3">
-                    <div>
-                    <button 
-                      type="button"
-                      onClick={toggleDropdown}
-                      className="flex text-sm bg-gray-100 rounded-full focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600"
-                      aria-expanded={isDropdownOpen}
-                      data-dropdown-toggle="dropdown-user">
-                        <span className="sr-only">Open user menu</span>
-                        <img className="w-8 h-8 rounded-full" src="/tlx.png" alt="user photo"/>
-                    </button>
-                    </div>
-                    {isDropdownOpen && (
-                    <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-                    <div className="px-4 py-3" role="none">
-                        <p className="text-sm text-gray-900 dark:text-white" role="none">
-                        Neil Sims
-                        </p>
-                        <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        neil.sims@flowbite.com
-                        </p>
-                    </div>
-                    <ul className="py-1" role="none">
-                        <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
-                        </li>
-                        <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                        </li>
-                        <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                        </li>
-                        <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
-                        </li>
-                    </ul>
-                    </div>
-                    )}
+              <div className="relative inline-block text-left">
+                <button
+                  type="button"
+                  className="flex items-center focus:outline-none"
+                  onClick={toggleDropdown}
+                >
+                  <img
+                    src="/perfil.jpg"
+                    className="w-10 h-10 rounded-full"
+                    alt="User Profile"
+                  />
+                  <span className="ml-2">Nombre de usuario</span>
+                </button>
+                <div
+                  className={`origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 ${
+                    isDropdownOpen ? 'block' : 'hidden'
+                  }`}
+                  style={{ zIndex: 9999 }} // Asegurarse de que el dropdown se superpone al contenido
+                >
+                  <div className="py-1">
+                    <Link
+                      to="/cuenta"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Perfil
+                    </Link>
+                    <Link
+                      to="/settings"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Ajustes
+                    </Link>
+                    <Link
+                      to="/"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Cerrar sesión
+                    </Link>
+                  </div>
                 </div>
-                </div>
+              </div>
             </div>
-        </div>
-    </nav>
-</div>
 
-  )
-}
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
+};
+

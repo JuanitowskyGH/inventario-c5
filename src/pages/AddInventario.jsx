@@ -14,7 +14,6 @@ export const AddInventario = () => {
                 <InventarioForm/>
             </div>
         </div>
-        <Footer/>
     </div>
   )
 }
