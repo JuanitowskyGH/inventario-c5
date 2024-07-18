@@ -49,13 +49,15 @@ export const FormCuenta = () => {
                         <input type="password" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
                     </div>
                 </div>
-                <Link className="px-5 py-4 mt-5 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
+                <button className="px-5 py-4 mt-5 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
                     <IconUpdate className="w-6 h-6 mr-2"/>
                     Actualizar información
-                </Link> 
+                </button> 
+                <hr className="w-full h-1 mx-auto mt-4 bg-gray-100 border-0 rounded dark:bg-gray-700"/>
+                </form>
 
-                <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded dark:bg-gray-700"/>
-                <h1 className="mt-6 text-2xl italic mb-8 text-black ">Actualizar contraseña</h1>
+                <form className="max-w-xlg mx-auto px-8 pb-8">
+                <h1 className="text-2xl italic mb-8 text-black ">Actualizar contraseña</h1>
                 <div className='grid lg:grid-cols-3 sm:grid-cols-2 gap-5 '>
                     <div className="mb-5">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña actual</label>
@@ -70,12 +72,11 @@ export const FormCuenta = () => {
                         <input type="password" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
                     </div>
                 </div>
-                <button type="submit" className="px-5 py-3 text-base font-medium text-center inline-flex items-center text-white bg-blue-tlax rounded-lg hover:bg-blue-tlax-light focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <button type='submit' className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
                     <IconLockPasswordLine className="w-6 h-6 mr-2"/>
                     Actualizar contraseña
                 </button>                     
                 <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded dark:bg-gray-700"/>
-
                 </form>
             </div>
         </div>
