@@ -1,4 +1,4 @@
-const TABLA = 'register';
+const TABLA = 'users';
 
 module.exports = function (dbInyect) {
 

@@ -101,7 +101,7 @@ module.exports = {
 }
 
 /*
-REVISA ESTA PARTE DE CODIGO PARA VER SI FUNCIONA 
+REVISAR ESTA PARTE DE CODIGO PARA VER SI FUNCIONA 
 
 function createUpdate(tabla, data){
     if(data.id == 0){

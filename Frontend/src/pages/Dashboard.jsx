@@ -21,8 +21,8 @@ export const Dashboard = () => {
               <AccesoRapido/>
             </div>
             <div className='bg-white rounded-lg '>
-            <Carrusel/>
-          </div>
+              <Carrusel/>
+            </div>
           </div>
           <div className='bg-white rounded-lg'>
               <Presentacion/>

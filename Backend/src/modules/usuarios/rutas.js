@@ -4,10 +4,10 @@ const router = express.Router();
 const respuesta = require('../../red/respuestas');
 const controlador = require('./index');
 
-router.get('/inventario', findAll);
-router.get('/inventario/:id', findById);
-router.post('/inventario', createUpdate);
-router.delete('/inventario', deleteById);
+router.get('/usuarios', findAll);
+router.get('/usuarios/:id', findById);
+router.post('/usuarios', createUpdate);
+router.delete('/usuarios', deleteById);
 
 //ENCONTRAR TODOS LOS REGISTROS DE LA TABLA
 async function findAll (req, res, next) {

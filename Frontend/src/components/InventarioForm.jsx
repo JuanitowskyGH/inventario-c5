@@ -12,7 +12,7 @@ export const InventarioForm = () => {
         <div className='grid lg:grid-cols-3 sm:grid-cols-2 gap-5 '>
             <div className="mb-5">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etiqueta</label>
-                <input type="text" className="shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-md-light" required />
+                <input type="number" className="shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-md-light" required />
             </div>
             <div className="mb-5">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número anterior</label>
