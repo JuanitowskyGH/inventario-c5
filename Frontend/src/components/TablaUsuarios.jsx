@@ -1,10 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import DeleteUserIcon from '../icons/DeleteUserIcon';
 import EditUserIcon from '../icons/EditUserIcon';
 import { Tooltip } from 'flowbite-react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
+const URI = "http://localhost:4000/api/usuarios/";
 
 export const TablaUsuarios = () => {
+
+    const [data, setData] = useState([]);
+
+    const getUsuarios = async () => {
+        const response = await axios.get(URI);
+        const data = response.data;
+        setData(data);
+    }
+
+    useEffect(() => {
+        getUsuarios();
+    }, []);
+
+    useEffect(() => {
+        axios.get(URI).then((response) => {
+            setData(response.data);
+        });
+    }, []);
+
+    const deleteUsuario = async (id) => {
+        const confirm = await Swal.fire({
+            title: "¿Esta seguro de eliminar este usuario?",
+            text: "No habra registro de el una vez eliminado",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#0B1556",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, eliminar",
+            cancelButtonText: "Cancelar"
+            });
+            if(confirm.isConfirmed){
+                await axios.delete(URI + id);
+                getUsuarios();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Usuario eliminado',
+                    text: 'El usuario ha sido eliminado con exito',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+    }
+
   return (
     <div className="relative overflow-x-auto shadow-lg bg-white sm:rounded-lg w-full">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -18,7 +65,7 @@ export const TablaUsuarios = () => {
                         ID
                     </th>
                     <th scope="col" className="px-6 py-3">
-                        Nombre
+                        Nombre(s)
                     </th>
                     <th scope="col" className="px-6 py-3">
                         Apellidos
@@ -38,28 +85,29 @@ export const TablaUsuarios = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
+                {data.map((item) => (
+                <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        1
+                        {item.id}
                     </th>
                     <td className="px-6 py-4">
-                        Juan
+                        {item.nombre}
                     </td>
                     <td className="px-6 py-4">
-                        Vazquez
+                        {item.apellidop} {item.apellidom}
                     </td>
                     <td className="px-6 py-4">
-                        juanvazquez
+                        {item.username}
                     </td>
                     <td className="px-6 py-4">
-                        Administrador
+                        {item.permisos}
                     </td>
                     <td className="px-6 py-4">
-                        img
+                        <img src={item.imagen} alt="imagen" className="w-10 h-10 rounded-full" />
                     </td>
                     <td className="relative flex py-5 pl-10 items-center gap-2">
                         <Tooltip color='primary' content="Editar usuario">
-                        <Link to={"/updateusuarios"}>
+                        <Link to={`/updateusuarios/${item.id}`}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
                                 <EditUserIcon />
                             </span>
@@ -67,121 +115,16 @@ export const TablaUsuarios = () => {
                         </Tooltip>
                         <Tooltip color='primary' content="Eliminar usuario">
                         <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800">
+                            <span
+                            className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
+                            onClick={() => deleteUsuario(item.id)}>
                                 <DeleteUserIcon />
                             </span>
                         </Link>
                         </Tooltip>
                     </td>
                 </tr>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        1
-                    </th>
-                    <td className="px-6 py-4">
-                        Juan
-                    </td>
-                    <td className="px-6 py-4">
-                        Vazquez
-                    </td>
-                    <td className="px-6 py-4">
-                        juanvazquez
-                    </td>
-                    <td className="px-6 py-4">
-                        Administrador
-                    </td>
-                    <td className="px-6 py-4">
-                        img
-                    </td>
-                    <td className="relative flex py-5 pl-10 items-center gap-2">
-                        <Tooltip color='primary' content="Editar usuario">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                                <EditUserIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                        <Tooltip color='primary' content="Eliminar usuario">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800">
-                                <DeleteUserIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                    </td>
-                </tr>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        1
-                    </th>
-                    <td className="px-6 py-4">
-                        Juan
-                    </td>
-                    <td className="px-6 py-4">
-                        Vazquez
-                    </td>
-                    <td className="px-6 py-4">
-                        juanvazquez
-                    </td>
-                    <td className="px-6 py-4">
-                        Administrador
-                    </td>
-                    <td className="px-6 py-4">
-                        img
-                    </td>
-                    <td className="relative flex py-5 pl-10 items-center gap-2">
-                        <Tooltip color='primary' content="Editar usuario">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                                <EditUserIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                        <Tooltip color='primary' content="Eliminar usuario">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800">
-                                <DeleteUserIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                    </td>
-                </tr>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        1
-                    </th>
-                    <td className="px-6 py-4">
-                        Juan
-                    </td>
-                    <td className="px-6 py-4">
-                        Vazquez
-                    </td>
-                    <td className="px-6 py-4">
-                        juanvazquez
-                    </td>
-                    <td className="px-6 py-4">
-                        Administrador
-                    </td>
-                    <td className="px-6 py-4">
-                        img
-                    </td>
-                    <td className="relative flex py-5 pl-10 items-center gap-2">
-                        <Tooltip color='primary' content="Editar usuario">
-                        <Link to={"/updateusuarios"}>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                                <EditUserIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                        <Tooltip color='primary' content="Eliminar usuario">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800">
-                                <DeleteUserIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                    </td>
-                </tr>
+                ))}
             </tbody>
         </table>
 

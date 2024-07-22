@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const baseURL = "http://localhost:4000/api/inventario/1";
+const baseURL = "http://localhost:4000/api/inventario/";
 
 export const Pruebas = () => {
   const [data, setData] = useState([]);
@@ -12,10 +12,29 @@ export const Pruebas = () => {
     });
   }, []);
 
-  if (!data) return "Loading...";
-
   return (
-    console.log(data)
+    <div className="bg-white">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Etiqueta</th>
+            <th>Responsable</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.tipo}</td>
+              <td>{item.etiqueta}</td>
+              <td>{item.responsable}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

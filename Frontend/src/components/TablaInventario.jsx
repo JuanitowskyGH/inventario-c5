@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import EditInventoryIcon from '../icons/EditInventoryIcon';
 import DeleteInventoryIcon from '../icons/DeleteInventoryIcon';
 import { FormUpdateInventario } from './FormUpdateInventario';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'flowbite-react';
+import axios from 'axios';
+
+const URI = "http://localhost:4000/api/inventario/";
 
 export const TablaInventario = () => {
+
+    const [data, setData] = useState([]);
+    
+    useEffect(() => {
+        axios.get(URI).then((response) => {
+            setData(response.data);
+        });
+    }, []);
+
   return (
     <div className="relative overflow-x-auto bg-white shadow-md sm:rounded-lg w-full">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -60,45 +72,46 @@ export const TablaInventario = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
+                {data.map((item) => (
+                <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        1
+                        {item.id}
                     </th>
                     <td className="px-6 py-4">
-                        2003
+                        {item.etiqueta }
                     </td>
                     <td className="px-6 py-4">
-                        MOB036615
+                        {item.num_anterior}
                     </td>
                     <td className="px-6 py-4">
-                        MESA
+                        {item.tipo}
                     </td>
                     <td className="px-6 py-4">
-                        MESA PARA JUNTAS RECTANGULAR DE CRISTAL FACT. A-19...
+                        {item.descripcion}
                     </td>
                     <td className="px-6 py-4">
-                        Sin marca
+                        {item.marca}
                     </td>
                     <td className="px-6 py-4">
-                        Sin modelo
+                        {item.modelo}
                     </td>
                     <td className="px-6 py-4">
-                        S/N
+                        {item.serie}
                     </td>
                     <td className="px-6 py-4">
-                        DIRECCION DE C5
+                        {item.departamento}
                     </td>
                     <td className="px-6 py-4">
-                        ALEJANDRO ANDRES MENA RIVERA
+                        {item.responsable}
                     </td>
                     <td className="px-6 py-4">
-                        SISTEMAS 
+                        {item.ubicacion}
                     </td>
                     <td className="px-6 py-4">
-                        img
+                        {item.imagen}
                     </td>
                     <td className="px-6 py-4">
-                        2
+                        {item.edicion}
                     </td>
                     <td className="relative flex py-5 pl-10 items-center gap-2">
                         <Tooltip color='primary' content="Editar registro">
@@ -117,120 +130,7 @@ export const TablaInventario = () => {
                         </Tooltip>
                     </td>
                 </tr>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        1
-                    </th>
-                    <td className="px-6 py-4">
-                        2003
-                    </td>
-                    <td className="px-6 py-4">
-                        MOB036615
-                    </td>
-                    <td className="px-6 py-4">
-                        MESA
-                    </td>
-                    <td className="px-6 py-4">
-                        MESA PARA JUNTAS RECTANGULAR DE CRISTAL FACT. A-19...
-                    </td>
-                    <td className="px-6 py-4">
-                        Sin marca
-                    </td>
-                    <td className="px-6 py-4">
-                        Sin modelo
-                    </td>
-                    <td className="px-6 py-4">
-                        S/N
-                    </td>
-                    <td className="px-6 py-4">
-                        DIRECCION DE C5
-                    </td>
-                    <td className="px-6 py-4">
-                        ALEJANDRO ANDRES MENA RIVERA
-                    </td>
-                    <td className="px-6 py-4">
-                        SISTEMAS 
-                    </td>
-                    <td className="px-6 py-4">
-                        img
-                    </td>
-                    <td className="px-6 py-4">
-                        2
-                    </td>
-                    <td className="relative flex py-5 pl-10 items-center gap-2">
-                        <Tooltip color='primary' content="Editar registro">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                                <EditInventoryIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                        <Tooltip color='primary' content="Eliminar registro">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800">
-                                <DeleteInventoryIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                    </td>
-                </tr>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        1
-                    </th>
-                    <td className="px-6 py-4">
-                        2003
-                    </td>
-                    <td className="px-6 py-4">
-                        MOB036615
-                    </td>
-                    <td className="px-6 py-4">
-                        MESA
-                    </td>
-                    <td className="px-6 py-4">
-                        MESA PARA JUNTAS RECTANGULAR DE CRISTAL FACT. A-19...
-                    </td>
-                    <td className="px-6 py-4">
-                        Sin marca
-                    </td>
-                    <td className="px-6 py-4">
-                        Sin modelo
-                    </td>
-                    <td className="px-6 py-4">
-                        S/N
-                    </td>
-                    <td className="px-6 py-4">
-                        DIRECCION DE C5
-                    </td>
-                    <td className="px-6 py-4">
-                        ALEJANDRO ANDRES MENA RIVERA
-                    </td>
-                    <td className="px-6 py-4">
-                        SISTEMAS 
-                    </td>
-                    <td className="px-6 py-4">
-                        img
-                    </td>
-                    <td className="px-6 py-4">
-                        2
-                    </td>
-                    <td className="relative flex py-5 pl-10 items-center gap-2">
-                        <Tooltip color='primary' content="Editar registro">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                                <EditInventoryIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                        <Tooltip color='primary' content="Eliminar registro">
-                        <Link>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800">
-                                <DeleteInventoryIcon />
-                            </span>
-                        </Link>
-                        </Tooltip>
-                    </td>
-                </tr>
+                ))}
             </tbody>
         </table>
         
