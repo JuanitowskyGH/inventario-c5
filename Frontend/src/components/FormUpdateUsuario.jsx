@@ -3,7 +3,7 @@ import EditUserIcon from '../icons/EditUserIcon'
 import Discard from '../icons/DiscardIcon'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 
 const URI = "http://localhost:4000/api/usuarios/";
 
@@ -42,20 +42,36 @@ export const FormUpdateUsuario = () => {
       }));
     };
   
-    const handleSubmit = async (e) => {
+    const updateUser = async (e) => {
       e.preventDefault();
-      try {
-        await axios.put(URI + id, user);
-        navigate('/usuarios');
-      } catch (error) {
-        console.error("Error updating user data: ", error);
-      }
-    };
+      const confirm = await Swal.fire({
+        title: "¿Esta seguro de asignar estos permisos a este usuario?",
+        text: "Tendra acceso a ciertas partes del sistema",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0B1556",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, asignar",
+        cancelButtonText: "Cancelar"
+    }) 
+    if (confirm.isConfirmed) {
+      await axios.put(URI + id, user);
+      navigate('/usuarios');
+      Swal.fire({
+          icon: 'success',
+          title: 'Permisos asignados',
+          text: 'El usuario ha sido actualizado con éxito',
+          showConfirmButton: false,
+          timer: 2000
+      })
+    }
+    }
+
     
 
   return (
     <div className="relative overflow-x-auto bg-white shadow-md sm:rounded-lg w-full">
-    <form className="max-w-xlg mx-auto p-8" onSubmit={handleSubmit}>
+    <form className="max-w-xlg mx-auto p-8" onSubmit={updateUser}>
     <hr className="w-full h-1 mx-auto mb-5 bg-gray-100 border-0 rounded dark:bg-gray-700"/>
     <h1 className="text-3xl italic mb-4 text-black ">Actualizar usuario</h1>     
     <p>Actualiza los permisos necesarios y guarda los cambios</p>  
@@ -63,7 +79,7 @@ export const FormUpdateUsuario = () => {
         <div className="flex justify-center row-span-3">
             <img src="/inventory.jpg" alt="imagen" className="w-auto h-auto rounded-md shadow-xl "/>
         </div>
-            <div className="grid grid-rows-3 grid-flow-col gap-4 mt-5">
+            <div className="grid grid-rows-3 grid-flow-col gap-4 mt-5 pr-8">
                 <div className="mb-3">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
                         <input type="text" value={user.nombre || ''} onChange={handleChange} disabled placeholder='Aqui los nombres' className="cursor-not-allowed shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
@@ -90,7 +106,7 @@ export const FormUpdateUsuario = () => {
                     </select>
                 </div>
             </div>
-            <div className="grid lg:grid-cols-2 gap-5">
+            <div className="grid lg:grid-cols-2 gap-5 pr-8">
             <button type="submit" className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
                 <EditUserIcon className="w-6 h-6 mr-2"/>
                 Actualizar Registro
