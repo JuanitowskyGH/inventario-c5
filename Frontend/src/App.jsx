@@ -12,6 +12,7 @@ import { Cuenta } from './pages/Cuenta'
 import 'flowbite'
 
 //Componentes
+//import { Pruebas } from './components/Pruebas'
 import { Pruebas } from './components/Pruebas'
 
 import { TablaUsuarios } from './components/TablaUsuarios'
@@ -41,7 +42,7 @@ function App() {
       <Route path='/addusuarios' element={<AddUsuarios />} />
       <Route path="/cuenta" element={<Cuenta />} />
       <Route path="/updateinventario" element={<UpdateInventario/>} />
-      <Route path='/updateusuarios' element={<UpdateUsuarios/>} />
+      <Route path='/updateusuarios/:id' element={<UpdateUsuarios/>} />
 
       {/* PARA PRUEBA DE COMPONENTES */}
       <Route path="/pruebas" element={<Pruebas />} />

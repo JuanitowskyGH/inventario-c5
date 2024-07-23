@@ -1,10 +1,7 @@
-import React from 'react'
 import { Menu } from '../components/Menu'
 import { AccesoRapido } from '../components/AccesoRapido'
 import { Presentacion } from '../components/Presentacion'
 import { Carrusel } from '../components/Carrusel'
-
-import { Pruebas } from '../components/Pruebas' 
 
 export const Dashboard = () => {
 
