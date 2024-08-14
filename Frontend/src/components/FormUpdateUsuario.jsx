@@ -4,10 +4,13 @@ import Discard from '../icons/DiscardIcon'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import endpoints from '../services/endpoints'
 
 const URI = "http://localhost:4000/api/usuarios/";
 
 export const FormUpdateUsuario = () => {
+
+  const uri = endpoints.usuarios;
 
     const { id } = useParams();
     const navigate = useNavigate();

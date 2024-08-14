@@ -17,8 +17,8 @@ const Inventario = database.define(TABLA, {
         type: DataTypes.STRING,
         allowNull: false
     },
-    num_anterior: {
-        type: DataTypes.INTEGER,
+    numAnterior: {
+        type: DataTypes.STRING,
         allowNull: false
     },
     tipo: {
@@ -53,14 +53,14 @@ const Inventario = database.define(TABLA, {
         type: DataTypes.STRING,
         allowNull: false
     },
-    imagen: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
     edicion: {
         type: DataTypes.STRING,
         allowNull: false
     },
+    imagen: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }  
 });
 
 module.exports = Inventario;

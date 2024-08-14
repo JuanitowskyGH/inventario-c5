@@ -1,11 +1,9 @@
 import React from 'react'
 import AddUserIcon from '../icons/AddUserIcon'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-
-const URI = "http://localhost:4000/api/usuarios/";
+import endpoints from '../services/endpoints'
 
 export const UsuariosForm = () => {
 
@@ -17,7 +15,7 @@ export const UsuariosForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(URI, {
+        await axios.post(endpoints.usuarios, {
             nombre: nombre,
             apellidop: apellidop,
             apellidom: apellidom,

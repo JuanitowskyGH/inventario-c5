@@ -23,7 +23,6 @@ import { Presentacion} from './components/Presentacion'
 import { InventarioForm } from './components/InventarioForm'
 import { Footer } from './components/Footer'
 import { FormCuenta } from './components/FormCuenta'
-import { FormUpdateInventario } from './components/FormUpdateInventario'
 
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
 import { UpdateInventario } from './pages/UpdateInventario'
@@ -41,7 +40,7 @@ function App() {
       <Route path="/addinventario" element={<AddInventario />} />
       <Route path='/addusuarios' element={<AddUsuarios />} />
       <Route path="/cuenta" element={<Cuenta />} />
-      <Route path="/updateinventario" element={<UpdateInventario/>} />
+      <Route path="/updateinventario/:id" element={<UpdateInventario/>} />
       <Route path='/updateusuarios/:id' element={<UpdateUsuarios/>} />
 
       {/* PARA PRUEBA DE COMPONENTES */}

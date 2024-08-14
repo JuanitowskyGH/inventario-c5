@@ -5,6 +5,30 @@ const Inventario = require('./model.js');
 
 const getAll = async (req, res) => {
     try {
+        const { page = 1, limit = 10 } = req.query; // Obtener parámetros de la consulta
+        const offset = (page - 1) * limit;
+
+        const inventario = await Inventario.findAndCountAll({
+            limit: parseInt(limit),
+            offset: parseInt(offset)
+        });
+
+        res.json({
+            totalItems: inventario.count,
+            totalPages: Math.ceil(inventario.count / limit),
+            currentPage: parseInt(page),
+            data: inventario.rows
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error al obtener los datos",
+            error: error.message
+        });
+    }
+}
+
+/*const getAll = async (req, res) => {
+    try {
         const inventario = await Inventario.findAll();
         res.json(inventario);
     } catch (error) {
@@ -13,7 +37,7 @@ const getAll = async (req, res) => {
             error: error.message
         });
     }
-}
+}*/
 
 const getById = async (req, res) => {
     try {

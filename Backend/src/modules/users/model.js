@@ -1,12 +1,9 @@
-/*import database from "../database/database.js";
-import { DataTypes } from "sequelize";*/
-
 const database = require('../../database/database.js');
 const { DataTypes } = require('sequelize');
 
 const TABLA = 'users';
 
-const Inventario = database.define(TABLA, {
+const Usuarios = database.define(TABLA, {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -39,4 +36,4 @@ const Inventario = database.define(TABLA, {
     }
 });
 
-module.exports = Inventario;
+module.exports = Usuarios;

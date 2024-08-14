@@ -42,8 +42,8 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
-        const inventario = await Usuarios.findByPk(req.params.id);
-        res.json(inventario);
+        const usuario = await Usuarios.findByPk(req.params.id);
+        res.json(usuario);
     } catch (error) {
         res.status(500).json({
             message: "Error al obtener los datos",
@@ -54,8 +54,8 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const inventario = await Usuarios.create(req.body);
-        res.json(inventario);
+        const usuario = await Usuarios.create(req.body);
+        res.json(usuario);
     } catch (error) {
         res.status(500).json({
             message: "Error al crear el registro",

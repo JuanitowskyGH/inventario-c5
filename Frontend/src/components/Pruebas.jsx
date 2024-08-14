@@ -1,39 +1,32 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from 'react'
+import axios from 'axios'
+import endpoints from '../services/endpoints'
 
 const baseURL = "http://localhost:4000/api/inventario/";
 
 export const Pruebas = () => {
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    axios.get(baseURL).then((response) => {
-      setData(response.data);
+  const [numero, setNumero] = useState(0);
+  const [tipo, setTipo] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios.post(endpoints.pruebas, {
+      numero: numero,
+      tipo: tipo,
+      descripcion: descripcion
     });
-  }, []);
+  }
 
   return (
     <div className="bg-white">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Producto</th>
-            <th>Etiqueta</th>
-            <th>Responsable</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.tipo}</td>
-              <td>{item.etiqueta}</td>
-              <td>{item.responsable}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <form onSubmit={handleSubmit}>
+        <input type="number" value={numero} onChange={(e) => setNumero(e.target.value)} />
+        <input type="text" value={tipo} onChange={(e) => setTipo(e.target.value)} />
+        <input type="text" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+        <button type="submit">Enviar</button>
+      </form>
     </div>
   );
 }
