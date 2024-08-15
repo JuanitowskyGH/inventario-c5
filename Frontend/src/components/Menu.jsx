@@ -54,7 +54,7 @@ export const Menu = () => {
               <Link to={"/dashboard"} className="flex ml-8 ms-2 md:me-24 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">
                 <img src="/favicon.ico" className="h-8 me-3" alt="FlowBite Logo" />
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white italic">
-                  Inventario C5
+                  Inventario C5i
                 </span>
               </Link>
             </div>

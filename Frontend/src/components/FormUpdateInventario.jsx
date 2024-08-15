@@ -144,7 +144,7 @@ export const FormUpdateInventario = () => {
                     <EditInventoryIcon className="w-6 h-6 mr-2"/>
                     Actualizar Registro
                 </button>                    
-                <Link className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-red-600 hover:-translate-y-1 hover:scale-100 hover:bg-red-500 duration-300">
+                <Link to="/inventario" replace className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-red-600 hover:-translate-y-1 hover:scale-100 hover:bg-red-500 duration-300">
                     <Discard className="w-6 h-6 mr-2"/>
                     Cancelar
                 </Link>

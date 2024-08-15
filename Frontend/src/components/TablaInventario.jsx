@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 
 export const TablaInventario = () => {
 
-    const [data, setData] = useState([]);
+    /*const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -24,7 +24,20 @@ export const TablaInventario = () => {
 
     useEffect(() => {
         getInventario(currentPage);
-    }, [currentPage]);
+    }, [currentPage]);*/
+    
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(endpoints.inventario);
+                setData(response.data);
+            } catch (error) {
+                console.error('Error al obtener los datos', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const deleteRegistro = async (id) => {
         const confirm = await Swal.fire({
@@ -93,12 +106,12 @@ export const TablaInventario = () => {
                         Ubicacion
                     </th>
                     <th scope="col" className="px-6 py-3">
-                        Imagen
-                    </th>
-                    <th scope="col" className="px-6 py-3">
                         Edicion
                     </th>
                     <th scope="col" className="px-6 py-3">
+                        Imagen
+                    </th>
+                    <th scope="col" className="px-3 py-3">
                         Acciones
                     </th>
                 </tr>
@@ -140,12 +153,18 @@ export const TablaInventario = () => {
                         {item.ubicacion}
                     </td>
                     <td className="px-6 py-4">
-                        {item.imagen}
-                    </td>
-                    <td className="px-6 py-4">
                         {item.edicion}
                     </td>
-                    <td className="relative flex py-5 pl-10 items-center gap-2">
+                    <td className="px-6 py-4">
+                        <img
+                            src={`http://localhost:4000/${item.imagen}`}
+                            alt='img'
+                            lenght='lg:1000'
+                            width='lg:1000'
+                        >
+                        </img>
+                    </td>
+                    <td className="relative flex py-20 px-4 items-center gap-5">
                         <Tooltip color='primary' content="Editar registro">
                         <Link to={`/updateinventario/${item.id}`}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
@@ -172,13 +191,11 @@ export const TablaInventario = () => {
          {/* PAGINATION */}
         <div className="flex flex-col items-left pl-12 py-4">
             <span className="text-sm text-gray-700 dark:text-gray-400">
-                Mostrando <span className="font-semibold text-gray-900 dark:text-white">{(currentPage - 1) * 10 + 1}</span> a <span className="font-semibold text-gray-900 dark:text-white">{Math.min(currentPage * 10, data.length)}</span> de <span className="font-semibold text-gray-900 dark:text-white">{totalPages * 10}</span> Registros
+                Mostrando <span className="font-semibold text-gray-900 dark:text-white"></span> a <span className="font-semibold text-gray-900 dark:text-white"></span> de <span className="font-semibold text-gray-900 dark:text-white"></span> Registros
             </span>
             <div className="inline-flex mt-2 xs:mt-0">
                 <button
                 className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
-                disabled={currentPage === 1}
                 >
                 <svg className="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
@@ -187,8 +204,6 @@ export const TablaInventario = () => {
                 </button>
                 <button
                 className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
-                disabled={currentPage === totalPages}
                 >
                 Siguiente
                 <svg className="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

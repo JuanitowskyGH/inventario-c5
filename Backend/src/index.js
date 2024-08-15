@@ -20,6 +20,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static('public'));
 
 //RUTAS
 app.use('/api', inventario);

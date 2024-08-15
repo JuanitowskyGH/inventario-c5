@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-08-2024 a las 23:36:18
+-- Tiempo de generación: 15-08-2024 a las 23:26:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -85,25 +85,8 @@ CREATE TABLE `registers` (
 --
 
 INSERT INTO `registers` (`id`, `etiqueta`, `numAnterior`, `tipo`, `descripcion`, `marca`, `modelo`, `serie`, `departamento`, `responsable`, `ubicacion`, `edicion`, `imagen`, `createdAt`, `updatedAt`) VALUES
-(1, '5452', '25412', 'PC', 'Computadora de prueba', 'HP', 'ST5', '2548112', 'C5i', 'Yo', 'Sistemas', '2023', NULL, '2024-08-14', '2024-08-14'),
-(2, '245215', 'DWAD521', 'Escritorio', 'Una mesa de madera resistente', 'DS', 'DS-02', '454823364', 'C5i', 'Pablo Contreras', 'Sistemas', '2019', 'ruta/a/imagen1.jpg', '0000-00-00', '2024-08-14'),
-(3, 'Etiqueta2', 'NumAnterior2', 'Tipo2', 'Descripcion2', 'Marca2', 'Modelo2', 'Serie2', 'Departamento2', 'Responsable2', 'Ubicacion2', 'Edicion2', 'ruta/a/imagen2.jpg', '0000-00-00', '0000-00-00'),
-(4, 'Etiqueta3', 'NumAnterior3', 'Tipo3', 'Descripcion3', 'Marca3', 'Modelo3', 'Serie3', 'Departamento3', 'Responsable3', 'Ubicacion3', 'Edicion3', 'ruta/a/imagen3.jpg', '0000-00-00', '0000-00-00'),
-(5, 'Etiqueta4', 'NumAnterior4', 'Tipo4', 'Descripcion4', 'Marca4', 'Modelo4', 'Serie4', 'Departamento4', 'Responsable4', 'Ubicacion4', 'Edicion4', 'ruta/a/imagen4.jpg', '0000-00-00', '0000-00-00'),
-(6, 'Etiqueta5', 'NumAnterior5', 'Tipo5', 'Descripcion5', 'Marca5', 'Modelo5', 'Serie5', 'Departamento5', 'Responsable5', 'Ubicacion5', 'Edicion5', 'ruta/a/imagen5.jpg', '0000-00-00', '0000-00-00'),
-(7, 'Etiqueta6', 'NumAnterior6', 'Tipo6', 'Descripcion6', 'Marca6', 'Modelo6', 'Serie6', 'Departamento6', 'Responsable6', 'Ubicacion6', 'Edicion6', 'ruta/a/imagen6.jpg', '0000-00-00', '0000-00-00'),
-(8, 'Etiqueta7', 'NumAnterior7', 'Tipo7', 'Descripcion7', 'Marca7', 'Modelo7', 'Serie7', 'Departamento7', 'Responsable7', 'Ubicacion7', 'Edicion7', 'ruta/a/imagen7.jpg', '0000-00-00', '0000-00-00'),
-(9, 'Etiqueta8', 'NumAnterior8', 'Tipo8', 'Descripcion8', 'Marca8', 'Modelo8', 'Serie8', 'Departamento8', 'Responsable8', 'Ubicacion8', 'Edicion8', 'ruta/a/imagen8.jpg', '0000-00-00', '0000-00-00'),
-(10, 'Etiqueta9', 'NumAnterior9', 'Tipo9', 'Descripcion9', 'Marca9', 'Modelo9', 'Serie9', 'Departamento9', 'Responsable9', 'Ubicacion9', 'Edicion9', 'ruta/a/imagen9.jpg', '0000-00-00', '0000-00-00'),
-(11, 'Etiqueta10', 'NumAnterior10', 'Tipo10', 'Descripcion10', 'Marca10', 'Modelo10', 'Serie10', 'Departamento10', 'Responsable10', 'Ubicacion10', 'Edicion10', 'ruta/a/imagen10.jpg', '0000-00-00', '0000-00-00'),
-(12, 'Etiqueta11', 'NumAnterior11', 'Tipo11', 'Descripcion11', 'Marca11', 'Modelo11', 'Serie11', 'Departamento11', 'Responsable11', 'Ubicacion11', 'Edicion11', 'ruta/a/imagen11.jpg', '0000-00-00', '0000-00-00'),
-(13, 'Etiqueta12', 'NumAnterior12', 'Tipo12', 'Descripcion12', 'Marca12', 'Modelo12', 'Serie12', 'Departamento12', 'Responsable12', 'Ubicacion12', 'Edicion12', 'ruta/a/imagen12.jpg', '0000-00-00', '0000-00-00'),
-(14, 'Etiqueta13', 'NumAnterior13', 'Tipo13', 'Descripcion13', 'Marca13', 'Modelo13', 'Serie13', 'Departamento13', 'Responsable13', 'Ubicacion13', 'Edicion13', 'ruta/a/imagen13.jpg', '0000-00-00', '0000-00-00'),
-(15, 'Etiqueta14', 'NumAnterior14', 'Tipo14', 'Descripcion14', 'Marca14', 'Modelo14', 'Serie14', 'Departamento14', 'Responsable14', 'Ubicacion14', 'Edicion14', 'ruta/a/imagen14.jpg', '0000-00-00', '0000-00-00'),
-(16, 'Etiqueta15', 'NumAnterior15', 'Tipo15', 'Descripcion15', 'Marca15', 'Modelo15', 'Serie15', 'Departamento15', 'Responsable15', 'Ubicacion15', 'Edicion15', 'ruta/a/imagen15.jpg', '0000-00-00', '0000-00-00'),
-(17, 'Etiqueta16', 'NumAnterior16', 'Tipo16', 'Descripcion16', 'Marca16', 'Modelo16', 'Serie16', 'Departamento16', 'Responsable16', 'Ubicacion16', 'Edicion16', 'ruta/a/imagen16.jpg', '0000-00-00', '0000-00-00'),
-(18, 'Etiqueta17', 'NumAnterior17', 'Tipo17', 'Descripcion17', 'Marca17', 'Modelo17', 'Serie17', 'Departamento17', 'Responsable17', 'Ubicacion17', 'Edicion17', 'ruta/a/imagen17.jpg', '0000-00-00', '0000-00-00'),
-(19, 'Etiqueta18', 'NumAnterior18', 'Tipo18', 'Descripcion18', 'Marca18', 'Modelo18', 'Serie18', 'Departamento18', 'Responsable18', 'Ubicacion18', 'Edicion18', 'ruta/a/imagen18.jpg', '0000-00-00', '0000-00-00');
+(1, '4548521245', 'PC48521', 'Antena', 'Antena DAWA funcional', 'DAWA', 'R5000', '5415412', 'C5i', 'Pablo Contreras', 'Sistemas', '2020', 'public\\registers\\1723748893208-742939024.jpg', '2024-08-15', '2024-08-15'),
+(3, '18415348', 'RT458512', 'Router', 'Router CISCO con problemas', 'Cisco', 'RT-1483512', '481354851615123', 'C5i', 'Alguien', 'Almacen', '2018', 'public\\registers\\1723751164154-528600606.jpg', '2024-08-15', '2024-08-15');
 
 -- --------------------------------------------------------
 
@@ -189,7 +172,7 @@ ALTER TABLE `pruebas`
 -- AUTO_INCREMENT de la tabla `registers`
 --
 ALTER TABLE `registers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

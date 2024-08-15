@@ -3,7 +3,7 @@ import Inventario from "./model.js";*/
 
 const Inventario = require('./model.js');
 
-const getAll = async (req, res) => {
+/*const getAll = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query; // Obtener parámetros de la consulta
         const offset = (page - 1) * limit;
@@ -25,9 +25,9 @@ const getAll = async (req, res) => {
             error: error.message
         });
     }
-}
+}*/
 
-/*const getAll = async (req, res) => {
+const getAll = async (req, res) => {
     try {
         const inventario = await Inventario.findAll();
         res.json(inventario);
@@ -37,7 +37,7 @@ const getAll = async (req, res) => {
             error: error.message
         });
     }
-}*/
+}
 
 const getById = async (req, res) => {
     try {
@@ -53,6 +53,41 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        if (!req.file) {
+            return res.status(400).json({
+                message: "Imagen requerida"
+            });
+        }
+
+        const imagen = req.file.path;
+        const { etiqueta, numAnterior, tipo, descripcion, marca, modelo, serie, departamento, responsable, ubicacion, edicion } = req.body;
+
+        let inventario = await Inventario.create({ 
+            etiqueta, 
+            numAnterior, 
+            tipo, 
+            descripcion, 
+            marca, 
+            modelo, 
+            serie, 
+            departamento, 
+            responsable, 
+            ubicacion, 
+            edicion, 
+            imagen 
+        });
+
+        res.status(201).json({ inventario, message: "Registro creado" });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error al crear el registro",
+            error: error.message
+        });
+    }
+}
+
+/*const create = async (req, res) => {
+    try {
         const inventario = await Inventario.create(req.body);
         res.json(inventario);
     } catch (error) {
@@ -61,7 +96,7 @@ const create = async (req, res) => {
             error: error.message
         });
     }
-}
+}*/
 
 const update = async (req, res) => {
     try {

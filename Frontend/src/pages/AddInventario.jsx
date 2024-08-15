@@ -9,7 +9,7 @@ export const AddInventario = () => {
         <div>
             <Menu/>
         </div>
-        <div className='container-fluid w-auto px-10 py-10 rounded-md h-max mt-28 mx-12 bg-gray-200'>
+        <div className='container-fluid w-auto px-5 py-5 rounded-md h-max mt-28 mx-12 bg-gray-200'>
             <div className=''>
                 <InventarioForm/>
             </div>

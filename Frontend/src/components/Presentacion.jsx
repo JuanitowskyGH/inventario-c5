@@ -4,7 +4,7 @@ export const Presentacion = () => {
   return (
     <div className="container mx-auto px-6 py-6 ">
         <hr className="w-full h-1 mx-auto mb-3 bg-gray-100 border-0 rounded dark:bg-gray-700"/>
-        <a href='https://cesesptlax.gob.mx/'><img src="/tlx.png" alt="Logo Tlaxcala" className="lg:w-38 lg:h-40 mx-auto mt-8"/> </a>
+        <a href='https://cesesptlax.gob.mx/'><img src="/sesesp_logo.png" alt="Logo Tlaxcala" className="lg:w-38 lg:h-40 mx-auto mt-8"/> </a>
         <div className='pt-12'>
             <h1 className="text-3xl text-center text-gray-800 dark:text-gray-100 font-bold italic">Bienvenido al sistema de inventario</h1>
             <p className="text-center text-gray-500 dark:text-gray-400 mt-2">Este sistema te permitira llevar un control de los activos de la institucion</p>
@@ -41,11 +41,9 @@ export const Presentacion = () => {
                 </p> 
               </div>    
         </div>   
-        <hr className="w-full h-1 mx-auto mt-5 bg-gray-100 border-0 rounded dark:bg-gray-700"/> 
-        <div className='grid grid-cols-2 gap-4 mt-5 items-center'>
-            <a href="https://cesesptlax.gob.mx/911_m.php"><img src="/911.png"  alt="Logo Tlaxcala" className="mx-auto"/></a>
-            <a href="https://cesesptlax.gob.mx/911_m.php"><img src="/096.png" alt="Logo Tlaxcala" className="mx-auto"/></a>
-        </div>
+        <hr className="w-full h-1 mx-auto mt-5 bg-gray-100 border-0 rounded dark:bg-gray-700"/>
+        <a href='https://cesesptlax.gob.mx/'><img src="/tlx.png" alt="Logo Tlaxcala" className="lg:w-38 lg:h-40 mx-auto mt-8"/> </a>
+
     </div>
   )
 }

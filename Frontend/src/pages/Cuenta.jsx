@@ -8,7 +8,7 @@ export const Cuenta = () => {
         <div>
             <Menu/>
         </div>
-        <div className='container-fluid w-auto px-8 py-8 rounded-md h-max mt-28 mx-12 bg-gray-200'>
+        <div className='container-fluid w-auto px-5 py-5 rounded-md h-max mt-28 mx-12 bg-gray-200'>
             <div className=''>
                 <FormCuenta/>
             </div>
