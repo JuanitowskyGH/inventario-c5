@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-08-2024 a las 23:26:38
+-- Tiempo de generación: 16-08-2024 a las 20:27:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -91,6 +91,28 @@ INSERT INTO `registers` (`id`, `etiqueta`, `numAnterior`, `tipo`, `descripcion`,
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `createdAt` date NOT NULL,
+  `updatedAt` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
+(1, 'Lector', '2024-08-16', '2024-08-16'),
+(2, 'Moderador', '2024-08-16', '2024-08-16'),
+(3, 'Admimistrador', '2024-08-16', '2024-08-16');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -102,6 +124,7 @@ CREATE TABLE `users` (
   `username` varchar(100) NOT NULL,
   `permisos` varchar(50) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
   `createdAt` date NOT NULL,
   `updatedAt` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -110,31 +133,31 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `nombre`, `apellidop`, `apellidom`, `username`, `permisos`, `imagen`, `createdAt`, `updatedAt`) VALUES
-(1, 'Juan', 'Vazquez', 'Contreras', 'juanadmin', 'Super Administrador', 'no hay', '0000-00-00', '0000-00-00'),
-(2, 'Prueba', 'Form', 'Submit', 'pfs', 'Super Administrador', NULL, '2024-07-22', '2024-08-14'),
-(5, 'Ggs', 'dawd', 'dawd', 'dwad', 'Lector', NULL, '2024-07-22', '2024-07-22'),
-(6, 'dwad', 'awd', 'dawd', 'dawd', 'Administrador', NULL, '2024-07-22', '2024-07-23'),
-(7, 'awd', 'awdad', 'awd', 'dwad', 'Super Administrador', NULL, '2024-07-22', '2024-07-23'),
-(8, 'fesf', 'fsef', 'fsefesf', 'sfsef', 'Administrador', NULL, '2024-07-22', '2024-07-22'),
-(9, 'dwde', 'afa', 'dawdaw', 'sawd', 'Super Administrador', NULL, '2024-07-22', '2024-07-22'),
-(10, 'Juan', 'Pérez', 'López', 'juanperez', 'Super Administrador', 'ruta/a/imagen1.jpg', '0000-00-00', '0000-00-00'),
-(11, 'Ana', 'Martínez', 'García', 'anamartinez', 'Administrador', 'ruta/a/imagen2.jpg', '0000-00-00', '0000-00-00'),
-(12, 'Luis', 'Hernández', 'Sánchez', 'luishernandez', 'Lector', 'ruta/a/imagen3.jpg', '0000-00-00', '0000-00-00'),
-(13, 'Carlos', 'Navarro', 'Mendez', 'carlosnav', 'Super Administrador', 'ruta/a/imagen4.jpg', '0000-00-00', '0000-00-00'),
-(14, 'María', 'Gómez', 'Fernández', 'mariagomez', 'Administrador', 'ruta/a/imagen5.jpg', '0000-00-00', '0000-00-00'),
-(15, 'Jorge', 'Ruiz', 'Díaz', 'jorgeruiz', 'Lector', 'ruta/a/imagen6.jpg', '0000-00-00', '0000-00-00'),
-(16, 'Sofía', 'Moreno', 'Jiménez', 'sofiamoreno', 'Super Administrador', 'ruta/a/imagen7.jpg', '0000-00-00', '0000-00-00'),
-(17, 'Ricardo', 'Morales', 'López', 'ricardomorales', 'Administrador', 'ruta/a/imagen8.jpg', '0000-00-00', '0000-00-00'),
-(18, 'Elena', 'Castro', 'Martínez', 'elenacastro', 'Lector', 'ruta/a/imagen9.jpg', '0000-00-00', '0000-00-00'),
-(19, 'Miguel', 'Ángel', 'Sánchez', 'miguelangel', 'Super Administrador', 'ruta/a/imagen10.jpg', '0000-00-00', '0000-00-00'),
-(20, 'Laura', 'García', 'Torres', 'lauragarcia', 'Administrador', 'ruta/a/imagen11.jpg', '0000-00-00', '0000-00-00'),
-(21, 'Roberto', 'Fernández', 'Gutiérrez', 'robertofernandez', 'Lector', 'ruta/a/imagen12.jpg', '0000-00-00', '0000-00-00'),
-(22, 'Patricia', 'López', 'Ruiz', 'patricialopez', 'Super Administrador', 'ruta/a/imagen13.jpg', '0000-00-00', '0000-00-00'),
-(23, 'Esto', 'deberia', 'funcionar', 'siono', 'Lector', NULL, '2024-08-13', '2024-08-13'),
-(24, 'otra', 'prueba', 'gg', 'dawdada', 'Administrador', NULL, '2024-08-13', '2024-08-13'),
-(25, 'Prueba', 'User', 'xd', 'dwdaawd', 'Lector', NULL, '2024-08-14', '2024-08-14'),
-(26, 'yo', 'dawd', 'dw', 'dwd', 'Administrador', NULL, '2024-08-14', '2024-08-14');
+INSERT INTO `users` (`id`, `nombre`, `apellidop`, `apellidom`, `username`, `permisos`, `imagen`, `password`, `createdAt`, `updatedAt`) VALUES
+(1, 'Juan', 'Vazquez', 'Contreras', 'juanadmin', 'Super Administrador', 'no hay', '', '0000-00-00', '0000-00-00'),
+(2, 'Prueba', 'Form', 'Submit', 'pfs', 'Super Administrador', NULL, '', '2024-07-22', '2024-08-14'),
+(5, 'Ggs', 'dawd', 'dawd', 'dwad', 'Lector', NULL, '', '2024-07-22', '2024-07-22'),
+(6, 'dwad', 'awd', 'dawd', 'dawd', 'Administrador', NULL, '', '2024-07-22', '2024-07-23'),
+(7, 'awd', 'awdad', 'awd', 'dwad', 'Super Administrador', NULL, '', '2024-07-22', '2024-07-23'),
+(8, 'fesf', 'fsef', 'fsefesf', 'sfsef', 'Administrador', NULL, '', '2024-07-22', '2024-07-22'),
+(9, 'dwde', 'afa', 'dawdaw', 'sawd', 'Super Administrador', NULL, '', '2024-07-22', '2024-07-22'),
+(10, 'Juan', 'Pérez', 'López', 'juanperez', 'Super Administrador', 'ruta/a/imagen1.jpg', '', '0000-00-00', '0000-00-00'),
+(11, 'Ana', 'Martínez', 'García', 'anamartinez', 'Administrador', 'ruta/a/imagen2.jpg', '', '0000-00-00', '0000-00-00'),
+(12, 'Luis', 'Hernández', 'Sánchez', 'luishernandez', 'Lector', 'ruta/a/imagen3.jpg', '', '0000-00-00', '0000-00-00'),
+(13, 'Carlos', 'Navarro', 'Mendez', 'carlosnav', 'Super Administrador', 'ruta/a/imagen4.jpg', '', '0000-00-00', '0000-00-00'),
+(14, 'María', 'Gómez', 'Fernández', 'mariagomez', 'Administrador', 'ruta/a/imagen5.jpg', '', '0000-00-00', '0000-00-00'),
+(15, 'Jorge', 'Ruiz', 'Díaz', 'jorgeruiz', 'Lector', 'ruta/a/imagen6.jpg', '', '0000-00-00', '0000-00-00'),
+(16, 'Sofía', 'Moreno', 'Jiménez', 'sofiamoreno', 'Super Administrador', 'ruta/a/imagen7.jpg', '', '0000-00-00', '0000-00-00'),
+(17, 'Ricardo', 'Morales', 'López', 'ricardomorales', 'Administrador', 'ruta/a/imagen8.jpg', '', '0000-00-00', '0000-00-00'),
+(18, 'Elena', 'Castro', 'Martínez', 'elenacastro', 'Lector', 'ruta/a/imagen9.jpg', '', '0000-00-00', '0000-00-00'),
+(19, 'Miguel', 'Ángel', 'Sánchez', 'miguelangel', 'Super Administrador', 'ruta/a/imagen10.jpg', '', '0000-00-00', '0000-00-00'),
+(20, 'Laura', 'García', 'Torres', 'lauragarcia', 'Administrador', 'ruta/a/imagen11.jpg', '', '0000-00-00', '0000-00-00'),
+(21, 'Roberto', 'Fernández', 'Gutiérrez', 'robertofernandez', 'Lector', 'ruta/a/imagen12.jpg', '', '0000-00-00', '0000-00-00'),
+(22, 'Patricia', 'López', 'Ruiz', 'patricialopez', 'Super Administrador', 'ruta/a/imagen13.jpg', '', '0000-00-00', '0000-00-00'),
+(23, 'Esto', 'deberia', 'funcionar', 'siono', 'Lector', NULL, '', '2024-08-13', '2024-08-13'),
+(24, 'otra', 'prueba', 'gg', 'dawdada', 'Administrador', NULL, '', '2024-08-13', '2024-08-13'),
+(25, 'Prueba', 'User', 'xd', 'dwdaawd', 'Lector', NULL, '', '2024-08-14', '2024-08-14'),
+(26, 'yo', 'dawd', 'dw', 'dwd', 'Administrador', NULL, '', '2024-08-14', '2024-08-14');
 
 --
 -- Índices para tablas volcadas
@@ -150,6 +173,12 @@ ALTER TABLE `pruebas`
 -- Indices de la tabla `registers`
 --
 ALTER TABLE `registers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
