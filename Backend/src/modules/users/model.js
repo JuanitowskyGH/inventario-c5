@@ -30,6 +30,10 @@ const Usuarios = database.define(TABLA, {
         type: DataTypes.STRING,
         allowNull: false
     },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     imagen: {
         type: DataTypes.STRING,
         allowNull: true

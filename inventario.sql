@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-08-2024 a las 20:27:01
+-- Tiempo de generación: 19-08-2024 a las 22:53:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,18 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `inventario`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `auth`
---
-
-CREATE TABLE `auth` (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `pass` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

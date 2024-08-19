@@ -9,4 +9,3 @@ const database = new Sequelize(config.db.database, config.db.user, config.db.pas
 });
 
 module.exports = database;
-
