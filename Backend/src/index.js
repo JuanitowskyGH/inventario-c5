@@ -1,18 +1,14 @@
-/*import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
-import config from './config.js'
-import db from '../src/database/database.js';
-import inventario from './modules/router.js';*/
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const config = require('./config.js');
 const db = require('../src/database/database.js');
 
-
 const inventario = require('./modules/registers/router.js');
 const usuarios = require('./modules/users/router.js')
+
+const auth = require('./modules/auth/routes/auth.routes.js');
+const user = require('./modules/auth/routes/user.routes.js');
 
 //MIDDLEWARE
 const app = express();
@@ -25,6 +21,15 @@ app.use('/public', express.static('public'));
 //RUTAS
 app.use('/api', inventario);
 app.use('/api', usuarios);
+app.use('/api/auth', auth);
+app.use('/api/user', user);
+
+const role = require("./modules/auth/models");
+role.sequelize.sync();
+
+app.get('/', (req, res) => {
+    res.send('Hello World');
+})
 
 //PUERTO
 try{

@@ -1,5 +1,6 @@
 const config = require('../../../config.js');
 const Sequelize = require('sequelize');
+//const database = require('../../../database/database.js');
 const sequelize = new Sequelize(config.db.database, config.db.user, config.db.password, {
     host: config.db.host,
     dialect: 'mysql'
@@ -8,17 +9,17 @@ const sequelize = new Sequelize(config.db.database, config.db.user, config.db.pa
 const db = {};
 
 db.Sequelize = Sequelize;
-db.database = sequelize;
+db.sequelize = sequelize;
 
-db.user = require('./user.model.js')(sequelize, Sequelize);
-db.role = require('./role.model.js')(sequelize, Sequelize);
+db.user = require('../models/user.model.js')(sequelize, Sequelize);
+db.role = require('../models/role.model.js')(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
     through: "auth"
 });
-db.user.belongsToMany(db.role, {
+db.user.belongsTo(db.role, {
     through: "auth"
-});    
+});
 
 db.ROLES = ["Lector", "Moderador", "Administrador"];
 module.exports = db;

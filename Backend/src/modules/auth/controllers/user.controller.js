@@ -4,9 +4,9 @@ const allAccess = async (req, res) => {
   });
 }
 
-const userBoard = async (req, res) => {
+const lectorBoard = async (req, res) => {
   res.status(200).send({
-    message: "Usuario"
+    message: "Lector"
   });
 }
 
@@ -24,7 +24,7 @@ const moderatorBoard = async (req, res) => {
 
 module.exports = {
   allAccess,
-  userBoard,
+  lectorBoard,
   adminBoard,
   moderatorBoard
 };
