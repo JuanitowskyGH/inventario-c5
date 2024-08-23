@@ -3,7 +3,7 @@ import Usuarios from "./model.js";*/
 
 const Usuarios = require('./model.js');
 
-/*const getAll = async (req, res) => {
+const getAll = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query; // Obtener parámetros de la consulta
         const offset = (page - 1) * limit;
@@ -25,10 +25,10 @@ const Usuarios = require('./model.js');
             error: error.message
         });
     }
-}*/
+}
 
 
-const getAll = async (req, res) => {
+/*const getAll = async (req, res) => {
     try {
         const inventario = await Usuarios.findAll();
         res.json(inventario);
@@ -38,7 +38,7 @@ const getAll = async (req, res) => {
             error: error.message
         });
     }
-}
+}*/
 
 const getById = async (req, res) => {
     try {

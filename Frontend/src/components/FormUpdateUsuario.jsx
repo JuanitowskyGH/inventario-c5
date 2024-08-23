@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import EditUserIcon from '../icons/EditUserIcon'
+import { Permisos } from './Permisos'
+import { Link } from 'react-router-dom'
 import Discard from '../icons/DiscardIcon'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -15,6 +17,7 @@ export const FormUpdateUsuario = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [user, setUser] = useState({
+      id: '',
       nombre: '',
       apellidop: '',
       apellidom: '',
@@ -83,30 +86,29 @@ export const FormUpdateUsuario = () => {
             <img src="/inventory.jpg" alt="imagen" className="w-auto h-auto rounded-md shadow-xl "/>
         </div>
             <div className="grid grid-rows-3 grid-flow-col gap-4 mt-5 pr-8">
-                <div className="mb-3">
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre(s)</label>
-                        <input type="text" value={user.nombre || ''} onChange={handleChange} disabled placeholder='Aqui los nombres' className="cursor-not-allowed shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
-                </div>
-                <div className="mb-3 col-start-2">
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                        <input type="text" value={apellidos} onChange={handleChange} disabled placeholder='Aqui los dos apellidos' className="cursor-not-allowed shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
-                </div>
-                <div className="mb-3">
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
-                        <input type="text" value={user.username || ''} onChange={handleChange} disabled placeholder='Aqui el username' className="cursor-not-allowed shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-tlax focus:border-blue-tlax block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-tlax dark:focus:border-blue-tlax dark:shadow-sm-light" required />
-                </div>
-                <div className="mb-5 col-start-2">
-                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Permisos:</label>
-                    <select 
-                    name="permisos" 
-                    value={user.permisos || ''} 
-                    onChange={handleChange} 
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm shadow-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    >
-                    <option value="Super Administrador">Super Administrador</option>
-                    <option value="Administrador">Administrador</option>
-                    <option value="Lector">Lector</option>
-                    </select>
+            <div className="relative">
+                  <input type="text" value={user.id || ''} onChange={handleChange} disabled id="default_filled" className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                  <label htmlFor="default-fillded" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Número de usuario</label>
+              </div>
+              <div className="relative col-start-2">
+                  <input type="text" value={user.username || ''} onChange={handleChange} disabled id="default_filled" className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                  <label htmlFor="default-fillded" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Nombre de usuario</label>
+              </div>
+              <div className="relative ">
+                  <input type="text" value={user.nombre || ''} onChange={handleChange} disabled id="default_filled" className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                  <label htmlFor="default-fillded" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Nombre(s)</label>
+              </div>
+              <div className="relative col-start-2">
+                  <input type="text" value={apellidos || ''} onChange={handleChange} disabled id="default_filled" className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                  <label htmlFor="default-fillded" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Apellidos</label>
+              </div>
+                <div className="relative mb-6">
+                <p className='mb-2'>Asigne los permisos correspondientes a su usuario.</p>
+                <select name='permisos' value={user.permisos || ''} onChange={handleChange} className="block rounded-t-lg pb-2.5 px-2.5 pt-3 w-full text-sm text-gray-500 text-left pl-auto border-0 border-b-2 bg-gray-50 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                  <option value="Lector">Lector</option>
+                  <option value="Moderador">Moderador</option>
+                  <option value="Administrador">Administrador</option>
+              </select>
                 </div>
             </div>
             <div className="grid lg:grid-cols-2 gap-5 pr-8">
@@ -114,11 +116,13 @@ export const FormUpdateUsuario = () => {
                 <EditUserIcon className="w-6 h-6 mr-2"/>
                 Actualizar Registro
             </button>                    
-            <button type="button" className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-red-600 hover:-translate-y-1 hover:scale-100 hover:bg-red-500 duration-300">
+            <Link to="/usuarios" replace type="button" className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-red-600 hover:-translate-y-1 hover:scale-100 hover:bg-red-500 duration-300">
                 <Discard className="w-6 h-6 mr-2"/>
                 Cancelar
-            </button>
+            </Link>
+            <Permisos />
             </div>
+            
         </div>
         <hr className="w-full h-1 mx-auto mt-5 bg-gray-100 border-0 rounded dark:bg-gray-700"/>
     </form>
