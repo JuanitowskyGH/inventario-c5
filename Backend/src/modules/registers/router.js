@@ -20,7 +20,7 @@ const inventario = express.Router();
 inventario.get('/inventario', getAll);
 inventario.get('/inventario/:id', getById);
 inventario.post('/inventario', upload.single("imagen"), create);
-inventario.put('/inventario/:id', update);
+inventario.put('/inventario/:id', upload.single("imagen"), update);
 inventario.delete('/inventario/:id', remove);
 
 module.exports = inventario;

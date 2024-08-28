@@ -51,6 +51,18 @@ const getById = async (req, res) => {
     }
 }
 
+/*const create = async (req, res) => {
+    try {
+        const inventario = await Inventario.create(req.body);
+        res.json(inventario);
+    } catch (error) {
+        res.status(500).json({
+            message: "Error al crear el registro",
+            error: error.message
+        });
+    }
+}*/
+
 const create = async (req, res) => {
     try {
         if (!req.file) {
@@ -86,25 +98,34 @@ const create = async (req, res) => {
     }
 }
 
-/*const create = async (req, res) => {
-    try {
-        const inventario = await Inventario.create(req.body);
-        res.json(inventario);
-    } catch (error) {
-        res.status(500).json({
-            message: "Error al crear el registro",
-            error: error.message
-        });
-    }
-}*/
+
 
 const update = async (req, res) => {
     try {
-        await Inventario.update(req.body, {
-            where: {
-                id: req.params.id
-            }
+        const { id } = req.params;
+        const { etiqueta, numAnterior, tipo, descripcion, marca, modelo, serie, departamento, responsable, ubicacion, edicion } = req.body;
+        const updateData = { 
+            etiqueta, 
+            numAnterior, 
+            tipo, 
+            descripcion, 
+            marca, 
+            modelo, 
+            serie, 
+            departamento, 
+            responsable, 
+            ubicacion, 
+            edicion 
+        };
+
+        if (req.file) {
+            updateData.imagen = req.file.path;
+        }
+
+        await Inventario.update(updateData, {
+            where: { id }
         });
+
         res.json({
             message: "Registro actualizado"
         });
