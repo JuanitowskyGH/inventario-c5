@@ -65,7 +65,44 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        if (!req.file) {
+        const imagen = req.file ? req.file.path : null;
+        const { etiqueta, numAnterior, tipo, descripcion, marca, modelo, serie, departamento, responsable, ubicacion, edicion } = req.body;
+
+        // Verificar que todos los campos requeridos están presentes
+        if (!etiqueta || !numAnterior || !tipo || !marca || !departamento || !responsable || !ubicacion) {
+            return res.status(400).json({
+                message: "Todos los campos son requeridos"
+            });
+        }
+
+        let inventario = await Inventario.create({ 
+            etiqueta, 
+            numAnterior, 
+            tipo, 
+            descripcion, 
+            marca, 
+            modelo, 
+            serie, 
+            departamento, 
+            responsable, 
+            ubicacion, 
+            edicion, 
+            imagen 
+        });
+
+        res.status(201).json({ inventario, message: "Registro creado" });
+    } catch (error) {
+        console.error("Error al crear el registro:", error);
+        res.status(500).json({
+            message: "Error al crear el registro",
+            error: error.message
+        });
+    }
+}
+
+/*const create = async (req, res) => {
+    try {
+        /*if (!req.file) {
             return res.status(400).json({
                 message: "Imagen requerida"
             });
@@ -96,7 +133,7 @@ const create = async (req, res) => {
             error: error.message
         });
     }
-}
+}*/
 
 
 

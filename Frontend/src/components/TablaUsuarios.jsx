@@ -87,15 +87,13 @@ export const TablaUsuarios = () => {
             text: "No habrá registro de él una vez eliminado",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#0B1556",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "0B1556",
+            cancelButtonColor: "d33",
             confirmButtonText: "Sí, eliminar",
             cancelButtonText: "Cancelar"
         });
         if (confirm.isConfirmed) {
             await axios.delete(`${endpoints.usuarios}/${id}`);
-            setData(data.filter(item => item.id !== id));
-            getUsuarios();
             Swal.fire({
                 icon: 'success',
                 title: 'Usuario eliminado',
@@ -103,6 +101,8 @@ export const TablaUsuarios = () => {
                 showConfirmButton: false,
                 timer: 2000
             })
+            setData(data.filter(item => item.id !== id));
+            getUsuarios();
         }
     }
     
@@ -143,7 +143,7 @@ export const TablaUsuarios = () => {
                         <th scope="col" className="px-6 py-3">
                             <div className="flex items-center">
                                 ID
-                                <a href="#" onClick={(e) => {e.preventDefault(); requestSort('id')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <a href="" onClick={(e) => {e.preventDefault(); requestSort('id')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                                 </svg></a>
                             </div>
@@ -151,7 +151,7 @@ export const TablaUsuarios = () => {
                         <th scope="col" className="px-6 py-3">
                             <div className="flex items-center">
                                 Nombre(s)
-                                <a href="#" onClick={(e) => {e.preventDefault(); requestSort('nombre')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <a href="" onClick={(e) => {e.preventDefault(); requestSort('nombre')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                                 </svg></a>
                             </div>
@@ -159,7 +159,7 @@ export const TablaUsuarios = () => {
                         <th scope="col" className="px-6 py-3">
                             <div className="flex items-center">
                                 Apellidos
-                                <a href="#" onClick={(e) => {e.preventDefault(); requestSort('apellidop')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <a href="" onClick={(e) => {e.preventDefault(); requestSort('apellidop')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                                 </svg></a>
                             </div>
@@ -167,7 +167,7 @@ export const TablaUsuarios = () => {
                         <th scope="col" className="px-6 py-3">
                             <div className="flex items-center">
                                 Nombre de usuario
-                                <a href="#" onClick={(e) => {e.preventDefault(); requestSort('username')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <a href="" onClick={(e) => {e.preventDefault(); requestSort('username')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                                 </svg></a>
                             </div>

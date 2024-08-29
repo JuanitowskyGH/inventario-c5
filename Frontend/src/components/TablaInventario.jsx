@@ -29,7 +29,7 @@ export const TablaInventario = () => {
     const [data, setData] = useState([]);
     const [sortConfig, setSortConfig] = useState({ key: 'id', direction: 'ascending' });
     const [globalFilter, setGlobalFilter] = useState('');
-    const [search] = useState(['id', 'tipo', 'marca', 'departamento', 'responsable', 'ubicacion']);
+    const [search] = useState(['id', 'tipo', 'marca', 'serie', 'departamento', 'responsable', 'ubicacion']);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -88,15 +88,13 @@ export const TablaInventario = () => {
             text: "No habrá registro de él una vez eliminado",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#0B1556",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "0B1556",
+            cancelButtonColor: "d33",
             confirmButtonText: "Sí, eliminar",
             cancelButtonText: "Cancelar"
         });
         if (confirm.isConfirmed) {
             await axios.delete(`${endpoints.inventario}/${id}`);
-            setData(data.filter(item => item.id !== id));
-            getInventario();
             Swal.fire({
                 icon: 'success',
                 title: 'Registro eliminado',
@@ -104,6 +102,8 @@ export const TablaInventario = () => {
                 showConfirmButton: false,
                 timer: 2000
             })
+            setData(data.filter(item => item.id !== id));
+            getInventario();
         }
     }
 
@@ -126,7 +126,7 @@ export const TablaInventario = () => {
         <div className="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
             Lista de registros
             <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Aqui puedes ver la lista de los registros con detalles. <br/>
-            Realiza la busqueda de un registro en especifico con: <b>ID, Tipo, Marca, Departamento, Responsable o Ubicacion.</b>
+            Realiza la busqueda de un registro en especifico con: <b>ID, Tipo, Marca, Serie, Departamento, Responsable o Ubicacion.</b>
             </p>
             <label htmlFor="table-search" className="sr-only">Buscar</label>
             <div className="relative mt-1 pt-3">
@@ -146,7 +146,7 @@ export const TablaInventario = () => {
                     <th scope="col" className="px-6 py-3">
                         <div className="flex items-center">
                             ID
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('id')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="" onClick={(e) => {e.preventDefault(); requestSort('id')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                             </svg></a>
                         </div>
@@ -154,7 +154,7 @@ export const TablaInventario = () => {
                     <th scope="col" className="px-6 py-3">
                         <div className="flex items-center">
                             Etiqueta
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('etiqueta')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="" onClick={(e) => {e.preventDefault(); requestSort('etiqueta')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                             </svg></a>
                         </div>
@@ -176,7 +176,7 @@ export const TablaInventario = () => {
                     <th scope="col" className="px-6 py-3">
                         <div className="flex items-center">
                             Marca
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('marca')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="" onClick={(e) => {e.preventDefault(); requestSort('marca')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                             </svg></a>
                         </div>
@@ -184,23 +184,18 @@ export const TablaInventario = () => {
                     <th scope="col" className="px-6 py-3">
                     <div className="flex items-center">
                             Modelo
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('modelo')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="" onClick={(e) => {e.preventDefault(); requestSort('modelo')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                             </svg></a>
                         </div>
                     </th>
                     <th scope="col" className="px-6 py-3">
-                    <div className="flex items-center">
-                            Serie
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('serie')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                            </svg></a>
-                        </div>
+                        Serie
                     </th>
                     <th scope="col" className="px-6 py-3">
                     <div className="flex items-center">
                             Departamento
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('departamento')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="" onClick={(e) => {e.preventDefault(); requestSort('departamento')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                             </svg></a>
                         </div>
@@ -208,7 +203,7 @@ export const TablaInventario = () => {
                     <th scope="col" className="px-6 py-3">
                     <div className="flex items-center">
                             Responsable
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('responsable')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="" onClick={(e) => {e.preventDefault(); requestSort('responsable')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                             </svg></a>
                         </div>
@@ -216,7 +211,7 @@ export const TablaInventario = () => {
                     <th scope="col" className="px-6 py-3">
                     <div className="flex items-center">
                             Ubicacion
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('ubicacion')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="" onClick={(e) => {e.preventDefault(); requestSort('ubicacion')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                             </svg></a>
                         </div>
@@ -224,7 +219,7 @@ export const TablaInventario = () => {
                     <th scope="col" className="px-6 py-3">
                     <div className="flex items-center">
                             Edicion
-                            <a href="#" onClick={(e) => {e.preventDefault(); requestSort('edicion')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="" onClick={(e) => {e.preventDefault(); requestSort('edicion')}}><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
                             </svg></a>
                         </div>
