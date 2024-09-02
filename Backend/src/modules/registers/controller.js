@@ -67,7 +67,7 @@ const create = async (req, res) => {
     try {
         const imagen = req.file ? req.file.path : null;
         const { etiqueta, numAnterior, tipo, descripcion, marca, modelo, serie, departamento, responsable, ubicacion, edicion } = req.body;
-
+        const newDescripcion = descripcion || 'Sin descripción';
         // Verificar que todos los campos requeridos están presentes
         if (!etiqueta || !numAnterior || !tipo || !marca || !departamento || !responsable || !ubicacion) {
             return res.status(400).json({
@@ -79,7 +79,7 @@ const create = async (req, res) => {
             etiqueta, 
             numAnterior, 
             tipo, 
-            descripcion, 
+            descripcion : newDescripcion, 
             marca, 
             modelo, 
             serie, 
@@ -141,11 +141,12 @@ const update = async (req, res) => {
     try {
         const { id } = req.params;
         const { etiqueta, numAnterior, tipo, descripcion, marca, modelo, serie, departamento, responsable, ubicacion, edicion } = req.body;
+        const newDescripcion = descripcion || 'Sin descripción';
         const updateData = { 
             etiqueta, 
             numAnterior, 
             tipo, 
-            descripcion, 
+            descripcion : newDescripcion, 
             marca, 
             modelo, 
             serie, 

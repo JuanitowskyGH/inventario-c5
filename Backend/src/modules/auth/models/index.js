@@ -14,11 +14,11 @@ db.user = require('./user.model.js')
 db.role = require('./role.model.js')
 
 db.role.belongsToMany(db.user, {
-    through: 'auth',
+    through: 'auths',
 })
 
 db.user.belongsToMany(db.role, {
-    through: 'auth',
+    through: 'auths',
 })
 
 db.ROLES = ['Lector', 'Moderador', 'Administrador']

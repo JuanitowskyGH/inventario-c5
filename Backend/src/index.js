@@ -6,9 +6,9 @@ const db = require('../src/database/database.js');
 
 const inventario = require('./modules/registers/router.js');
 const usuarios = require('./modules/users/router.js')
-
 const auth = require('./modules/auth/routes/auth.routes.js');
 const user = require('./modules/auth/routes/user.routes.js');
+const create = require('./modules/auth/models/create.js');
 
 //MIDDLEWARE
 const app = express();
@@ -24,8 +24,17 @@ app.use('/api', usuarios);
 app.use('/api/auth', auth);
 app.use('/api/user', user);
 
+create.create1;
+create.create2;
+create.create3;
+create.create4;
+
 const role = require("./modules/auth/models");
-role.sequelize.sync();
+const Roles = role.role;
+role.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
+    initial();
+});
 
 app.get('/', (req, res) => {
     res.send('Hello World');
@@ -43,3 +52,18 @@ catch (error){
 app.listen(config.app.port, () => {
     console.log(`Server running on port ${config.app.port}`);
 })
+
+async function initial() {
+    await Roles.findOrCreate({
+        where: { id: 1 },
+        defaults: { name: "Lector" }
+    });
+    await Roles.findOrCreate({
+        where: { id: 2 },
+        defaults: { name: "Moderador" }
+    });
+    await Roles.findOrCreate({
+        where: { id: 3 },
+        defaults: { name: "Administrador" }
+    });
+}

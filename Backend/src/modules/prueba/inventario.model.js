@@ -1,9 +1,7 @@
 const database = require('../../database/database.js');
 const { DataTypes } = require('sequelize');
 
-const TABLA = 'registers';
-
-const Inventario = database.define(TABLA, {
+const Inventario = database.define('Inventario', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -45,23 +43,6 @@ const Inventario = database.define(TABLA, {
         defaultValue: 'Sin No. de serie',
         unique: true
     },
-    departamento: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    responsable: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    ubicacion: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    edicion: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: 'Sin edición'
-    },
     imagen: {
         type: DataTypes.STRING,
         allowNull: true
@@ -76,9 +57,8 @@ const Inventario = database.define(TABLA, {
         allowNull: false,
         defaultValue: DataTypes.NOW
     }
-},
-    {
-        timestamps: false
+}, {
+    timestamps: false
 });
 
 module.exports = Inventario;
