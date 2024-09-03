@@ -68,7 +68,7 @@ export const UsuariosForm = () => {
         }
     
         try {
-            await axios.post(endpoints.usuarios, formData, {
+            await axios.post(endpoints.register, formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

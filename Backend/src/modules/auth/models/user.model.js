@@ -14,6 +14,14 @@ const Usuarios = database.define(TABLA, {
         type: DataTypes.STRING,
         allowNull: false
     },
+    apellidop: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    apellidom: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     username: {
         type: DataTypes.STRING,
         allowNull: false

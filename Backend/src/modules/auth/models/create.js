@@ -1,9 +1,9 @@
-const registers = require('../../registers/model.js');
+const Tregisters = require('../../registers/model.js');
 const Trole = require('./role.model.js');
 const Tuser = require('./user.model.js');
 const Tauth = require('./auth.model.js');
 
-const create1 = registers.sync()
+const create1 = Tregisters.sync()
     .then(() => {
         console.log('La tabla Inventario ha sido creada (si no existía).');
     })

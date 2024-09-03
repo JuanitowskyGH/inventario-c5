@@ -12,16 +12,16 @@ auth.use(function(req, res, next) {
   next();
 });
 
-auth.post('/create', 
+auth.post('/register', 
   [
     verifySignUp.checkDuplicateUsername, 
     verifySignUp.checkRolesExisted
   ], 
 controller.create);
-auth.post('/signin', controller.signin);
-auth.get('/getall', controller.getAll);
-auth.get('/getid/:id', controller.getById);
-auth.put('/update/:id', controller.update);
-auth.delete('/remove/:id', controller.remove);
+auth.post('/login', controller.login);
+auth.get('/user', controller.getAll);
+auth.get('/user/:id', controller.getById);
+auth.put('/user/:id', controller.update);
+auth.delete('/user/:id', controller.remove);
 
 module.exports = auth;

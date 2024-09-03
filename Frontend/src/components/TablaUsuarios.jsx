@@ -8,24 +8,6 @@ import Swal from 'sweetalert2';
 import endpoints from '../services/endpoints';
 
 export const TablaUsuarios = () => {
-    /*const [data, setData] = useState([]);
-    const [sortConfig, setSortConfig] = useState({ key: 'etiqueta', direction: 'ascending' });
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-
-    const getUsuarios = async (page = 1) => {
-        const response = await axios.get(endpoints.usuarios, {
-            params: { page, limit: 10 }
-        });
-        setData(response.data.data);
-        setTotalPages(response.data.totalPages);
-        setCurrentPage(response.data.currentPage);
-    }
-
-    useEffect(() => {
-        getUsuarios(currentPage);
-    }, [currentPage]);*/
-
     const [data, setData] = useState([]);
     const [sortConfig, setSortConfig] = useState({ key: 'etiqueta', direction: 'ascending' });
     const [globalFilter, setGlobalFilter] = useState('');
@@ -35,7 +17,7 @@ export const TablaUsuarios = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(endpoints.usuarios);
+                const response = await axios.get(endpoints.users);
                 setData(response.data);
             } catch (error) {
                 console.error('Error al obtener los datos', error);
@@ -102,7 +84,6 @@ export const TablaUsuarios = () => {
                 timer: 2000
             })
             setData(data.filter(item => item.id !== id));
-            getUsuarios();
         }
     }
     

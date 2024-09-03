@@ -11,9 +11,11 @@ const create = async (req, res) => {
   try {
     const user = await User.create({
       nombre: req.body.nombre,
+      apellidop: req.body.apellidop,
+      apellidom: req.body.apellidom,
       username: req.body.username,
-      permisos: req.body.permisos,
-      password: bcrypt.hashSync(req.body.password, 8)
+      password: bcrypt.hashSync(req.body.password, 8),
+      permisos: req.body.permisos
     });
 
     if (req.body.roles) {
@@ -67,9 +69,11 @@ const update = async (req, res) => {
   try {
     await User.update({
       nombre: req.body.nombre,
+      apellidop: req.body.apellidop,
+      apellidom: req.body.apellidom,
       username: req.body.username,
-      permisos: req.body.permisos,
-      password: bcrypt.hashSync(req.body.password, 8)
+      password: bcrypt.hashSync(req.body.password, 8),
+      permisos: req.body.permisos
     }, {
       where: {
         id: req.params.id
@@ -94,7 +98,7 @@ const remove = async (req, res) => {
   }
 };
 
-const signin = async (req, res) => {
+const login = async (req, res) => {
   try {
     const user = await User.findOne({
       where: {
@@ -141,5 +145,5 @@ module.exports = {
   getById,
   update,
   remove,
-  signin
+  login
 };
