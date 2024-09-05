@@ -1,7 +1,44 @@
-import './App.css'
-//import '../styles/App.css'
+import './App.css';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import 'flowbite';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
+import Admin from './pages/Admin';
+import Mod from './pages/Mod';
+import Lector from './pages/Lector';
+import { Dashboard } from './pages/Dashboard';
+import ProtectedRoute from './ProtectedRoute';
+import { createRoot } from 'react-dom/client';
 
-//Paginas
+const App = () => {
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['Administrador']} />}>
+          <Route path="/admin" element={<Admin />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['Moderador']} />}>
+          <Route path="/mod" element={<Mod />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['Lector']} />}>
+          <Route path="/lector" element={<Lector />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
+};
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<App />);
+
+/*//Paginas
 import { Login } from './pages/Login'
 import { Dashboard } from './pages/Dashboard'
 import { Usuarios } from './pages/Usuarios'
@@ -43,7 +80,7 @@ function App() {
       <Route path="/updateinventario/:id" element={<UpdateInventario/>} />
       <Route path='/updateusuarios/:id' element={<UpdateUsuarios/>} />
 
-      {/* PARA PRUEBA DE COMPONENTES */}
+      {/* PARA PRUEBA DE COMPONENTES}
       <Route path="/pruebas" element={<Pruebas />} />
 
       <Route path="/usuarios" element={<TablaUsuarios />} />
@@ -60,4 +97,4 @@ function App() {
   )
 }
 
-export default App
+export default App*/

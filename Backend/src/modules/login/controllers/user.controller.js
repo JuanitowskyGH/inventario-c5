@@ -114,7 +114,7 @@ const config = require('../config/auth.config');*/
 const create = async (req, res) => {
   const { nombre, apellidop, apellidom, username, password, roleId } = req.body;
   try {
-    console.log('Role ID:', roleId);  // Agrega esta línea para depurar
+    console.log('Role ID:', roleId)
     const hashPass = await bcrypt.hash(password, 8);
 
     const user = await User.create({
@@ -206,17 +206,17 @@ const login = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Invalid credentials' });
+      return res.status(404).json({ message: 'Usuario incorrecto' });
     }
 
     const passValid = await bcrypt.compare(password, user.password);
     if (!passValid) {
-      return res.status(404).json({ message: 'Invalid credentials' });
+      return res.status(404).json({ message: 'Contraseña incorrecta' });
     }
 
     // Accede al nombre del rol
-    const role = user.role ? user.role.name : null;  // Cambiado aquí
-    const token = jwt.sign({ id: user.id, username: user.username, role }, config.secret, { expiresIn: 68000 });
+    const role = user.role ? user.role.name : null;
+    const token = jwt.sign({ id: user.id, username: user.username, role }, config.secret, { expiresIn: 60 });
 
     return res.json({ id: user.id, username: user.username, role, token });
 

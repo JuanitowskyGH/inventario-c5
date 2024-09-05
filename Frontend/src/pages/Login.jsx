@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LoginForm } from '../components/LoginForm';
-export const Login = () => {
+const Login = () => {
   return (
     <div className="-bottom-56 min-h-screen">
       <div className="flex flex-col items-center pt-10">
@@ -16,3 +16,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;

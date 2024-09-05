@@ -7,7 +7,7 @@ import AddInventoryIcon from '../icons/EditInventoryIcon';
 import IconLockPasswordLine from '../icons/UpdatePasswordIcon';
 import SignOutIcon from '../icons/SignOutIcon';
 
-export const Menu = () => {
+export const Menu = ({ role }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -133,6 +133,7 @@ export const Menu = () => {
                         </span>
                       </Link>
                     </li>
+                    { role  === 'Administrador' && (
                     <li>
                       <Link
                         to={"/addusuarios"}
@@ -148,6 +149,7 @@ export const Menu = () => {
                         </span>
                       </Link>
                     </li>
+                    )}
                   </ul>
                   <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <li>
