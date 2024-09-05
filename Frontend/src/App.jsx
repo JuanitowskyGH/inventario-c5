@@ -4,12 +4,30 @@ import './index.css';
 import 'flowbite';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
+import { Administracion } from './pages/Administracion';
 import Admin from './pages/Admin';
 import Mod from './pages/Mod';
 import Lector from './pages/Lector';
-import { Dashboard } from './pages/Dashboard';
+
 import ProtectedRoute from './ProtectedRoute';
 import { createRoot } from 'react-dom/client';
+
+//PAGINAS
+//PAGINAS QUE SE PUEDEN ACCESAR DESDE CUALQUIER ROL 
+import { Cuenta } from './pages/Cuenta';
+import { Inventario } from './pages/Inventario';
+import { Dashboard } from './pages/Dashboard';
+
+//PAGINAS QUE SOLO SE PUEDEN ACCESAR DESDE ROL ADMINISTRADOR Y MODERADOR
+import { Usuarios } from './pages/Usuarios';
+import { AddInventario } from './pages/AddInventario';
+import { AddUsuarios } from './pages/AddUsuarios';
+import { UpdateInventario } from './pages/UpdateInventario';
+
+//PAGINAS QUE SOLO SE PUEDEN ACCESAR DESDE ROL ADMINISTRADOR
+import { UpdateUsuarios } from './pages/UpdateUsuarios';
+
+
 
 const App = () => {
 
@@ -17,17 +35,20 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/unauthorized" element={<Administracion />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/inventario" element={<Inventario />} />
+          <Route path="/cuenta" element={<Cuenta />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['Administrador', 'Moderador']} />}>
+          <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/addinventario" element={<AddInventario />} />
+          <Route path="/addusuarios" element={<AddUsuarios />} />
+          <Route path="/updateinventario/:id" element={<UpdateInventario />} />
         </Route>
         <Route element={<ProtectedRoute roles={['Administrador']} />}>
-          <Route path="/admin" element={<Admin />} />
-        </Route>
-        <Route element={<ProtectedRoute roles={['Moderador']} />}>
-          <Route path="/mod" element={<Mod />} />
-        </Route>
-        <Route element={<ProtectedRoute roles={['Lector']} />}>
-          <Route path="/lector" element={<Lector />} />
+          <Route path="/updateusuarios/:id" element={<UpdateUsuarios />} />
         </Route>
       </Routes>
     </Router>

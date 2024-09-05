@@ -27,7 +27,7 @@ export const Permisos = () => {
 
                                 El <b>Administrador</b> puede: <br />
                                 - Permisos de Moderador <br />
-                                - Agregar, editar, eliminar y asignar permisos a usuarios <br />
+                                - Agregar, eliminar y asignar permisos a usuarios <br />
                             </p>
                             </div>
                         </div>

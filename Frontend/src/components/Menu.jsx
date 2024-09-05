@@ -112,6 +112,7 @@ export const Menu = ({ role }) => {
                       <span className="pl-7 ms-3 text-center focus:text-blue-tlax hover:text-blue-tlax">Dashboard</span>
                     </Link>
                   </li>
+                  { (role  === 'Administrador' || role === 'Moderador' ) && (
                   <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <li>
                       <h5 className="flex justify-start pl-2 text-base uppercase font-semibold text-gray-500 dark:text-gray-400">
@@ -133,7 +134,7 @@ export const Menu = ({ role }) => {
                         </span>
                       </Link>
                     </li>
-                    { role  === 'Administrador' && (
+                    
                     <li>
                       <Link
                         to={"/addusuarios"}
@@ -149,8 +150,9 @@ export const Menu = ({ role }) => {
                         </span>
                       </Link>
                     </li>
-                    )}
+                    
                   </ul>
+                )}
                   <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <li>
                       <h5 className="flex justify-start pl-2 text-base uppercase font-semibold text-gray-500 dark:text-gray-400">
@@ -172,6 +174,7 @@ export const Menu = ({ role }) => {
                         </span>
                       </Link>
                     </li>
+                    { (role  === 'Administrador' || role === 'Moderador' ) && (
                     <li>
                       <Link
                         to={"/addinventario"}
@@ -187,6 +190,7 @@ export const Menu = ({ role }) => {
                         </span>
                       </Link>
                     </li>
+                    )}
                     <li>
                       <a href="https://cesesptlax.gob.mx/" className="flex items-center p-11 mt-6">
                         <img src="/tlx.png" alt="" className="w-40 h-50/"/>
