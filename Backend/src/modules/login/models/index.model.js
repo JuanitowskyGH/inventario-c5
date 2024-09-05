@@ -3,7 +3,7 @@ const Role = require('./role.model.js');
 const UserRole = require('./userRole.model.js');
 const db = require('../../../database/database');
 
-db.sync({ force: true }).then(() => {
+db.sync({ force: false }).then(() => {
   console.log('Tablas creadas');
   initial()
 })
@@ -23,4 +23,4 @@ async function initial() {
   });
 }
 
-module.exports = { User, Role, UserRole };
+module.exports = { User, Role };

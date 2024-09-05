@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../../database/database');
+const Role = require('./role.model');
 
 const TABLA = 'users';
 
@@ -27,8 +28,19 @@ const User = sequelize.define(TABLA, {
     },
     imagen: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
+    },
+    roleId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Role,
+            key: 'id'
+        }
     }
-  })
+});
+
+// Relación
+User.belongsTo(Role, { foreignKey: 'roleId' });
+Role.hasMany(User, { foreignKey: 'roleId' });
 
 module.exports = User;

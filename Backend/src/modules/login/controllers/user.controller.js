@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/auth.config');
 
-const create = async (req, res) => {
+/*const create = async (req, res) => {
   const { nombre, apellidop, apellidom, username, password, roleName } = req.body;
   try {
     const role = await Role.findOne({ where: { name: roleName } });
@@ -101,28 +101,30 @@ const login = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 }
+*/
 
-module.exports = { create, findAll, findOne, update, remove, login };
 
 
 //REVISAR CONTROLADOR
-/*
-
-const { User, Role, UserRole } = require('../models/index.model');
+/*const { User, Role, UserRole } = require('../models/index.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('../config/auth.config');
+const config = require('../config/auth.config');*/
 
 const create = async (req, res) => {
-  const { nombre, apellidop, apellidom, username, password, roleIds } = req.body;
+  const { nombre, apellidop, apellidom, username, password, roleId } = req.body;
   try {
+    console.log('Role ID:', roleId);  // Agrega esta línea para depurar
     const hashPass = await bcrypt.hash(password, 8);
-    const user = await User.create({ nombre, apellidop, apellidom, username, password: hashPass });
 
-    // Asignar roles al usuario
-    if (roleIds && roleIds.length > 0) {
-      await user.setRoles(roleIds);
-    }
+    const user = await User.create({
+      nombre,
+      apellidop,
+      apellidom,
+      username,
+      password: hashPass,
+      roleId
+    });
 
     return res.status(201).json(user);
   } catch (error) {
@@ -202,20 +204,26 @@ const login = async (req, res) => {
       where: { username },
       include: [{ model: Role, attributes: ['name'] }]
     });
+
     if (!user) {
       return res.status(404).json({ message: 'Invalid credentials' });
     }
+
     const passValid = await bcrypt.compare(password, user.password);
     if (!passValid) {
       return res.status(404).json({ message: 'Invalid credentials' });
     }
-    const token = jwt.sign({ id: user.id, username: user.username, roles: user.Roles.map(role => role.name) }, config.secret, { expiresIn: 120 });
-    res.json({ id: user.id, username: user.username, roles: user.Roles.map(role => role.name), token });
+
+    // Accede al nombre del rol
+    const role = user.role ? user.role.name : null;  // Cambiado aquí
+    const token = jwt.sign({ id: user.id, username: user.username, role }, config.secret, { expiresIn: 68000 });
+
+    return res.json({ id: user.id, username: user.username, role, token });
+
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = { create, findAll, findOne, update, remove, login };
 
-*/
+module.exports = { create, findAll, findOne, update, remove, login };

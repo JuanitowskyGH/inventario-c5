@@ -2,10 +2,14 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/auth.config');
 
 const auth = (req, res, next) => {
-    const token = req.header('Authorization');
-    if (!token) {
+    const authHeader = req.header('Authorization');
+    if (!authHeader) {
         return res.status(401).json({ message: 'NOPI' });
     }
+
+    // Asegúrate de que el token esté en el formato 'Bearer <token>'
+    const token = authHeader.startsWith('Bearer ') ? authHeader.substring(7) : authHeader;
+
     try {
         const decoded = jwt.verify(token, config.secret);
         req.user = decoded;
