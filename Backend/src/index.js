@@ -26,13 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static('public'));
 
 //RUTAS
-app.use('/api', inventario);
+app.use('/api', auth, inventario);
 // app.use('/api', usuarios);
 // app.use('/api/auth', auth);
 // app.use('/api/user', user);
 
-app.use('/api', authRoutes);
-app.use('/api', userRoutes);
+app.use('/api/login', userRoutes);
+app.use('/api', auth, authRoutes);
 app.use('/api', auth, protectedRoutes);
 
 // db.sync({ force: true }).then(() => {

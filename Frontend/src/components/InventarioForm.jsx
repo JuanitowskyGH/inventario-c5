@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import authService from '../services/authService'
 import EditInventoryIcon from '../icons/EditInventoryIcon'
 import { useState } from 'react'
 import axios from 'axios'
@@ -94,10 +94,16 @@ export const InventarioForm = () => {
                     formDataToSend.append(key, inventario[key]);
                 }
             });
+
+            const user = authService.getCurrentUser();
+            if (!user) {
+                throw new Error('No se ha iniciado sesión');
+            }
     
             await axios.post(endpoints.inventario, formDataToSend, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${user.token}`
                 }
             });
             Swal.fire({

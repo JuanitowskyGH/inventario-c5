@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import endpoints from '../services/endpoints'
+import authService from '../services/authService'
 
 export const UsuariosForm = () => {
 
@@ -68,9 +69,16 @@ export const UsuariosForm = () => {
         }
     
         try {
+
+            const user = authService.getCurrentUser();
+            if(!user) {
+                throw new Error('Usuario no autenticado');
+            }
+
             await axios.post(endpoints.usuarios, formData, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
             });
             Swal.fire({

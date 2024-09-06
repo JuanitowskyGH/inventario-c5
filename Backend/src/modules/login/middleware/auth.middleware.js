@@ -4,7 +4,7 @@ const config = require('../config/auth.config');
 const auth = (req, res, next) => {
     const authHeader = req.header('Authorization');
     if (!authHeader) {
-        return res.status(401).json({ message: 'NOPI' });
+        return res.status(401).json({ message: 'Unauthorized to actions' });
     }
 
     // Asegúrate de que el token esté en el formato 'Bearer <token>'

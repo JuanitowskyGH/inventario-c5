@@ -1,14 +1,17 @@
 import axios from 'axios';
 import {jwtDecode as decode} from 'jwt-decode';
-
-const API_URL = 'http://localhost:4000/api';
+import endpoints from './endpoints';
 
 const login = async (username, password) => {
-  const response = await axios.post(`${API_URL}/login`, { username, password });
-  if (response.data.token) {
-    localStorage.setItem('user', JSON.stringify(response.data));
+  try{
+    const response = await axios.post(endpoints.login, { username, password });
+    if (response.data.token) {
+      localStorage.setItem('user', JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    return error.response.data;
   }
-  return response.data;
 }
 
 const logout = () => {
@@ -24,8 +27,9 @@ const getCurrentUser = () => {
       logout();
       return null;
     }
+    return {...user, role: decoded.role};
   }
-  return user;
+  return null;
 }
 
 export default {

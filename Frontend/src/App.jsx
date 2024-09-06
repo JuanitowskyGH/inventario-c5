@@ -5,10 +5,6 @@ import 'flowbite';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import { Administracion } from './pages/Administracion';
-import Admin from './pages/Admin';
-import Mod from './pages/Mod';
-import Lector from './pages/Lector';
-
 import ProtectedRoute from './ProtectedRoute';
 import { createRoot } from 'react-dom/client';
 
@@ -36,7 +32,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/unauthorized" element={<Administracion />} />
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute roles={['Administrador', 'Moderador', 'Lector']} />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventario" element={<Inventario />} />
           <Route path="/cuenta" element={<Cuenta />} />
