@@ -2,6 +2,7 @@ const User = require('./user.model.js');
 const Role = require('./role.model.js');
 const UserRole = require('./userRole.model.js');
 const db = require('../../../database/database');
+const bcrypt = require('bcrypt');
 
 db.sync({ force: false }).then(() => {
   console.log('Tablas creadas');
@@ -20,6 +21,13 @@ async function initial() {
   await Role.findOrCreate({
       where: { id: 3 },
       defaults: { name: "Lector" }
+  });
+
+  const hashPass = await bcrypt.hash('admin', 8);
+  
+  await User.findOrCreate({
+      where: { id: 1 },
+      defaults: { nombre: "Admin_name", apellidop: "Admin_ap", apellidom: "Admin_am", username: "admin", password: hashPass, roleId: 1 }
   });
 }
 

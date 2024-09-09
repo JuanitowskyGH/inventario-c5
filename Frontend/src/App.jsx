@@ -1,49 +1,52 @@
-import './App.css';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import 'flowbite';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import { Administracion } from './pages/Administracion';
-import ProtectedRoute from './ProtectedRoute';
-import { createRoot } from 'react-dom/client';
+import "./App.css";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import "flowbite";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import { Administracion } from "./pages/Administracion";
+import ProtectedRoute from "./ProtectedRoute";
+import { createRoot } from "react-dom/client";
 
 //PAGINAS
-//PAGINAS QUE SE PUEDEN ACCESAR DESDE CUALQUIER ROL 
-import { Cuenta } from './pages/Cuenta';
-import { Inventario } from './pages/Inventario';
-import { Dashboard } from './pages/Dashboard';
+//PAGINAS QUE SE PUEDEN ACCESAR DESDE CUALQUIER ROL
+import { Cuenta } from "./pages/Cuenta";
+import { Inventario } from "./pages/Inventario";
+import { Dashboard } from "./pages/Dashboard";
 
 //PAGINAS QUE SOLO SE PUEDEN ACCESAR DESDE ROL ADMINISTRADOR Y MODERADOR
-import { Usuarios } from './pages/Usuarios';
-import { AddInventario } from './pages/AddInventario';
-import { AddUsuarios } from './pages/AddUsuarios';
-import { UpdateInventario } from './pages/UpdateInventario';
+import { Usuarios } from "./pages/Usuarios";
+import { AddInventario } from "./pages/AddInventario";
+import { AddUsuarios } from "./pages/AddUsuarios";
+import { UpdateInventario } from "./pages/UpdateInventario";
 
 //PAGINAS QUE SOLO SE PUEDEN ACCESAR DESDE ROL ADMINISTRADOR
-import { UpdateUsuarios } from './pages/UpdateUsuarios';
-
-
+import { UpdateUsuarios } from "./pages/UpdateUsuarios";
 
 const App = () => {
-
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/unauthorized" element={<Administracion />} />
-        <Route element={<ProtectedRoute roles={['Administrador', 'Moderador', 'Lector']} />}>
+        <Route
+          element={
+            <ProtectedRoute roles={["Administrador", "Moderador", "Lector"]} />
+          }
+        >
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventario" element={<Inventario />} />
           <Route path="/cuenta" element={<Cuenta />} />
         </Route>
-        <Route element={<ProtectedRoute roles={['Administrador', 'Moderador']} />}>
+        <Route
+          element={<ProtectedRoute roles={["Administrador", "Moderador"]} />}
+        >
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/addinventario" element={<AddInventario />} />
           <Route path="/addusuarios" element={<AddUsuarios />} />
           <Route path="/updateinventario/:id" element={<UpdateInventario />} />
         </Route>
-        <Route element={<ProtectedRoute roles={['Administrador']} />}>
+        <Route element={<ProtectedRoute roles={["Administrador"]} />}>
           <Route path="/updateusuarios/:id" element={<UpdateUsuarios />} />
         </Route>
       </Routes>
@@ -51,7 +54,7 @@ const App = () => {
   );
 };
 
-const container = document.getElementById('root');
+const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(<App />);
 

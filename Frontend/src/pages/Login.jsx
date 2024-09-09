@@ -1,14 +1,14 @@
-import React from 'react';
-import Alerta from '../components/Alerta';
-import { useEffect, useState } from 'react';
-import { LoginForm } from '../components/LoginForm';
+import React from "react";
+import Alerta from "../components/Alerta";
+import { useEffect, useState } from "react";
+import { LoginForm } from "../components/LoginForm";
 
 const Login = () => {
   const [showAlert, setShowAlert] = useState(false);
   useEffect(() => {
-    if (localStorage.getItem('showAlert') === 'true') {
+    if (localStorage.getItem("showAlert") === "true") {
       setShowAlert(true);
-      localStorage.removeItem('showAlert');
+      localStorage.removeItem("showAlert");
     }
   }, []);
   return (
@@ -23,7 +23,12 @@ const Login = () => {
         <LoginForm />
       </div>
       <div className="flex justify-center mt-10">
-        {showAlert && <Alerta message="Inicia sesión para continuar." onClose={() => setShowAlert(false)} />}
+        {showAlert && (
+          <Alerta
+            message="Inicia sesión para continuar."
+            onClose={() => setShowAlert(false)}
+          />
+        )}
       </div>
     </div>
   );

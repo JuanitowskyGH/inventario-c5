@@ -36,6 +36,14 @@ const User = sequelize.define(TABLA, {
             model: Role,
             key: 'id'
         }
+    },
+    createdAt: {
+        type: DataTypes.DATEONLY,
+        defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATEONLY,
+        defaultValue: DataTypes.NOW
     }
 });
 

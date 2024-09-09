@@ -22,7 +22,7 @@ const login = async (req, res) => {
 
     // Accede al nombre del rol
     const role = user.role ? user.role.name : null;
-    const token = jwt.sign({ id: user.id, username: user.username, role }, config.secret, { expiresIn: '24h' });
+    const token = jwt.sign({ id: user.id, username: user.username, role }, config.secret, { expiresIn: '2h' });
 
     return res.json({ id: user.id, username: user.username, role, token });
 

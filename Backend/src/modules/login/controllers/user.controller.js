@@ -14,8 +14,9 @@ const create = async (req, res) => {
       apellidop,
       apellidom,
       username,
-      password: hashPass,
-      roleId
+      roleId,
+      password: hashPass
+
     });
 
     return res.status(201).json(user);
@@ -26,7 +27,12 @@ const create = async (req, res) => {
 
 const findAll = async (req, res) => {
   try {
-    const users = await User.findAll({ include: Role });
+    const users = await User.findAll({ 
+      include: [{
+        model: Role,
+        attributes: ['name']
+      }]
+    });
     return res.status(200).json(users);
   } catch (error) {
     return res.status(500).json({ message: error.message });

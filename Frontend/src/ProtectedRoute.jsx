@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import authService from '../src/services/authService';
+import React, { useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import authService from "../src/services/authService";
 
 const ProtectedRoute = ({ roles }) => {
   const user = authService.getCurrentUser();
 
   useEffect(() => {
     if (!user) {
-      localStorage.setItem('showAlert', 'true');
+      localStorage.setItem("showAlert", "true");
     }
   }, [user]);
 

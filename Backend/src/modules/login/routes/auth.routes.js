@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { create, findAll, findOne, update, remove } = require('../controllers/user.controller')
 
-router.post('/register', create);
+router.post('/users', create);
 router.get('/users', findAll);
-router.get('/user/:id', findOne);
-router.put('/user/:id', update);
-router.delete('/user/:id', remove);
-
+router.get('/users/:id', findOne);
+router.put('/users/:id', update);
+router.delete('/users/:id', remove);
 module.exports = router;

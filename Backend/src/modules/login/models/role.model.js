@@ -8,6 +8,14 @@ const Role = sequelize.define(TABLA, {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
+    },
+    createdAt: {
+        type: DataTypes.DATEONLY,
+        defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATEONLY,
+        defaultValue: DataTypes.NOW
     }
 });
 
