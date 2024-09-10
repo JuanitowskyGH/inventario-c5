@@ -174,8 +174,8 @@ export const TablaUsuarios = ({ role }) => {
       <div className="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
         Lista de usuarios
         <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-          Aqui puedes ver la lista de los usuarios con detalles. <br />
-          Realiza la busqueda de un registro en especifico con:{" "}
+          Aquí puedes ver la lista de los usuarios con detalles. <br />
+          Realiza la búsqueda de un registro en específico con:{" "}
           <b>ID, Nombre, Apellidos, Nombre de usuario y Permisos</b>
         </p>
         <label htmlFor="table-search" className="sr-only">

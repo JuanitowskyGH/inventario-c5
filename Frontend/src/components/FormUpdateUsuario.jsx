@@ -74,7 +74,7 @@ export const FormUpdateUsuario = () => {
         if (!token) {
           throw new Error("Token not found");
         }
-        await axios.put(endpoints.usuarioId + id, user, {
+        await axios.put(endpoints.usuarioId + id, { roleId: user.roleId}, {
           headers: {
             Authorization: `Bearer ${token.token}`,
           },

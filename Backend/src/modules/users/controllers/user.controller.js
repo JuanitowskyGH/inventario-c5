@@ -57,27 +57,20 @@ const findOne = async (req, res) => {
 //CONTROLADOR PARA ACTUALIZAR PERMISOS A UN USUARIO
 const update = async (req, res) => {
   const { id } = req.params;
-  const { nombre, apellidop, apellidom, username, password, roleIds } =
-    req.body;
+  const { roleId } = req.body;
   try {
     const user = await User.findByPk(id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.nombre = nombre;
-    user.apellidop = apellidop;
-    user.apellidom = apellidom;
-    user.username = username;
-    if (password) {
-      user.password = await bcrypt.hash(password, 8);
+    // Actualizar rol del usuario
+    if (roleId) {
+      user.roleId = roleId;
+      await user.save();
     }
-    await user.save();
 
-    // Actualizar roles del usuario
-    if (roleIds && roleIds.length > 0) {
-      await user.setRoles(roleIds);
-    }
+    await user.save();
 
     return res.status(200).json(user);
   } catch (error) {

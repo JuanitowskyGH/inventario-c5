@@ -224,7 +224,7 @@ export const FormCuenta = () => {
                   htmlFor="password"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-6 z-10 origin-[0] start-2.5 peer-focus:text-blue-tlax peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
-                  Contraseña Actual
+                  Ingrese su contraseña para confirmar
                 </label>
               </div>
             </div>

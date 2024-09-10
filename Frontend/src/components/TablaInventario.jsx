@@ -171,8 +171,8 @@ export const TablaInventario = ({ role }) => {
       <div className="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
         Lista de registros
         <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-          Aqui puedes ver la lista de los registros con detalles. <br />
-          Realiza la busqueda de un registro en especifico con:{" "}
+          Aquí puedes ver la lista de los registros con detalles. <br />
+          Realiza la búsqueda de un registro en específico con:{" "}
           <b>ID, Tipo, Marca, Serie, Departamento, Responsable o Ubicacion.</b>
         </p>
         <label htmlFor="table-search" className="sr-only">

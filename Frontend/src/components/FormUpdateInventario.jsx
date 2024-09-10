@@ -8,8 +8,6 @@ import Swal from "sweetalert2";
 import endpoints from "../services/endpoints";
 import authService from "../services/authService";
 
-const URI = "http://localhost:4000/api/inventario/";
-
 export const FormUpdateInventario = () => {
   const { id } = useParams();
   const navigate = useNavigate();
