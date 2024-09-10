@@ -6,19 +6,20 @@ import { Link, useNavigate } from "react-router-dom";
 import AddInventoryIcon from "../icons/EditInventoryIcon";
 import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
 import SignOutIcon from "../icons/SignOutIcon";
+import authService from "../services/authService";
 
 export const Menu = ({ role }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
+  const logout = () => {
+    authService.logout();
+    navigate("/");
   };
 
-  const logout = () => {
-    localStorage.removeItem("user");
-    navigate("/");
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
   };
 
   const closeDrawer = () => {
@@ -149,7 +150,7 @@ export const Menu = ({ role }) => {
                           </span>
                         </Link>
                       </li>
-
+                      {role === "Administrador" && (
                       <li>
                         <Link
                           to={"/addusuarios"}
@@ -165,6 +166,7 @@ export const Menu = ({ role }) => {
                           </span>
                         </Link>
                       </li>
+                    )}
                     </ul>
                   )}
                   <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">

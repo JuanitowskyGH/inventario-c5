@@ -2,7 +2,8 @@ const API_BASE_URL = "http://localhost:4000/api";
 
 const endpoints = {
   usuarios: `${API_BASE_URL}/users`,
-  cuenta: `${API_BASE_URL}/users/profile`,
+  cuenta: `${API_BASE_URL}/info`,
+  verify: `${API_BASE_URL}/verify`,
   inventario: `${API_BASE_URL}/inventario`,
   usuarioId: `${API_BASE_URL}/users/`,
   inventarioId: `${API_BASE_URL}/inventario/`,

@@ -1,12 +1,12 @@
-const { User, Role } = require('../models/index.model');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const config = require('../config/auth.config');
+const { User, Role } = require("../models/index.model");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const config = require("../config/auth.config");
 
 const create = async (req, res) => {
   const { nombre, apellidop, apellidom, username, password, roleId } = req.body;
   try {
-    console.log('Role ID:', roleId)
+    console.log("Role ID:", roleId);
     const hashPass = await bcrypt.hash(password, 8);
 
     const user = await User.create({
@@ -15,8 +15,7 @@ const create = async (req, res) => {
       apellidom,
       username,
       roleId,
-      password: hashPass
-
+      password: hashPass,
     });
 
     return res.status(201).json(user);
@@ -27,11 +26,13 @@ const create = async (req, res) => {
 
 const findAll = async (req, res) => {
   try {
-    const users = await User.findAll({ 
-      include: [{
-        model: Role,
-        attributes: ['name']
-      }]
+    const users = await User.findAll({
+      include: [
+        {
+          model: Role,
+          attributes: ["name"],
+        },
+      ],
     });
     return res.status(200).json(users);
   } catch (error) {
@@ -44,7 +45,7 @@ const findOne = async (req, res) => {
   try {
     const user = await User.findByPk(id, { include: Role });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
     return res.status(200).json(user);
   } catch (error) {
@@ -54,11 +55,12 @@ const findOne = async (req, res) => {
 
 const update = async (req, res) => {
   const { id } = req.params;
-  const { nombre, apellidop, apellidom, username, password, roleIds } = req.body;
+  const { nombre, apellidop, apellidom, username, password, roleIds } =
+    req.body;
   try {
     const user = await User.findByPk(id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     user.nombre = nombre;
@@ -86,7 +88,7 @@ const remove = async (req, res) => {
   try {
     const user = await User.findByPk(id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
     await user.destroy();
     return res.status(204).json();
@@ -95,7 +97,14 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { create, findAll, findOne, update, remove };
+
+module.exports = {
+  create,
+  findAll,
+  findOne,
+  update,
+  remove,
+};
 
 /*const create = async (req, res) => {
   const { nombre, apellidop, apellidom, username, password, roleName } = req.body;
@@ -197,12 +206,8 @@ const login = async (req, res) => {
 }
 */
 
-
-
 //REVISAR CONTROLADOR
 /*const { User, Role, UserRole } = require('../models/index.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/auth.config');*/
-
-

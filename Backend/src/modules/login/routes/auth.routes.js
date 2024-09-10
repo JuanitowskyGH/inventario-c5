@@ -7,4 +7,5 @@ router.get('/users', findAll);
 router.get('/users/:id', findOne);
 router.put('/users/:id', update);
 router.delete('/users/:id', remove);
+
 module.exports = router;

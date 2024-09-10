@@ -28,26 +28,23 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/unauthorized" element={<Administracion />} />
-        <Route
-          element={
-            <ProtectedRoute roles={["Administrador", "Moderador", "Lector"]} />
-          }
-        >
+        <Route element={<ProtectedRoute />}>
+          <Route path="/unauthorized" element={<Administracion />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={["Administrador", "Moderador", "Lector"]} />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventario" element={<Inventario />} />
           <Route path="/cuenta" element={<Cuenta />} />
         </Route>
         <Route
-          element={<ProtectedRoute roles={["Administrador", "Moderador"]} />}
-        >
+          element={<ProtectedRoute roles={["Administrador", "Moderador"]} />}>
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/addinventario" element={<AddInventario />} />
-          <Route path="/addusuarios" element={<AddUsuarios />} />
           <Route path="/updateinventario/:id" element={<UpdateInventario />} />
         </Route>
         <Route element={<ProtectedRoute roles={["Administrador"]} />}>
           <Route path="/updateusuarios/:id" element={<UpdateUsuarios />} />
+          <Route path="/addusuarios" element={<AddUsuarios />} />
         </Route>
       </Routes>
     </Router>

@@ -32,8 +32,44 @@ const getCurrentUser = () => {
   return null;
 };
 
+/*const getUserInfo = async () => {
+  const user = getCurrentUser();
+  if (user && user.token) {
+    const response = await axios.get(endpoints.cuenta, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    });
+    return response.data;
+  }
+  return null;
+};
+
+const updateUserInfo = async (userData) => {
+  const user = getCurrentUser();
+  if (user && user.token) {
+    const response = await axios.put(endpoints.cuenta, userData, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    });
+    return response.data;
+  }
+  return null;
+};
+
+const verifyPassword = async (password) => {
+  const user = getCurrentUser();
+  if (user && user.token) {
+    const response = await axios.post(endpoints.verify, { password }, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    });
+    return response.data;
+  }
+  return null;
+};*/
+
 export default {
   login,
   logout,
   getCurrentUser,
+  /*getUserInfo,
+  updateUserInfo,
+  verifyPassword,*/
 };

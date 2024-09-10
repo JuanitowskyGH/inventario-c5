@@ -13,6 +13,7 @@ const usuarios = require("./modules/users/router.js");
 const userRoutes = require("./modules/login/routes/user.routes");
 const authRoutes = require("./modules/login/routes/auth.routes");
 const protectedRoutes = require("./modules/login/routes/protected.routes");
+const profile = require("./modules/login/routes/profile.routes.js");
 const { auth } = require("./modules/login/middleware/auth.middleware");
 const { Sequelize } = require("sequelize");
 const Role = require("./modules/login/models/role.model.js");
@@ -32,8 +33,9 @@ app.use("/public", express.static("public"));
 
 
 app.use("/api/login", userRoutes);
-app.use("/api", auth, inventario);
+app.use("/api", auth, profile);
 app.use("/api", auth, authRoutes);
+app.use("/api", auth, inventario);
 app.use("/api", auth, protectedRoutes);
 
 // db.sync({ force: true }).then(() => {
