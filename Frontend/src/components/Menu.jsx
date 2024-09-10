@@ -151,22 +151,22 @@ export const Menu = ({ role }) => {
                         </Link>
                       </li>
                       {role === "Administrador" && (
-                      <li>
-                        <Link
-                          to={"/addusuarios"}
-                          className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
+                        <li>
+                          <Link
+                            to={"/addusuarios"}
+                            className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                         dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                        >
-                          <AddUserIcon
-                            className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                            aria-hidden="true"
-                          />
-                          <span className="pl-7 ms-3 whitespace-nowrap">
-                            Agregar usuario
-                          </span>
-                        </Link>
-                      </li>
-                    )}
+                          >
+                            <AddUserIcon
+                              className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                              aria-hidden="true"
+                            />
+                            <span className="pl-7 ms-3 whitespace-nowrap">
+                              Agregar usuario
+                            </span>
+                          </Link>
+                        </li>
+                      )}
                     </ul>
                   )}
                   <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">

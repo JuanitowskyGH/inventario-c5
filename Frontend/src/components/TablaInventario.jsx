@@ -49,12 +49,12 @@ export const TablaInventario = ({ role }) => {
       const user = authService.getCurrentUser();
       if (!user) {
         navigate("/login");
-        return
+        return;
       }
       try {
         const response = await axios.get(endpoints.inventario, {
           headers: {
-            'Authorization': `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         });
         setData(response.data);
@@ -121,11 +121,11 @@ export const TablaInventario = ({ role }) => {
       const user = authService.getCurrentUser();
       if (!user) {
         navigate("/login");
-        return
+        return;
       }
       await axios.delete(`${endpoints.inventario}/${id}`, {
         headers: {
-          'Authorization': `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       });
       Swal.fire({
@@ -420,9 +420,9 @@ export const TablaInventario = ({ role }) => {
               Imagen
             </th>
             {(role === "Administrador" || role === "Moderador") && (
-            <th scope="col" className="px-3 py-3">
-              Acciones
-            </th>
+              <th scope="col" className="px-3 py-3">
+                Acciones
+              </th>
             )}
           </tr>
         </thead>
@@ -458,25 +458,25 @@ export const TablaInventario = ({ role }) => {
                 ></img>
               </td>
               {(role === "Administrador" || role === "Moderador") && (
-              <td className="relative flex py-20 px-4 items-center gap-5">
-                <Tooltip color="primary" content="Editar registro">
-                  <Link to={`/updateinventario/${item.id}`}>
-                    <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                      <EditInventoryIcon />
-                    </span>
-                  </Link>
-                </Tooltip>
-                <Tooltip color="primary" content="Eliminar registro">
-                  <Link>
-                    <span
-                      className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
-                      onClick={() => deleteRegistro(item.id)}
-                    >
-                      <DeleteInventoryIcon />
-                    </span>
-                  </Link>
-                </Tooltip>
-              </td>
+                <td className="relative flex py-20 px-4 items-center gap-5">
+                  <Tooltip color="primary" content="Editar registro">
+                    <Link to={`/updateinventario/${item.id}`}>
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
+                        <EditInventoryIcon />
+                      </span>
+                    </Link>
+                  </Tooltip>
+                  <Tooltip color="primary" content="Eliminar registro">
+                    <Link>
+                      <span
+                        className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
+                        onClick={() => deleteRegistro(item.id)}
+                      >
+                        <DeleteInventoryIcon />
+                      </span>
+                    </Link>
+                  </Tooltip>
+                </td>
               )}
             </tr>
           ))}

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import endpoints from '../services/endpoints';
-import IconUpdate from '../icons/UpdateIcon'; // Asegúrate de importar tu componente de icono
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import endpoints from "../services/endpoints";
+import IconUpdate from "../icons/UpdateIcon"; // Asegúrate de importar tu componente de icono
 
 export const FormCuenta = () => {
   const navigate = useNavigate();
@@ -10,39 +10,39 @@ export const FormCuenta = () => {
     roles: [],
   });
   const [formValues, setFormValues] = useState({
-    nombre: '',
-    apellidoP: '',
-    apellidoM: '',
-    username: '',
-    password: ''
+    nombre: "",
+    apellidoP: "",
+    apellidoM: "",
+    username: "",
+    password: "",
   });
 
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem("user"));
       if (!user) {
-        navigate('/');
+        navigate("/");
         return;
       }
       try {
         const response = await axios.get(endpoints.cuenta, {
           headers: {
-            'Authorization': `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         });
         setUserInfo({
           username: response.data.username,
-          roles: [response.data.role.name]
+          roles: [response.data.role.name],
         });
         setFormValues({
           nombre: response.data.nombre,
           apellidoP: response.data.apellidop,
           apellidoM: response.data.apellidom,
           username: response.data.username,
-          password: ''
+          password: "",
         });
       } catch (error) {
-        alert('Error al cargar la información');
+        alert("Error al cargar la información");
       }
     };
     fetchUserInfo();
@@ -58,42 +58,50 @@ export const FormCuenta = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      navigate('/');
+      navigate("/");
       return;
     }
     try {
       // Verificar la contraseña antes de actualizar los datos
-      const verifyResponse = await axios.post(endpoints.verify, { password: formValues.password }, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
-        },
-      });
+      const verifyResponse = await axios.post(
+        endpoints.verify,
+        { password: formValues.password },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       if (verifyResponse.status !== 200) {
-        alert('Contraseña incorrecta');
+        alert("Contraseña incorrecta");
         return;
       }
 
       // Actualizar la información del usuario
-      await axios.put(endpoints.cuenta, {
-        nombre: formValues.nombre,
-        apellidop: formValues.apellidoP,
-        apellidom: formValues.apellidoM,
-        username: formValues.username
-      }, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
+      await axios.put(
+        endpoints.cuenta,
+        {
+          nombre: formValues.nombre,
+          apellidop: formValues.apellidoP,
+          apellidom: formValues.apellidoM,
+          username: formValues.username,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       setUserInfo({
         ...userInfo,
-        username: formValues.username
+        username: formValues.username,
       });
-      alert('Información actualizada con éxito');
+      alert("Información actualizada con éxito");
       window.location.reload();
     } catch (error) {
-      alert('Error al actualizar la información');
+      alert("Error al actualizar la información");
     }
   };
 
@@ -113,7 +121,7 @@ export const FormCuenta = () => {
               {userInfo.username}
             </h1>
             <p className="text-center dark:text-gray-400 mt-2">
-              Usted tiene permisos de: {userInfo.roles.join(', ')}
+              Usted tiene permisos de: {userInfo.roles.join(", ")}
             </p>
           </div>
         </div>
@@ -220,7 +228,10 @@ export const FormCuenta = () => {
                 </label>
               </div>
             </div>
-            <button type="submit" className="px-5 py-4 mt-5 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
+            <button
+              type="submit"
+              className="px-5 py-4 mt-5 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
+            >
               <IconUpdate className="w-6 h-6 mr-2" />
               Actualizar información
             </button>

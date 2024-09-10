@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import endpoints from "../services/endpoints";
 import authService from "../services/authService";
 
-export const TablaUsuarios = ({role}) => {
+export const TablaUsuarios = ({ role }) => {
   /*const [data, setData] = useState([]);
     const [sortConfig, setSortConfig] = useState({ key: 'etiqueta', direction: 'ascending' });
     const [currentPage, setCurrentPage] = useState(1);
@@ -49,12 +49,12 @@ export const TablaUsuarios = ({role}) => {
       const user = authService.getCurrentUser();
       if (!user) {
         navigate("/");
-        return
+        return;
       }
       try {
         const response = await axios.get(endpoints.usuarios, {
           headers: {
-            'Authorization': `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         });
         setData(response.data);
@@ -89,7 +89,7 @@ export const TablaUsuarios = ({role}) => {
     return sortedData.filter((item) => {
       return search.some((key) => {
         const keys = key.split(".");
-        let value = item
+        let value = item;
         for (const k of keys) {
           value = value ? value[k] : null;
         }
@@ -124,7 +124,7 @@ export const TablaUsuarios = ({role}) => {
       const user = authService.getCurrentUser();
       if (!user) {
         naigate("/");
-        return
+        return;
       }
       await axios.delete(`${endpoints.usuarios}/${id}`, {
         headers: {
@@ -307,9 +307,9 @@ export const TablaUsuarios = ({role}) => {
               Imagen
             </th>
             {role === "Administrador" && (
-            <th scope="col" className="px-6 py-3">
-              Acciones
-            </th>
+              <th scope="col" className="px-6 py-3">
+                Acciones
+              </th>
             )}
           </tr>
         </thead>
@@ -330,7 +330,9 @@ export const TablaUsuarios = ({role}) => {
                 {item.apellidop} {item.apellidom}
               </td>
               <td className="px-6 py-4">{item.username}</td>
-              <td className="px-6 py-4">{item.role ? item.role.name : 'Sin rol'}</td>
+              <td className="px-6 py-4">
+                {item.role ? item.role.name : "Sin rol"}
+              </td>
               <td className="px-6 py-4">
                 <img
                   src={`${endpoints.base}${item.imagen}`}
@@ -340,25 +342,25 @@ export const TablaUsuarios = ({role}) => {
                 ></img>
               </td>
               {role === "Administrador" && (
-              <td className="relative flex py-5 pl-10 items-center gap-2">
-                <Tooltip color="primary" content="Editar usuario">
-                  <Link to={`/updateusuarios/${item.id}`}>
-                    <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                      <EditUserIcon />
-                    </span>
-                  </Link>
-                </Tooltip>
-                <Tooltip color="primary" content="Eliminar usuario">
-                  <Link>
-                    <span
-                      className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
-                      onClick={() => deleteUsuario(item.id)}
-                    >
-                      <DeleteUserIcon />
-                    </span>
-                  </Link>
-                </Tooltip>
-              </td>
+                <td className="relative flex py-5 pl-10 items-center gap-2">
+                  <Tooltip color="primary" content="Editar usuario">
+                    <Link to={`/updateusuarios/${item.id}`}>
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
+                        <EditUserIcon />
+                      </span>
+                    </Link>
+                  </Tooltip>
+                  <Tooltip color="primary" content="Eliminar usuario">
+                    <Link>
+                      <span
+                        className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
+                        onClick={() => deleteUsuario(item.id)}
+                      >
+                        <DeleteUserIcon />
+                      </span>
+                    </Link>
+                  </Tooltip>
+                </td>
               )}
             </tr>
           ))}

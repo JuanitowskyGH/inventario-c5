@@ -1,7 +1,6 @@
 import React from "react";
 import { Menu } from "../components/Menu";
 import { InventarioForm } from "../components/InventarioForm";
-import { Footer } from "../components/Footer";
 import authService from "../services/authService";
 
 export const AddInventario = () => {

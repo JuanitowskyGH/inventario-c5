@@ -17,7 +17,7 @@ export const LoginForm = () => {
     e.preventDefault();
     try {
       const user = await authService.login(username, password);
-      if (user){
+      if (user) {
         navigate("/dashboard");
       }
     } catch (error) {

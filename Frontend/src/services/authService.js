@@ -2,6 +2,7 @@ import axios from "axios";
 import { jwtDecode as decode } from "jwt-decode";
 import endpoints from "./endpoints";
 
+//FUNCION PARA INICIAR SESION
 const login = async (username, password) => {
   try {
     const response = await axios.post(endpoints.login, { username, password });
@@ -14,10 +15,12 @@ const login = async (username, password) => {
   }
 };
 
+//FUNCION PARA CERRAR SESION
 const logout = () => {
   localStorage.removeItem("user");
 };
 
+//FUNCION PARA OBTENER EL USUARIO ACTUAL 
 const getCurrentUser = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user && user.token) {
@@ -32,44 +35,8 @@ const getCurrentUser = () => {
   return null;
 };
 
-/*const getUserInfo = async () => {
-  const user = getCurrentUser();
-  if (user && user.token) {
-    const response = await axios.get(endpoints.cuenta, {
-      headers: { Authorization: `Bearer ${user.token}` }
-    });
-    return response.data;
-  }
-  return null;
-};
-
-const updateUserInfo = async (userData) => {
-  const user = getCurrentUser();
-  if (user && user.token) {
-    const response = await axios.put(endpoints.cuenta, userData, {
-      headers: { Authorization: `Bearer ${user.token}` }
-    });
-    return response.data;
-  }
-  return null;
-};
-
-const verifyPassword = async (password) => {
-  const user = getCurrentUser();
-  if (user && user.token) {
-    const response = await axios.post(endpoints.verify, { password }, {
-      headers: { Authorization: `Bearer ${user.token}` }
-    });
-    return response.data;
-  }
-  return null;
-};*/
-
 export default {
   login,
   logout,
-  getCurrentUser,
-  /*getUserInfo,
-  updateUserInfo,
-  verifyPassword,*/
+  getCurrentUser
 };

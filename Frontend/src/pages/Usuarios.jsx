@@ -2,7 +2,6 @@ import React from "react";
 import { Menu } from "../components/Menu";
 import { TablaUsuarios } from "../components/TablaUsuarios";
 import authService from "../services/authService";
-import { Footer } from "../components/Footer";
 
 export const Usuarios = () => {
   const user = authService.getCurrentUser();
