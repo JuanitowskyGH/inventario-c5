@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const getUserInfo = async (req, res) => {
   try {
     const user = await User.findByPk(req.userId, {
-      attributes: ["nombre", "apellidop", "apellidom", "username"],
+      attributes: ["nombre", "apellidop", "apellidom", "username", "imagen"],
       include: [
         {
           model: Role,
@@ -25,6 +25,7 @@ const getUserInfo = async (req, res) => {
 //CONTROLADOR PARA ACTUALIZAR LA INFORMACIÓN DEL PERFIL DEL USUARIO
 const updateUserInfo = async (req, res) => {
   const { nombre, apellidop, apellidom, username } = req.body;
+  const imagen = req.file ? req.file.path.replace(/\\/g, '/') : null;
   try {
     const user = await User.findByPk(req.userId);
     if (!user) {
@@ -36,9 +37,33 @@ const updateUserInfo = async (req, res) => {
       apellidop: apellidop || user.apellidop,
       apellidom: apellidom || user.apellidom,
       username: username || user.username,
+      imagen: imagen || user.imagen,
     });
 
     return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+// CONTROLADOR PARA ACTUALIZAR LA CONTRASEÑA DEL USUARIO
+const updatePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  try {
+    const user = await User.findByPk(req.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const passValid = await bcrypt.compare(currentPassword, user.password);
+    if (!passValid) {
+      return res.status(400).json({ message: "Invalid current password" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 8);
+    await user.update({ password: hashedPassword });
+
+    return res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -63,4 +88,4 @@ const verifyPassword = async (req, res) => {
   }
 };
 
-module.exports = { getUserInfo, updateUserInfo, verifyPassword };
+module.exports = { getUserInfo, updateUserInfo, verifyPassword, updatePassword };

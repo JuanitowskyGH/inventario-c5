@@ -2,19 +2,28 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import endpoints from "../services/endpoints";
-import IconUpdate from "../icons/UpdateIcon"; // Asegúrate de importar tu componente de icono
+import IconUpdate from "../icons/UpdateIcon"; 
+import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
 
 export const FormCuenta = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     roles: [],
+    imagenUrl: '',
+    password: ''
   });
   const [formValues, setFormValues] = useState({
-    nombre: "",
-    apellidoP: "",
-    apellidoM: "",
-    username: "",
-    password: "",
+    nombre: '',
+    apellidoP: '',
+    apellidoM: '',
+    username: '',
+    imagen: null,
+    password: '',
+  });
+  const [passValues, setPassValues] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
   });
 
   useEffect(() => {
@@ -30,16 +39,20 @@ export const FormCuenta = () => {
             Authorization: `Bearer ${user.token}`,
           },
         });
+        console.log(response.data);
         setUserInfo({
           username: response.data.username,
           roles: [response.data.role.name],
+          imagenUrl: response.data.imagen ? `${endpoints.base}${response.data.imagen.replace(/\\/g, '/')}` : '' // Convertir las barras invertidas a barras y agregar la base URL
+
         });
         setFormValues({
           nombre: response.data.nombre,
           apellidoP: response.data.apellidop,
           apellidoM: response.data.apellidom,
           username: response.data.username,
-          password: "",
+          password: '',
+          imagen: null,
         });
       } catch (error) {
         alert("Error al cargar la información");
@@ -48,15 +61,30 @@ export const FormCuenta = () => {
     fetchUserInfo();
   }, []);
 
-  const handleChange = (e) => {
+  const handleUserChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === 'imagen') {
+      setFormValues({
+        ...formValues,
+        imagen: files[0],
+      });
+    } else {
+      setFormValues({
+        ...formValues,
+        [name]: value,
+      });
+    }
+  };
+
+  const handlePasswordChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
+    setPassValues({
+      ...passValues,
       [name]: value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleUserSubmit = async (e) => {
     e.preventDefault();
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
@@ -65,8 +93,7 @@ export const FormCuenta = () => {
     }
     try {
       // Verificar la contraseña antes de actualizar los datos
-      const verifyResponse = await axios.post(
-        endpoints.verify,
+      const verifyResponse = await axios.post(endpoints.verify,
         { password: formValues.password },
         {
           headers: {
@@ -79,24 +106,36 @@ export const FormCuenta = () => {
         return;
       }
 
+      // Crear un FormData para enviar la imagen y otros datos
+      const formData = new FormData();
+      formData.append('nombre', formValues.nombre);
+      formData.append('apellidop', formValues.apellidoP);
+      formData.append('apellidom', formValues.apellidoM);
+      formData.append('username', formValues.username);
+      if (formValues.imagen) {
+        formData.append('imagen', formValues.imagen);
+      }
+
       // Actualizar la información del usuario
-      await axios.put(
+      const updateResponse = await axios.put(
         endpoints.cuenta,
-        {
-          nombre: formValues.nombre,
-          apellidop: formValues.apellidoP,
-          apellidom: formValues.apellidoM,
-          username: formValues.username,
-        },
+        formData,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
+            'Content-Type': 'multipart/form-data'
           },
         }
       );
+
       setUserInfo({
         ...userInfo,
+        nombre: formValues.nombre,
+        apellidop: formValues.apellidoP,
+        apellidom: formValues.apellidoM,
         username: formValues.username,
+        imagenUrl: updateResponse.data.imagen ? `${endpoints.base}${updateResponse.data.imagen.replace(/\\/g, '/')}` : '' // Actualizar la URL de la imagen
+ 
       });
       alert("Información actualizada con éxito");
       window.location.reload();
@@ -105,14 +144,52 @@ export const FormCuenta = () => {
     }
   };
 
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/");
+      return;
+    }
+    if (passValues.newPassword !== passValues.confirmNewPassword) {
+      alert('Las nuevas contraseñas no coinciden');
+      return;
+    }
+    try {
+      // Verificar la contraseña actual antes de actualizar la nueva contraseña
+      const verifyResponse = await axios.post(endpoints.verify, { password: passValues.currentPassword }, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+        },
+      });
+      if (verifyResponse.status !== 200) {
+        alert('Contraseña actual incorrecta');
+        return;
+      }
+
+      // Actualizar la contraseña del usuario
+      await axios.put(endpoints.updatePass, {
+        currentPassword: passValues.currentPassword,
+        newPassword: passValues.newPassword,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+        },
+      });
+      alert('Contraseña actualizada con éxito');
+    } catch (error) {
+      alert('Error al actualizar la contraseña');
+    }
+  };
+
   return (
     <div className="relative overflow-x-auto bg-gray-200 sm:rounded-lg w-full">
       <div className="grid grid-cols-3 gap-6 p-4">
         <div className="container-fluid shadow-md p-4 rounded-md bg-white">
           <div className="flex justify-center">
-            <img
+          <img
               className="rounded-full p-8"
-              src="/perfil.jpg"
+              src={userInfo.imagenUrl || "/user.jpg"} // Mostrar la imagen del usuario o una imagen por defecto
               alt="image description"
             />
           </div>
@@ -127,7 +204,7 @@ export const FormCuenta = () => {
         </div>
 
         <div className="relative overflow-x-auto col-start-2 col-span-2 bg-white shadow-md sm:rounded-lg w-full">
-          <form className="max-w-xlg mx-auto p-8" onSubmit={handleSubmit}>
+          <form className="max-w-xlg mx-auto p-8" onSubmit={handleUserSubmit}>
             <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
             <h1 className="text-2xl italic mb-8 text-black ">Tu informacion</h1>
             <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-5">
@@ -136,7 +213,7 @@ export const FormCuenta = () => {
                   type="text"
                   name="nombre"
                   value={formValues.nombre}
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                   placeholder=" "
                 />
@@ -152,7 +229,7 @@ export const FormCuenta = () => {
                   type="text"
                   name="apellidoP"
                   value={formValues.apellidoP}
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                   placeholder=" "
                 />
@@ -168,7 +245,7 @@ export const FormCuenta = () => {
                   type="text"
                   name="apellidoM"
                   value={formValues.apellidoM}
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                   placeholder=" "
                 />
@@ -184,7 +261,7 @@ export const FormCuenta = () => {
                   type="text"
                   name="username"
                   value={formValues.username}
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                   placeholder=" "
                 />
@@ -203,7 +280,7 @@ export const FormCuenta = () => {
                   Cambiar imagen (JPG, JPEG o PNG)
                 </label>
                 <input
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   name="imagen"
                   className="block w-full text-sm shadow-md text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                   aria-describedby="file_input_help"
@@ -216,7 +293,7 @@ export const FormCuenta = () => {
                   type="password"
                   name="password"
                   value={formValues.password}
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                   placeholder=" "
                 />
@@ -237,15 +314,8 @@ export const FormCuenta = () => {
             </button>
             <hr className="w-full h-1 mx-auto mt-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
           </form>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-export default FormCuenta;
-
-/*<form className="max-w-xlg mx-auto px-8 pb-8">
+          <form className="max-w-xlg mx-auto px-8 pb-8" onSubmit={handlePasswordSubmit}>
             <h1 className="text-2xl italic mb-8 text-black ">
               Actualizar contraseña
             </h1>
@@ -253,8 +323,9 @@ export default FormCuenta;
               <div className="relative">
                 <input
                   type="password"
-                  value={""}
-                  onChange={""}
+                  name="currentPassword"
+                  value={passValues.currentPassword}
+                  onChange={handlePasswordChange}
                   className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                   placeholder=" "
                 />
@@ -268,8 +339,9 @@ export default FormCuenta;
               <div className="relative">
                 <input
                   type="password"
-                  value={""}
-                  onChange={""}
+                  name="newPassword"
+                  value={passValues.newPassword}
+                  onChange={handlePasswordChange}
                   className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                   placeholder=" "
                 />
@@ -283,8 +355,9 @@ export default FormCuenta;
               <div className="relative">
                 <input
                   type="password"
-                  value={""}
-                  onChange={""}
+                  name="confirmNewPassword"
+                  value={passValues.confirmNewPassword}
+                  onChange={handlePasswordChange}
                   className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                   placeholder=" "
                 />
@@ -304,4 +377,13 @@ export default FormCuenta;
               Actualizar contraseña
             </button>
             <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
-          </form> */
+          </form> 
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FormCuenta;
+
+/**/

@@ -20,7 +20,7 @@ export const FormUpdateUsuario = () => {
     apellidom: "",
     username: "",
     roleId: "",
-    img: "",
+    imagen: "",
   });
 
   const apellidos = `${user.apellidop || ""} ${user.apellidom || ""}`;
@@ -99,6 +99,10 @@ export const FormUpdateUsuario = () => {
     }
   };
 
+  const imgUrl = user.imagen
+  ? `${endpoints.base}${user.imagen.replace(/\\/g, "/")}`
+  : "/user.jpg";
+
   if (loading) {
     return (
       <div className="text-center">
@@ -130,13 +134,13 @@ export const FormUpdateUsuario = () => {
       <form className="max-w-xlg mx-auto p-8" onSubmit={updateUser}>
         <hr className="w-full h-1 mx-auto mb-5 bg-gray-100 border-0 rounded dark:bg-gray-700" />
         <h1 className="text-3xl italic mb-4 text-black ">Actualizar usuario</h1>
-        <p>Actualiza los roleId necesarios y guarda los cambios</p>
+        <p>Actualiza los permisos necesarios y guarda los cambios</p>
         <div className="grid lg:grid-cols-2 gap-4 pt-5">
-          <div className="flex justify-center row-span-3">
-            <img
-              src="/inventory.jpg"
+          <div className="flex justify-center row-span-3 px-12 py-12">
+          <img
+              src={imgUrl}
               alt="imagen"
-              className="w-auto h-auto rounded-md shadow-xl "
+              className="w-auto h-auto object-cover rounded-full shadow-md"
             />
           </div>
           <div className="grid grid-rows-3 grid-flow-col gap-4 mt-5 pr-8">
@@ -210,7 +214,7 @@ export const FormUpdateUsuario = () => {
             </div>
             <div className="relative mb-6">
               <p className="mb-2">
-                Asigne los roleId correspondientes a su usuario.
+                Asigne los permisos correspondientes a su usuario.
               </p>
               <select
                 name="roleId"

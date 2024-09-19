@@ -29,7 +29,7 @@ export const TablaUsuarios = ({ role }) => {
 
   const [data, setData] = useState([]);
   const [sortConfig, setSortConfig] = useState({
-    key: "etiqueta",
+    key: "id",
     direction: "ascending",
   });
   const [globalFilter, setGlobalFilter] = useState("");
@@ -303,7 +303,7 @@ export const TablaUsuarios = ({ role }) => {
             <th scope="col" className="px-6 py-3">
               Permisos
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-1 py-3">
               Imagen
             </th>
             {role === "Administrador" && (
@@ -333,12 +333,11 @@ export const TablaUsuarios = ({ role }) => {
               <td className="px-6 py-4">
                 {item.role ? item.role.name : "Sin rol"}
               </td>
-              <td className="px-6 py-4">
+              <td className="px-1 py-4">
                 <img
-                  src={`${endpoints.base}${item.imagen}`}
+                  src={`${endpoints.base}${item.imagen}` || "/user.jpg"}
                   alt="img"
-                  lenght="lg:1000"
-                  width="lg:1000"
+                  className="w-32 h-32 object-cover rounded-full mr-3"
                 ></img>
               </td>
               {role === "Administrador" && (

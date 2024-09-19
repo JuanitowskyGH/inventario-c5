@@ -4,7 +4,7 @@ const path = require("path");
 const { getAll, getById, create, update, remove } = require("../controllers/register.controller.js");
 const inventario = express.Router();
 
-//CONFUGURACION DE MULTER PARA GUARDAR IMAGENES
+//CONFIGURACION DE MULTER PARA GUARDAR IMAGENES
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/registers");

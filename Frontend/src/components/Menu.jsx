@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserIcon from "../icons/UserIcon";
 import AddUserIcon from "../icons/AddUserIcon";
 import InventoryIcon from "../icons/InventoryIcon";
@@ -7,10 +7,48 @@ import AddInventoryIcon from "../icons/EditInventoryIcon";
 import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
 import SignOutIcon from "../icons/SignOutIcon";
 import authService from "../services/authService";
+import axios from "axios";
+import endpoints from "../services/endpoints";
+
 
 export const Menu = ({ role }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    nombre: "",
+    apellidop: "",
+    apellidom: "",
+    imagenUrl: '',
+  });
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        navigate("/");
+        return;
+      }
+      try {
+        const response = await axios.get(endpoints.cuenta, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        console.log(response.data);
+        setUserInfo({
+          nombre: response.data.nombre,
+          apellidop: response.data.apellidop,
+          apellidom: response.data.apellidom,
+          imagenUrl: response.data.imagen ? `${endpoints.base}${response.data.imagen.replace(/\\/g, '/')}` : '' // Convertir las barras invertidas a barras y agregar la base URL
+
+        });
+      } catch (error) {
+        alert("Error al cargar la información");
+      }
+    };
+    fetchUserInfo();
+  }, []);
+
   const navigate = useNavigate();
 
   const logout = () => {
@@ -228,12 +266,12 @@ export const Menu = ({ role }) => {
                   onClick={toggleDropdown}
                 >
                   <img
-                    src="/perfil.jpg"
-                    className="w-11 h-10 rounded-full mr-3"
+                    src={userInfo.imagenUrl || "/user.jpg"}
+                    className="w-11 h-10 rounded-full mr-3 object-cover"
                     alt="User Profile"
                   />
                   <span className="ml-2 italic font-medium">
-                    Nombre de usuario
+                    {userInfo.nombre} {userInfo.apellidop} {userInfo.apellidom}
                   </span>
                 </button>
                 <div

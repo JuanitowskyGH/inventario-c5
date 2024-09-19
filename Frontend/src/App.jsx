@@ -8,6 +8,9 @@ import ProtectedRoute from "./ProtectedRoute";
 //PAGINAS PUBLICAS
 import Login from "./pages/Login";
 
+//PAGINAS DE ERROR
+import { NotFound } from "./pages/NotFound";
+
 //PAGINAS CON AUTENTICACION
 import { Administracion } from "./pages/Administracion";
 
@@ -30,6 +33,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/unauthorized" element={<Administracion />} />
         </Route>
