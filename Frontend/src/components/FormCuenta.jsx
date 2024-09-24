@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import endpoints from "../services/endpoints";
 import IconUpdate from "../icons/UpdateIcon"; 
 import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
+import Swal from "sweetalert2";
 
 export const FormCuenta = () => {
   const navigate = useNavigate();
@@ -39,11 +40,10 @@ export const FormCuenta = () => {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        console.log(response.data);
         setUserInfo({
           username: response.data.username,
           roles: [response.data.role.name],
-          imagenUrl: response.data.imagen ? `${endpoints.base}${response.data.imagen.replace(/\\/g, '/')}` : '' // Convertir las barras invertidas a barras y agregar la base URL
+          imagenUrl: response.data.imagen ? `${endpoints.base}${response.data.imagen}` : '' // Convertir las barras invertidas a barras y agregar la base URL
 
         });
         setFormValues({
@@ -91,9 +91,31 @@ export const FormCuenta = () => {
       navigate("/");
       return;
     }
+    if (!formValues.password) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "¡Error!",
+        text: "Ingrese su contraseña para confirmar",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+    const confirm = await Swal.fire({
+      title: "¿Esta seguro de actualizar su informacion?",
+      text: "Podra modificar su informacion personal mas adelante si lo desea",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0B1556",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Guardar cambios",
+      cancelButtonText: "Cancelar",
+    });
+    if (confirm.isConfirmed) {
     try {
       // Verificar la contraseña antes de actualizar los datos
-      const verifyResponse = await axios.post(endpoints.verify,
+      await axios.post(endpoints.verify,
         { password: formValues.password },
         {
           headers: {
@@ -101,10 +123,6 @@ export const FormCuenta = () => {
           },
         }
       );
-      if (verifyResponse.status !== 200) {
-        alert("Contraseña incorrecta");
-        return;
-      }
 
       // Crear un FormData para enviar la imagen y otros datos
       const formData = new FormData();
@@ -134,14 +152,30 @@ export const FormCuenta = () => {
         apellidop: formValues.apellidoP,
         apellidom: formValues.apellidoM,
         username: formValues.username,
-        imagenUrl: updateResponse.data.imagen ? `${endpoints.base}${updateResponse.data.imagen.replace(/\\/g, '/')}` : '' // Actualizar la URL de la imagen
+        imagenUrl: updateResponse.data.imagen ? `${endpoints.base}${updateResponse.data.imagen}` : '' // Actualizar la URL de la imagen
  
       });
-      alert("Información actualizada con éxito");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Listo!",
+        text: "Información actualizada con éxito",
+        showConfirmButton: false,
+        timer: 2000,
+      }).then(() => {
       window.location.reload();
+      });
     } catch (error) {
-      alert("Error al actualizar la información");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "¡Error!",
+        text: "Contraseña incorrecta",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
+  }
   };
 
   const handlePasswordSubmit = async (e) => {
@@ -151,22 +185,47 @@ export const FormCuenta = () => {
       navigate("/");
       return;
     }
+    if (!passValues.currentPassword || !passValues.newPassword || !passValues.confirmNewPassword) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "¡Error!",
+        text: "Llene los campos para continuar",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
     if (passValues.newPassword !== passValues.confirmNewPassword) {
-      alert('Las nuevas contraseñas no coinciden');
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "¡Error!",
+        text: "Las contraseñas no coinciden",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       return;
     }
     try {
       // Verificar la contraseña actual antes de actualizar la nueva contraseña
-      const verifyResponse = await axios.post(endpoints.verify, { password: passValues.currentPassword }, {
+      await axios.post(endpoints.verify, { password: passValues.currentPassword }, {
         headers: {
           'Authorization': `Bearer ${user.token}`,
         },
       });
-      if (verifyResponse.status !== 200) {
-        alert('Contraseña actual incorrecta');
-        return;
-      }
 
+      const confirm = await Swal.fire({
+        title: "¿Esta seguro de cambiar la contraseña?",
+        text: "Recuerde su nueva contraseña para futuros accesos",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0B1556",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Guardar cambios",
+        cancelButtonText: "Cancelar",
+      });
+      if (confirm.isConfirmed) {
       // Actualizar la contraseña del usuario
       await axios.put(endpoints.updatePass, {
         currentPassword: passValues.currentPassword,
@@ -176,9 +235,26 @@ export const FormCuenta = () => {
           'Authorization': `Bearer ${user.token}`,
         },
       });
-      alert('Contraseña actualizada con éxito');
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Listo!",
+        text: "Información actualizada con éxito",
+        showConfirmButton: false,
+        timer: 2000,
+      }).then(() => {
+      window.location.reload();
+      });
+    } 
     } catch (error) {
-      alert('Error al actualizar la contraseña');
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "¡Error!",
+        text: "La contraseña actual es incorrecta",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   };
 
@@ -284,6 +360,7 @@ export const FormCuenta = () => {
                   name="imagen"
                   className="block w-full text-sm shadow-md text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                   aria-describedby="file_input_help"
+                  accept="image/jpeg, image/jpg, image/png"
                   id="file_input"
                   type="file"
                 />

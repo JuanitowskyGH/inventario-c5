@@ -209,7 +209,7 @@ export const TablaInventario = ({ role }) => {
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="pl-3 py-3">
               <div className="flex items-center">
                 ID
                 <a
@@ -231,7 +231,7 @@ export const TablaInventario = ({ role }) => {
                 </a>
               </div>
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="pl-3 py-3">
               <div className="flex items-center">
                 Etiqueta
                 <a
@@ -325,12 +325,12 @@ export const TablaInventario = ({ role }) => {
                 </a>
               </div>
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 text-center">
               Serie
             </th>
             <th scope="col" className="px-6 py-3">
               <div className="flex items-center">
-                Departamento
+                Dpto
                 <a
                   href=""
                   onClick={(e) => {
@@ -416,7 +416,7 @@ export const TablaInventario = ({ role }) => {
                 </a>
               </div>
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3  text-center">
               Imagen
             </th>
             {(role === "Administrador" || role === "Moderador") && (
@@ -434,11 +434,11 @@ export const TablaInventario = ({ role }) => {
             >
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="pl-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
                 {item.id}
               </th>
-              <td className="px-6 py-4">{item.etiqueta}</td>
+              <td className="pl-3 py-4">{item.etiqueta}</td>
               <td className="px-6 py-4">{item.numAnterior}</td>
               <td className="px-6 py-4">{item.tipo}</td>
               <td className="px-6 py-4">{item.descripcion}</td>
@@ -451,11 +451,10 @@ export const TablaInventario = ({ role }) => {
               <td className="px-6 py-4">{item.edicion}</td>
               <td className="px-6 py-4">
                 <img
-                  src={`${endpoints.base}${item.imagen}`}
+                  src={item.imagen ? `${endpoints.base}${item.imagen}` : "/inventory.jpg"}
                   alt="img"
-                  width="lg:1000"
-                  height="lg:1000"
-                ></img>
+                  className="w-full h-auto max-w-xs sm:max-w-sm md:max-w-md rounded-md mr-3"
+                />
               </td>
               {(role === "Administrador" || role === "Moderador") && (
                 <td className="relative flex py-20 px-4 items-center gap-5">

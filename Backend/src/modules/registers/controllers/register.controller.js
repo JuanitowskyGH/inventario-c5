@@ -30,7 +30,7 @@ const getById = async (req, res) => {
 //CONTROLADOR PARA CREAR UN REGISTRO
 const create = async (req, res) => {
   try {
-    const imagen = req.file ? req.file.path : null;
+    const imagen = req.file ? req.file.path.replace(/\\/g, '/') : null;
     const {
       etiqueta,
       numAnterior,
@@ -117,7 +117,7 @@ const update = async (req, res) => {
     };
 
     if (req.file) {
-      updateData.imagen = req.file.path;
+      updateData.imagen = req.file.path.replace(/\\/g, '/');
     }
 
     await Inventario.update(updateData, {

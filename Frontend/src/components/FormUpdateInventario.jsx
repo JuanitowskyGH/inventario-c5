@@ -150,7 +150,7 @@ export const FormUpdateInventario = () => {
   };
 
   const imgUrl = inventario.imagen
-    ? `${endpoints.base}${inventario.imagen.replace(/\\/g, "/")}`
+    ? `${endpoints.base}${inventario.imagen}`
     : "/inventory.jpg";
 
   if (loading) {
@@ -199,7 +199,7 @@ export const FormUpdateInventario = () => {
               value={inventario.id || ""}
               onChange={handleChange}
               id="id"
-              className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
+              className="block cursor-not-allowed rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
               placeholder=" "
             />
             <label

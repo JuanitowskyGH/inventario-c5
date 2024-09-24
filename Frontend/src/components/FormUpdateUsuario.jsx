@@ -59,7 +59,7 @@ export const FormUpdateUsuario = () => {
   const updateUser = async (e) => {
     e.preventDefault();
     const confirm = await Swal.fire({
-      title: "¿Esta seguro de asignar estos roleId a este usuario?",
+      title: "¿Esta seguro de asignar estos permisos a este usuario?",
       text: "Tendra acceso a ciertas partes del sistema",
       icon: "warning",
       showCancelButton: true,
@@ -100,7 +100,7 @@ export const FormUpdateUsuario = () => {
   };
 
   const imgUrl = user.imagen
-  ? `${endpoints.base}${user.imagen.replace(/\\/g, "/")}`
+  ? `${endpoints.base}${user.imagen}`
   : "/user.jpg";
 
   if (loading) {
@@ -151,7 +151,7 @@ export const FormUpdateUsuario = () => {
                 onChange={handleChange}
                 disabled
                 id="id"
-                className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
+                className="block cursor-not-allowed rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                 placeholder=" "
               />
               <label
@@ -168,7 +168,7 @@ export const FormUpdateUsuario = () => {
                 onChange={handleChange}
                 disabled
                 id="username"
-                className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
+                className="block cursor-not-allowed rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                 placeholder=" "
               />
               <label
@@ -185,7 +185,7 @@ export const FormUpdateUsuario = () => {
                 onChange={handleChange}
                 disabled
                 id="nombre"
-                className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
+                className="block cursor-not-allowed rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                 placeholder=" "
               />
               <label
@@ -202,7 +202,7 @@ export const FormUpdateUsuario = () => {
                 onChange={handleChange}
                 disabled
                 id="apellidop"
-                className="block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
+                className="block cursor-not-allowed rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer"
                 placeholder=" "
               />
               <label
