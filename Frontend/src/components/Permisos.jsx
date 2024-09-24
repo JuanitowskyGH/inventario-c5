@@ -4,7 +4,7 @@ import { Popover } from "flowbite-react";
 export const Permisos = () => {
   return (
     <div>
-      <p className="text-gray-500 dark:text-gray-400 pt-6">
+      <div className="text-gray-500 dark:text-gray-400 pt-6 pl-8">
         Acerca de los{" "}
         <Popover
           trigger="hover"
@@ -31,7 +31,7 @@ export const Permisos = () => {
                     El <b>Administrador</b> puede: <br />
                     - Permisos de Moderador <br />
                     - Agregar, eliminar y asignar permisos a usuarios <br />
-                  </p>
+                    </p>
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@ export const Permisos = () => {
             Permisos
           </a>
         </Popover>{" "}
-      </p>
+      </div>
     </div>
   );
 };

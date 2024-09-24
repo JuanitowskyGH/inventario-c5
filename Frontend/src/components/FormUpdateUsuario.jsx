@@ -3,6 +3,7 @@ import { Permisos } from "./Permisos";
 import { Link } from "react-router-dom";
 import Discard from "../icons/DiscardIcon";
 import { rolesHook } from "../hooks/users/roles.hook";
+import endpoints from "../services/endpoints";
 
 export const FormUpdateUsuario = () => {
 

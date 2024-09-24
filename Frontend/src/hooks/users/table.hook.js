@@ -96,8 +96,8 @@ export const tableHook = () => {
       text: "No habrá registro de él una vez eliminado",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "0B1556",
-      cancelButtonColor: "d33",
+      confirmButtonColor: "#0B1556",
+      cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
     });
@@ -118,6 +118,8 @@ export const tableHook = () => {
         text: "El usuario ha sido eliminado con éxito",
         showConfirmButton: false,
         timer: 2000,
+      }).then(() => {
+        window.location.reload();
       });
       setData(data.filter((item) => item.id !== id));
       getUsuarios();
