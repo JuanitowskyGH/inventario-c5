@@ -1,83 +1,15 @@
-import React, { useState, useEffect } from "react";
 import UserIcon from "../icons/UserIcon";
 import AddUserIcon from "../icons/AddUserIcon";
 import InventoryIcon from "../icons/InventoryIcon";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import AddInventoryIcon from "../icons/EditInventoryIcon";
 import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
 import SignOutIcon from "../icons/SignOutIcon";
-import authService from "../services/authService";
-import axios from "axios";
-import endpoints from "../services/endpoints";
+import { menuHook } from "../hooks/services/menu.hook";
 
 export const Menu = ({ role, onMenuToggle }) => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [userInfo, setUserInfo] = useState({
-    nombre: "",
-    apellidop: "",
-    apellidom: "",
-    imagenUrl: "",
-  });
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    const fetchUserInfo = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (!user) {
-        navigate("/");
-        return;
-      }
-      try {
-        const response = await axios.get(endpoints.cuenta, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        setUserInfo({
-          nombre: response.data.nombre,
-          apellidop: response.data.apellidop,
-          apellidom: response.data.apellidom,
-          imagenUrl: response.data.imagen
-            ? `${endpoints.base}${response.data.imagen.replace(/\\/g, "/")}`
-            : "", // Convertir las barras invertidas a barras y agregar la base URL
-        });
-      } catch (error) {
-        alert("Error al cargar la información");
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    fetchUserInfo();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [navigate]);
-
-  const logout = () => {
-    authService.logout();
-    navigate("/");
-  };
-
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-    onMenuToggle(!isDrawerOpen);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerOpen(false);
-    onMenuToggle(false);
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  const { isDrawerOpen, isDropdownOpen, isMobile, userInfo, toggleDrawer, toggleDropdown, closeDrawer, logout } = menuHook(onMenuToggle);
 
   return (
     <div className="relative">

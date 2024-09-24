@@ -3,30 +3,11 @@ import UserIcon from "../icons/UserIcon";
 import PasswordIcon from "../icons/PasswordIcon";
 import EyeIcon from "../icons/EyeIcon";
 import EyeIconClose from "../icons/EyeIconClose";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import authService from "../services/authService";
+import { loginHook } from "../hooks/services/login.hook";
 
 export const LoginForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const user = await authService.login(username, password);
-      if (user) {
-        navigate("/dashboard");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  };
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const { showPassword, username, password, setUsername, setPassword, handleLogin, togglePasswordVisibility } = loginHook();
 
   return (
     <form
