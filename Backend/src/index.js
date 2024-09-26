@@ -17,29 +17,29 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static("public"));
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      imgSrc: ["'self'", 'data:', 'https:', 'http:', 'http://localhost:4000'],
+      imgSrc: ["'self'", 'data:', 'https:', 'http:', 'http://localhost:4000/'],
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
-      connectSrc: ["'self'", 'http://localhost:4000'],
+      connectSrc: ["'self'", 'http://localhost:4000/'],
       fontSrc: ["'self'", 'https:', 'http:'],
       objectSrc: ["'none'"],
-      mediaSrc: ["'self'", 'http://localhost:4000'],
+      mediaSrc: ["'self'", 'http://localhost:4000/'],
       frameSrc: ["'self'"]
     }
   }
 }));
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin"
-  );
-  next();
-});
+app.use(helmet({
+  crossOriginEmbedderPolicy: { policy: "require-corp" },
+  crossOriginOpenerPolicy: { policy: "same-origin" },
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+}));
 
 //RUTAS
 app.use("/api/login", public);

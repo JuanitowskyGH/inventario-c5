@@ -11,7 +11,7 @@ export const AccesoRapido = ({ role }) => {
   return (
     <div className="container mx-auto px-6 py-16">
       <hr className="w-full h-1 mx-auto mb-3 bg-gray-100 border-0 rounded dark:bg-gray-700" />
-      <h1 class="my-6 text-3xl text-center font-extrabold text-blue-tlax dark:text-white md:text-5xl lg:text-6xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-tlax from-sky-400">Accesos Ra</span>pidos</h1>
+      <h1 className="my-6 text-3xl text-center font-extrabold text-blue-tlax dark:text-white md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-tlax from-sky-400">Accesos Ra</span>pidos</h1>
       {/* <div className="flex justify-center pb-6 text-3xl text-default-400 italic">
         <b>Accesos Rapidos</b>
       </div> */}
