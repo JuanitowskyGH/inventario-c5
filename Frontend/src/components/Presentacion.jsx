@@ -8,7 +8,7 @@ export const Presentacion = () => {
         <img
           src="/sesesp_logo.png"
           alt="Logo Tlaxcala"
-          className="lg:w-38 lg:h-40 mx-auto mt-8"
+          className="lg:w-38 lg:h-40 sm:size-auto mx-auto mt-8"
         />{" "}
       </a>
       <div className="pt-12">

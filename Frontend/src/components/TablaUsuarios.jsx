@@ -1,9 +1,10 @@
 import { Link} from "react-router-dom";
 import DeleteUserIcon from "../icons/DeleteUserIcon";
 import EditUserIcon from "../icons/EditUserIcon";
-import { Tooltip } from "flowbite-react";
+import { Tooltip, Popover } from "flowbite-react";
 import { tableHook } from "../hooks/users/table.hook";
 import endpoints from "../services/endpoints";
+import InfoIcon from "../icons/InfoIcon";
 
 export const TablaUsuarios = ({ role }) => {
 
@@ -221,6 +222,22 @@ export const TablaUsuarios = ({ role }) => {
                       </span>
                     </Link>
                   </Tooltip>
+                  <Popover
+                  trigger="hover"
+                  placement="left"
+                  content={
+                    <div className="p-4">
+                      <ul>
+                        <li><strong>Creado por:</strong></li>
+                        <li><strong>Nombre: </strong>{item.creator ? `${item.creator.nombre} ${item.creator.apellidop} ${item.creator.apellidom}` : "Desconocido"}</li>
+                      </ul>
+                    </div>
+                  }
+                >
+                  <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
+                    <InfoIcon />
+                  </span>
+                </Popover>
                 </td>
               )}
             </tr>

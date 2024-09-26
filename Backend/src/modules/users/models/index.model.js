@@ -4,7 +4,7 @@ const db = require("../../../database/database");
 const bcrypt = require("bcrypt");
 
 //CREACION DE TABLAS EN LA BASE DE DATOS
-db.sync({ force: false }).then(() => {
+db.sync({ force: false, alter: false }).then(() => {
   console.log("Tablas creadas");
   initial();
 });

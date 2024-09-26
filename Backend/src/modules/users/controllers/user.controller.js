@@ -15,6 +15,7 @@ const create = async (req, res) => {
       username,
       roleId,
       password: hashPass,
+      createdBy: req.user.id,
     });
 
     return res.status(201).json(user);
@@ -32,6 +33,11 @@ const findAll = async (req, res) => {
           model: Role,
           attributes: ["name"],
         },
+        {
+          model: User,
+          as: "creator",
+          attributes: ["nombre", "apellidop", "apellidom"],
+        }
       ],
     });
     return res.status(200).json(users);
