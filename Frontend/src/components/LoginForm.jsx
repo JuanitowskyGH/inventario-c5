@@ -15,9 +15,7 @@ export const LoginForm = () => {
       className="mt-16 bg-white p-6 rounded-lg shadow-lg shadow-black w-96"
     >
       <hr className="w-full h-1 mx-auto mb-5 bg-gray-100 border-0 rounded dark:bg-gray-700" />
-      <h2 className="text-2xl italic mb-6 text-center text-black ">
-        Sistema de Inventario C5i
-      </h2>
+      <h1 class="mb-4 text-center text-4xl font-extrabold text-blue-tlax"><span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-tlax from-sky-400">Sistema de Inve</span>ntario C5i</h1>
       <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
       <label
         htmlFor="website-admin"

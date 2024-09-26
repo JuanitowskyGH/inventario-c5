@@ -36,19 +36,19 @@ export const FormCuenta = () => {
     <div className="relative overflow-x-auto bg-gray-200 sm:rounded-lg w-full">
       <div className="grid grid-cols-3 gap-6 p-4">
         <div className="container-fluid shadow-md p-4 rounded-md bg-white">
-          <div className="flex justify-center">
+          <div className="flex justify-center m-16">
           <img
-              className="rounded-full p-8"
+              className="rounded-full shadow-sm"
               src={userInfo.imagenUrl || "/user.jpg"} // Mostrar la imagen del usuario o una imagen por defecto
               alt="image description"
             />
           </div>
           <div className="grid grid-rows-2">
-            <h1 className="text-3xl text-center mb-8 dark:text-gray-100 font-bold italic">
-              {userInfo.username}
-            </h1>
+              <span className="mb-7 self-center text-3xl text-center text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-blue-tlax font-semibold whitespace-nowrap dark:text-white italic">
+                {userInfo.username}
+              </span>
             <p className="text-center dark:text-gray-400 mt-2">
-              Usted tiene permisos de: {userInfo.roles.join(", ")}
+              Usted tiene permisos de: <strong>{userInfo.roles.join(", ")}</strong>
             </p>
           </div>
         </div>

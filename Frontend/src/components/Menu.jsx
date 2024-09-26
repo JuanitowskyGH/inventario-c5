@@ -48,7 +48,7 @@ export const Menu = ({ role, onMenuToggle }) => {
                   className="h-8 me-3"
                   alt="FlowBite Logo"
                 />
-                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white italic">
+                <span className="self-center text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-blue-tlax text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white italic">
                   Inventario C5i
                 </span>
               </Link>
