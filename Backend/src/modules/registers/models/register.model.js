@@ -1,4 +1,5 @@
 const database = require("../../../database/database.js");
+const User = require("../../users/models/user.model.js");
 const { DataTypes } = require("sequelize");
 
 const TABLA = "registers";
@@ -67,6 +68,13 @@ const Inventario = database.define(
     imagen: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    createdBy: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
     },
     createdAt: {
       type: DataTypes.DATEONLY,

@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const authUser = require('../../auth/middleware/user.middleware');
 const { getAll, getById, create, update, remove } = require("../controllers/register.controller.js");
 const inventario = express.Router();
 
@@ -21,7 +22,7 @@ const upload = multer({ storage: storage });
 //RUTAS
 inventario.get("/inventario", getAll);
 inventario.get("/inventario/:id", getById);
-inventario.post("/inventario", upload.single("imagen"), create);
+inventario.post("/inventario", authUser, upload.single("imagen"), create);
 inventario.put("/inventario/:id", upload.single("imagen"), update);
 inventario.delete("/inventario/:id", remove);
 

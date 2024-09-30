@@ -1,4 +1,4 @@
-const { User, Role } = require("../models/index.model");
+const { User, Role } = require("../../index.model");
 const bcrypt = require("bcrypt");
 
 //CONTROLADOR PARA HACER LAS PETICIONES A LA BASE DE DATOS
@@ -35,7 +35,7 @@ const findAll = async (req, res) => {
         },
         {
           model: User,
-          as: "creator",
+          as: "creatorU",
           attributes: ["nombre", "apellidop", "apellidom"],
         }
       ],

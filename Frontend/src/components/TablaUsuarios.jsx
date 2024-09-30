@@ -1,14 +1,21 @@
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import DeleteUserIcon from "../icons/DeleteUserIcon";
 import EditUserIcon from "../icons/EditUserIcon";
 import { Tooltip, Popover } from "flowbite-react";
 import { tableHook } from "../hooks/users/table.hook";
 import endpoints from "../services/endpoints";
 import InfoIcon from "../icons/InfoIcon";
+import authService from "../services/authService";
 
 export const TablaUsuarios = ({ role }) => {
-
-  const { data, loading, globalFilter, requestSort, setGlobalFilter, deleteUsuario } = tableHook();
+  const {
+    data,
+    loading,
+    globalFilter,
+    requestSort,
+    setGlobalFilter,
+    deleteUsuario,
+  } = tableHook();
 
   if (loading) {
     return (
@@ -42,8 +49,8 @@ export const TablaUsuarios = ({ role }) => {
         Lista de usuarios
         <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
           Aquí puedes ver la lista de los usuarios con detalles. <br />
-          Realiza la búsqueda de un registro en específico con:{" "}
-          <b>ID, Nombre, Apellidos, Nombre de usuario y Permisos</b>
+          Realiza la búsqueda de un registro en específico con:
+          <b> ID, Nombre, Apellidos, Nombre de usuario y Permisos</b>
         </p>
         <label htmlFor="table-search" className="sr-only">
           Buscar
@@ -170,7 +177,7 @@ export const TablaUsuarios = ({ role }) => {
             <th scope="col" className="px-6 py-3">
               Permisos
             </th>
-            <th scope="col" className="px-1 py-3">
+            <th scope="col" className="px-11 py-3">
               Imagen
             </th>
             {role === "Administrador" && (
@@ -193,18 +200,26 @@ export const TablaUsuarios = ({ role }) => {
                 {item.id}
               </th>
               <td className="pl-6 py-4">{item.nombre}</td>
-              <td className="pl-6 py-4">{item.apellidop} {item.apellidom}</td>
+              <td className="pl-6 py-4">
+                {item.apellidop} {item.apellidom}
+              </td>
               <td className="pl-6 py-4">{item.username}</td>
-              <td className="px-6 py-4">{item.role ? item.role.name : "Sin rol"}</td>
+              <td className="px-6 py-4">
+                {item.role ? item.role.name : "Sin rol"}
+              </td>
               <td className="px-1 py-4">
                 <img
-                  src={item.imagen ? `${endpoints.base}${item.imagen}` : "/user.jpg"}
+                  src={
+                    item.imagen
+                      ? `${endpoints.base}${item.imagen}`
+                      : "/user.jpg"
+                  }
                   alt="img"
                   className="w-32 h-32 object-cover rounded-full mr-3"
                 />
               </td>
               {role === "Administrador" && (
-                <td className="relative flex py-16 pl-2 items-center gap-2">
+                <td className="relative flex py-16 items-center gap-2">
                   <Tooltip color="primary" content="Editar usuario">
                     <Link to={`/updateusuarios/${item.id}`}>
                       <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
@@ -223,21 +238,32 @@ export const TablaUsuarios = ({ role }) => {
                     </Link>
                   </Tooltip>
                   <Popover
-                  trigger="hover"
-                  placement="left"
-                  content={
-                    <div className="p-4">
-                      <ul>
-                        <li><strong>Creado por:</strong></li>
-                        <li><strong>Nombre: </strong>{item.creator ? `${item.creator.nombre} ${item.creator.apellidop} ${item.creator.apellidom}` : "Desconocido"}</li>
-                      </ul>
-                    </div>
-                  }
-                >
-                  <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
-                    <InfoIcon />
-                  </span>
-                </Popover>
+                    trigger="hover"
+                    placement="left"
+                    content={
+                      <div className="p-4">
+                        <ul>
+                          <li>
+                            <strong>DATOS DE CREACION</strong>
+                          </li>
+                          <li>
+                            <strong>Creado por: </strong>
+                            {item.creatorU
+                              ? `${item.creatorU.nombre} ${item.creatorU.apellidop} ${item.creatorU.apellidom}`
+                              : "Desconocido"}
+                          </li>
+                          <li>
+                            <strong>Fecha: </strong>
+                            {item.createdAt}
+                          </li>
+                        </ul>
+                      </div>
+                    }
+                  >
+                    <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
+                      <InfoIcon />
+                    </span>
+                  </Popover>
                 </td>
               )}
             </tr>

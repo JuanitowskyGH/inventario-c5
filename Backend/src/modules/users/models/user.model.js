@@ -54,10 +54,5 @@ const User = sequelize.define(TABLA, {
   },
 });
 
-//RELACIONES ENTRE TABLAS
-User.belongsTo(Role, { foreignKey: "roleId" });
-Role.hasMany(User, { foreignKey: "roleId" });
-
-User.belongsTo(User, { as: "creator", foreignKey: "createdBy" });
 
 module.exports = User;

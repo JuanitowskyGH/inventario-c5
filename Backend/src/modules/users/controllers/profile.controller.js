@@ -1,4 +1,4 @@
-const { User, Role } = require("../models/index.model");
+const { User, Role } = require("../../index.model");
 const bcrypt = require("bcrypt");
 
 //CONTROLADOR PARA OBTENER LA INFORMACIÓN DEL PERFIL DEL USUARIO

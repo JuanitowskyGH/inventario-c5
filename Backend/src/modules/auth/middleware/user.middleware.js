@@ -1,4 +1,4 @@
-const { User } = require("../../users/models/index.model");
+const { User } = require("../../index.model");
 
 const authUser = async (req, res, next) => {
   if (!req.userId) {
@@ -11,7 +11,7 @@ const authUser = async (req, res, next) => {
       return res.status(401).json({ message: "User not found" });
     }
 
-    req.user = user; // Agregar la información completa del usuario al objeto req
+    req.user = user; 
     next();
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });

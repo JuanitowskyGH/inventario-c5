@@ -1,9 +1,10 @@
 import EditInventoryIcon from "../icons/EditInventoryIcon";
 import DeleteInventoryIcon from "../icons/DeleteInventoryIcon";
 import { Link} from "react-router-dom";
-import { Tooltip } from "flowbite-react";
+import { Tooltip, Popover } from "flowbite-react";
 import endpoints from "../services/endpoints";
 import { tableHook } from "../hooks/registers/table.hook";
+import InfoIcon from "../icons/InfoIcon";
 
 export const TablaInventario = ({ role }) => {
 
@@ -326,7 +327,7 @@ export const TablaInventario = ({ role }) => {
                 />
               </td>
               {(role === "Administrador" || role === "Moderador") && (
-                <td className="relative flex py-20 px-4 items-center gap-5">
+                <td className="flex py-24 px-4 items-center gap-2">
                   <Tooltip color="primary" content="Editar registro">
                     <Link to={`/updateinventario/${item.id}`}>
                       <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
@@ -344,6 +345,24 @@ export const TablaInventario = ({ role }) => {
                       </span>
                     </Link>
                   </Tooltip>
+                  <Popover
+                  trigger="hover"
+                  placement="left"
+                  content={
+                    <div className="p-4">
+                      <ul>
+                        <li><strong>DATOS DE CREACION</strong></li>
+                        <li><strong>Creado por: </strong>{item.creatorI ? `${item.creatorI.nombre} ${item.creatorI.apellidop} ${item.creatorI.apellidom}` : "Desconocido"}</li>
+                        <li><strong>Fecha: </strong>{item.createdAt}</li>
+                        <li><strong>Ultima actualización: </strong>{item.updatedAt}</li>
+                      </ul>
+                    </div>
+                  }
+                >
+                  <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
+                    <InfoIcon />
+                  </span>
+                </Popover>
                 </td>
               )}
             </tr>

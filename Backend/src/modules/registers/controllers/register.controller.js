@@ -1,10 +1,18 @@
-const Inventario = require("../models/register.model.js");
+const { Inventario, User } = require("../../index.model");
 
 //CONTROLADOR PARA HACER LAS PETICIONES A LA BASE DE DATOS
 //CONTROLADOR PARA OBTENER TODOS LOS REGISTROS
 const getAll = async (req, res) => {
   try {
-    const inventario = await Inventario.findAll();
+    const inventario = await Inventario.findAll({
+      include: [
+        {
+          model: User,
+          as: "creatorI",
+          attributes: ["nombre", "apellidop", "apellidom"],
+        }
+      ],
+    });
     res.json(inventario);
   } catch (error) {
     res.status(500).json({
@@ -72,6 +80,7 @@ const create = async (req, res) => {
       ubicacion,
       edicion,
       imagen,
+      createdBy: req.user.id,
     });
 
     res.status(201).json({ inventario, message: "Registro creado" });
