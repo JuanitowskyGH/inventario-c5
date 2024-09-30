@@ -87,19 +87,9 @@ export const Menu = ({ role, onMenuToggle }) => {
                       <UserIcon className="w-3 h-3 mr-2" />
                       Perfil
                     </Link>
-                    <Link
-                      to=""
-                      className="px-4 py-2 w-full h-full 
-                      transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
-                      text-base italic text-center inline-flex items-center 
-                      text-gray-700 hover:bg-gray-100"
-                    >
-                      <IconLockPasswordLine className="w-3 h-3 mr-2" />
-                      Cambiar contraseña??
-                    </Link>
                     <button
                       onClick={logout}
-                      className="px-4 py-2 w-full h-full 
+                      className="px-4 py-2 w-full h-full font-semibold
                       transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                       text-base italic text-center inline-flex items-center 
                       text-gray-700 hover:bg-gray-100"

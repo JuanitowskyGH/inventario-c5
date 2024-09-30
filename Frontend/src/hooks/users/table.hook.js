@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -6,7 +6,6 @@ import endpoints from "../../services/endpoints";
 import authService from "../../services/authService";
 
 export const tableHook = () => {
-  
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -23,7 +22,8 @@ export const tableHook = () => {
     "username",
     "role.name",
   ]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,9 +42,9 @@ export const tableHook = () => {
       } catch (error) {
         console.error("Error al obtener los datos", error);
       }
+      setLoading(false);
     };
     fetchData();
-    setLoading(false);
   }, [navigate]);
 
   const sortedData = [...data].sort((a, b) => {
@@ -122,16 +122,40 @@ export const tableHook = () => {
         window.location.reload();
       });
       setData(data.filter((item) => item.id !== id));
-      getUsuarios();
     }
   };
 
+  const filteredData = searchItems(sortedData);
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const totalRecords = filteredData.length;
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const handleItemsPerPageChange = (event) => {
+    setItemsPerPage(Number(event.target.value));
+    setCurrentPage(1)
+  };
+
+
   return {
-    data: searchItems(sortedData),
+    data: paginatedData,
     loading,
     requestSort,
     globalFilter,
     setGlobalFilter,
     deleteUsuario,
+    currentPage,
+    handlePageChange,
+    totalRecords,
+    handleItemsPerPageChange,
+    itemsPerPage
   };
-}
+};

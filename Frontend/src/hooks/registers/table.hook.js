@@ -24,7 +24,8 @@ export const tableHook = () => {
     "responsable",
     "ubicacion",
   ]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,13 +125,36 @@ export const tableHook = () => {
     }
   };
 
+  const filteredData = searchItems(sortedData);
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const totalRecords = filteredData.length;
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const handleItemsPerPageChange = (event) => {
+    setItemsPerPage(Number(event.target.value));
+    setCurrentPage(1)
+  };
+
   return {
-    data: searchItems(sortedData),
+    data: paginatedData,
     loading,
     requestSort,
-    sortConfig,
     globalFilter,
     setGlobalFilter,
     deleteRegistro,
+    currentPage,
+    handlePageChange,
+    totalRecords,
+    handleItemsPerPageChange,
+    itemsPerPage
   }
 }

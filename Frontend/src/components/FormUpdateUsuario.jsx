@@ -40,7 +40,7 @@ export const FormUpdateUsuario = () => {
       <form className="max-w-xlg mx-auto p-8" onSubmit={updateUser}>
         <hr className="w-full h-1 mx-auto mb-5 bg-gray-100 border-0 rounded dark:bg-gray-700" />
         <h1 className="text-3xl italic mb-4 text-black ">Actualizar usuario</h1>
-        <p>Actualiza los permisos necesarios y guarda los cambios</p>
+        <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Actualiza los permisos necesarios y guarda los cambios</p>
         <div className="grid lg:grid-cols-2 gap-4 pt-5">
           <div className="flex justify-center row-span-3 px-12 py-12">
           <img
@@ -119,7 +119,7 @@ export const FormUpdateUsuario = () => {
               </label>
             </div>
             <div className="relative mb-6">
-              <p className="mb-2">
+              <p className="mt-1 mb-2 text-sm font-normal text-gray-500 dark:text-gray-400">
                 Asigne los permisos correspondientes a su usuario.
               </p>
               <select

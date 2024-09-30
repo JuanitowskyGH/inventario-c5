@@ -139,5 +139,6 @@ export const submitHook = () => {
     handleChange,
     handleFileChange,
     handleSubmit,
+    cleanForm
   }
 }
