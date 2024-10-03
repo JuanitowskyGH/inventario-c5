@@ -26,6 +26,7 @@ export const updateHook = () => {
     newPassword: '',
     confirmNewPassword: '',
   });
+  const [passwordError, setPasswordError] = useState('');
 
   useEffect(() => {
     setLoading(false);
@@ -44,7 +45,7 @@ export const updateHook = () => {
         setUserInfo({
           username: response.data.username,
           roles: [response.data.role.name],
-          imagenUrl: response.data.imagen ? `${endpoints.base}${response.data.imagen}` : '' // Convertir las barras invertidas a barras y agregar la base URL
+          imagenUrl: response.data.imagen ? `${endpoints.base}${response.data.imagen}` : '' 
 
         });
         setFormValues({
@@ -74,6 +75,17 @@ export const updateHook = () => {
         ...formValues,
         [name]: value,
       });
+    }
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError('La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una letra minúscula, un número y un carácter especial.');
+      return false;
+    } else {
+      setPasswordError('');
+      return true;
     }
   };
 
@@ -186,6 +198,21 @@ export const updateHook = () => {
       navigate("/");
       return;
     }
+
+    // Validar nueva contraseña
+    if (!validatePassword(passValues.newPassword)) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Contraseña no válida",
+        text: 'La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una letra minúscula, un número y un carácter especial.',
+        confirmButtonColor: "#0B1556",
+        confirmButtonText: "Entendido",
+      });
+      return;
+    }
+
+    // Verificar que todos los campos estén llenos
     if (!passValues.currentPassword || !passValues.newPassword || !passValues.confirmNewPassword) {
       Swal.fire({
         position: "center",
@@ -197,6 +224,8 @@ export const updateHook = () => {
       });
       return;
     }
+
+    // Verificar que las contraseñas coincidan
     if (passValues.newPassword !== passValues.confirmNewPassword) {
       Swal.fire({
         position: "center",
@@ -208,6 +237,7 @@ export const updateHook = () => {
       });
       return;
     }
+
     try {
       // Verificar la contraseña actual antes de actualizar la nueva contraseña
       await axios.post(endpoints.verify, { password: passValues.currentPassword }, {
@@ -216,8 +246,9 @@ export const updateHook = () => {
         },
       });
 
+      // Mostrar confirmación de SweetAlert
       const confirm = await Swal.fire({
-        title: "¿Esta seguro de cambiar la contraseña?",
+        title: "¿Está seguro de cambiar la contraseña?",
         text: "Recuerde su nueva contraseña para futuros accesos",
         icon: "warning",
         showCancelButton: true,
@@ -226,27 +257,29 @@ export const updateHook = () => {
         confirmButtonText: "Guardar cambios",
         cancelButtonText: "Cancelar",
       });
+
       if (confirm.isConfirmed) {
-      // Actualizar la contraseña del usuario
-      await axios.put(endpoints.updatePass, {
-        currentPassword: passValues.currentPassword,
-        newPassword: passValues.newPassword,
-      }, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
-        },
-      });
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "¡Listo!",
-        text: "Información actualizada con éxito",
-        showConfirmButton: false,
-        timer: 2000,
-      }).then(() => {
-      window.location.reload();
-      });
-    } 
+        // Actualizar la contraseña del usuario
+        await axios.put(endpoints.updatePass, {
+          currentPassword: passValues.currentPassword,
+          newPassword: passValues.newPassword,
+        }, {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+          },
+        });
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "¡Listo!",
+          text: "Información actualizada con éxito",
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => {
+          window.location.reload();
+        });
+      }
     } catch (error) {
       Swal.fire({
         position: "center",
@@ -265,9 +298,13 @@ export const updateHook = () => {
     userInfo,
     formValues,
     passValues,
+    passwordError,
+    validatePassword,
     handleUserChange,
     handlePasswordChange,
     handleUserSubmit,
     handlePasswordSubmit,
   }
 }
+
+//Administrador123?

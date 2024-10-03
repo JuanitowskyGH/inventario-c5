@@ -1,10 +1,22 @@
-import IconUpdate from "../icons/UpdateIcon"; 
+import IconUpdate from "../icons/UpdateIcon";
 import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
+import InfoIcon from "../icons/InfoIcon";
 import { updateHook } from "../hooks/users/update.hook";
+import { Tooltip, Popover } from "flowbite-react";
 
 export const FormCuenta = () => {
-
-  const { loading, userInfo, formValues, passValues, handleUserChange, handleUserSubmit, handlePasswordChange, handlePasswordSubmit } = updateHook();
+  const {
+    loading,
+    userInfo,
+    formValues,
+    passValues,
+    passwordError,
+    validatePassword,
+    handleUserChange,
+    handleUserSubmit,
+    handlePasswordChange,
+    handlePasswordSubmit,
+  } = updateHook();
 
   if (loading) {
     return (
@@ -37,18 +49,19 @@ export const FormCuenta = () => {
       <div className="grid grid-cols-3 gap-6 p-4">
         <div className="container-fluid shadow-md p-4 rounded-md bg-white">
           <div className="flex justify-center m-16">
-          <img
+            <img
               className="rounded-full shadow-sm"
               src={userInfo.imagenUrl || "/user.jpg"} // Mostrar la imagen del usuario o una imagen por defecto
               alt="image description"
             />
           </div>
           <div className="grid grid-rows-2">
-              <span className="mb-7 self-center text-3xl text-center text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-blue-tlax font-semibold whitespace-nowrap dark:text-white italic">
-                {userInfo.username}
-              </span>
-            <p className="text-center dark:text-gray-400 mt-2">
-              Usted tiene permisos de: <strong>{userInfo.roles.join(", ")}</strong>
+            <span className="mb-7 self-center text-3xl text-center text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-blue-tlax font-semibold whitespace-nowrap dark:text-white italic">
+              {userInfo.username}
+            </span>
+            <p className="text-center dark:text-gray-400 mt-2 mx-4">
+              Usted tiene permisos de:{" "}
+              <strong>{userInfo.roles.join(", ")}</strong>
             </p>
           </div>
         </div>
@@ -61,6 +74,7 @@ export const FormCuenta = () => {
               <div className="relative">
                 <input
                   type="text"
+                  id="nombre"
                   name="nombre"
                   value={formValues.nombre}
                   onChange={handleUserChange}
@@ -77,6 +91,7 @@ export const FormCuenta = () => {
               <div className="relative">
                 <input
                   type="text"
+                  id="apellidoP"
                   name="apellidoP"
                   value={formValues.apellidoP}
                   onChange={handleUserChange}
@@ -93,6 +108,7 @@ export const FormCuenta = () => {
               <div className="relative">
                 <input
                   type="text"
+                  id="apellidoM"
                   name="apellidoM"
                   value={formValues.apellidoM}
                   onChange={handleUserChange}
@@ -109,6 +125,7 @@ export const FormCuenta = () => {
               <div className="relative">
                 <input
                   type="text"
+                  id="username"
                   name="username"
                   value={formValues.username}
                   onChange={handleUserChange}
@@ -142,6 +159,7 @@ export const FormCuenta = () => {
               <div className="relative col-span-2 pt-2">
                 <input
                   type="password"
+                  id="password"
                   name="password"
                   value={formValues.password}
                   onChange={handleUserChange}
@@ -166,14 +184,40 @@ export const FormCuenta = () => {
             <hr className="w-full h-1 mx-auto mt-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
           </form>
 
-          <form className="max-w-xlg mx-auto px-8 pb-8" onSubmit={handlePasswordSubmit}>
-            <h1 className="text-2xl italic mb-8 text-black ">
-              Actualizar contraseña
-            </h1>
+          <form
+            className="max-w-xlg mx-auto px-8 pb-8"
+            onSubmit={handlePasswordSubmit}
+          >
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl italic mb-8 text-black flex items-center">
+            Actualizar contraseña
+            <Popover
+              trigger="hover"
+              placement="top-start"
+              content={
+                <div className="px-3 py-4 overflow-x-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <strong>Nota: </strong>
+                    La contraseña debe tener: <br/>
+                    -Al menos 8 caracteres <br/>
+                    -Una letra mayúscula <br/>
+                    -Una letra minúscula <br/>
+                    -Un número y un carácter especial.
+                  </p>
+                </div>
+              }
+            >
+              <span className="ml-2 text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
+                <InfoIcon />
+              </span>
+            </Popover>
+          </h1>
+        </div>
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-5 pb-5 ">
               <div className="relative">
                 <input
                   type="password"
+                  id="currentPassword"
                   name="currentPassword"
                   value={passValues.currentPassword}
                   onChange={handlePasswordChange}
@@ -181,7 +225,7 @@ export const FormCuenta = () => {
                   placeholder=" "
                 />
                 <label
-                  htmlFor="default-fillded"
+                  htmlFor="currentPassword"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-tlax peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
                   Contraseña actual
@@ -190,6 +234,7 @@ export const FormCuenta = () => {
               <div className="relative">
                 <input
                   type="password"
+                  id="newPassword"
                   name="newPassword"
                   value={passValues.newPassword}
                   onChange={handlePasswordChange}
@@ -197,7 +242,7 @@ export const FormCuenta = () => {
                   placeholder=" "
                 />
                 <label
-                  htmlFor="default-fillded"
+                  htmlFor="newPassword"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-tlax peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
                   Nueva contraseña
@@ -206,6 +251,7 @@ export const FormCuenta = () => {
               <div className="relative">
                 <input
                   type="password"
+                  id="confirmNewPassword"
                   name="confirmNewPassword"
                   value={passValues.confirmNewPassword}
                   onChange={handlePasswordChange}
@@ -213,7 +259,7 @@ export const FormCuenta = () => {
                   placeholder=" "
                 />
                 <label
-                  htmlFor="default-fillded"
+                  htmlFor="confirmNewPassword"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-tlax peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
                   Confirme nueva contraseña
@@ -228,7 +274,7 @@ export const FormCuenta = () => {
               Actualizar contraseña
             </button>
             <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
-          </form> 
+          </form>
         </div>
       </div>
     </div>
