@@ -27,6 +27,16 @@ export const updateHook = () => {
     confirmNewPassword: '',
   });
   const [passwordError, setPasswordError] = useState('');
+  const [showNewPassword, setNewPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const PasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const NewPasswordVisibility = () => {
+    setNewPassword(!showNewPassword);
+  };
 
   useEffect(() => {
     setLoading(false);
@@ -299,6 +309,10 @@ export const updateHook = () => {
     formValues,
     passValues,
     passwordError,
+    showNewPassword,
+    showPassword,
+    PasswordVisibility,
+    NewPasswordVisibility,
     validatePassword,
     handleUserChange,
     handlePasswordChange,

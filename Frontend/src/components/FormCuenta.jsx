@@ -1,6 +1,8 @@
 import IconUpdate from "../icons/UpdateIcon";
 import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
 import InfoIcon from "../icons/InfoIcon";
+import EyeIcon from "../icons/EyeIcon";
+import EyeIconClose from "../icons/EyeIconClose";
 import { updateHook } from "../hooks/users/update.hook";
 import { Tooltip, Popover } from "flowbite-react";
 
@@ -10,8 +12,10 @@ export const FormCuenta = () => {
     userInfo,
     formValues,
     passValues,
-    passwordError,
-    validatePassword,
+    showNewPassword,
+    showPassword,
+    PasswordVisibility,
+    NewPasswordVisibility,
     handleUserChange,
     handleUserSubmit,
     handlePasswordChange,
@@ -158,7 +162,7 @@ export const FormCuenta = () => {
               </div>
               <div className="relative col-span-2 pt-2">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   value={formValues.password}
@@ -174,13 +178,27 @@ export const FormCuenta = () => {
                 </label>
               </div>
             </div>
+            <div className="flex justify-between gap-5 pt-5">
             <button
               type="submit"
-              className="px-5 py-4 mt-5 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
+              className="py-3 px-2 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
             >
               <IconUpdate className="w-6 h-6 mr-2" />
               Actualizar información
             </button>
+            <button
+              type="button"
+              onClick={PasswordVisibility}
+              className="px-2  text-base font-medium text-center inline-flex items-center rounded-lg text-white bg-blue-tlax "
+            >
+              {showNewPassword ? (
+                <EyeIconClose className="w-5 h-10" />
+              ) : (
+                <EyeIcon className="w-5 h-10" />
+              )}
+              
+            </button>
+            </div>
             <hr className="w-full h-1 mx-auto mt-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
           </form>
 
@@ -188,35 +206,35 @@ export const FormCuenta = () => {
             className="max-w-xlg mx-auto px-8 pb-8"
             onSubmit={handlePasswordSubmit}
           >
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl italic mb-8 text-black flex items-center">
-            Actualizar contraseña
-            <Popover
-              trigger="hover"
-              placement="top-start"
-              content={
-                <div className="px-3 py-4 overflow-x-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    <strong>Nota: </strong>
-                    La contraseña debe tener: <br/>
-                    -Al menos 8 caracteres <br/>
-                    -Una letra mayúscula <br/>
-                    -Una letra minúscula <br/>
-                    -Un número y un carácter especial.
-                  </p>
-                </div>
-              }
-            >
-              <span className="ml-2 text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
-                <InfoIcon />
-              </span>
-            </Popover>
-          </h1>
-        </div>
+            <div className="flex items-center justify-between">
+              <h1 className="text-2xl italic mb-8 text-black flex items-center">
+                Actualizar contraseña
+                <Popover
+                  trigger="hover"
+                  placement="top-start"
+                  content={
+                    <div className="px-3 py-4 overflow-x-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        <strong>Nota: </strong>
+                        La contraseña debe tener: <br />
+                        -Al menos 8 caracteres <br />
+                        -Una letra mayúscula <br />
+                        -Una letra minúscula <br />
+                        -Un número y un carácter especial.
+                      </p>
+                    </div>
+                  }
+                >
+                  <span className="ml-2 text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
+                    <InfoIcon />
+                  </span>
+                </Popover>
+              </h1>
+            </div>
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-5 pb-5 ">
               <div className="relative">
                 <input
-                  type="password"
+                  type={showNewPassword ? "text" : "password"}
                   id="currentPassword"
                   name="currentPassword"
                   value={passValues.currentPassword}
@@ -233,7 +251,7 @@ export const FormCuenta = () => {
               </div>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showNewPassword ? "text" : "password"}
                   id="newPassword"
                   name="newPassword"
                   value={passValues.newPassword}
@@ -250,7 +268,7 @@ export const FormCuenta = () => {
               </div>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showNewPassword ? "text" : "password"}
                   id="confirmNewPassword"
                   name="confirmNewPassword"
                   value={passValues.confirmNewPassword}
@@ -266,13 +284,27 @@ export const FormCuenta = () => {
                 </label>
               </div>
             </div>
+            <div className="flex justify-between gap-5">
             <button
               type="submit"
-              className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
+              className="py-3 px-2 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
             >
               <IconLockPasswordLine className="w-6 h-6 mr-2" />
               Actualizar contraseña
             </button>
+            <button
+              type="button"
+              onClick={NewPasswordVisibility}
+              className="px-2  text-base font-medium text-center inline-flex items-center rounded-lg text-white bg-blue-tlax "
+            >
+              {showNewPassword ? (
+                <EyeIconClose className="w-5 h-10" />
+              ) : (
+                <EyeIcon className="w-5 h-10" />
+              )}
+              
+            </button>
+            </div>
             <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
           </form>
         </div>

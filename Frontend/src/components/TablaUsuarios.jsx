@@ -58,7 +58,7 @@ export const TablaUsuarios = ({ role }) => {
                 <SearchIcon />
               </div>
               <input
-                type="text"
+                type="search"
                 value={globalFilter}
                 onChange={(e) => setGlobalFilter(e.target.value)}
                 id="table-search"
