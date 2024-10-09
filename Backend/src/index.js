@@ -10,6 +10,7 @@ const registers = require("./modules/registers/routes/register.routes.js");
 const public = require("./modules/auth/routes/public.routes.js");
 const users = require("./modules/users/routes/user.routes.js");
 const profile = require("./modules/users/routes/profile.routes.js");
+const consumable = require("./modules/consumables/routes/consumable.routes.js");
 const { auth } = require("./modules/auth/middleware/auth.middleware.js");
 
 //MIDDLEWARE
@@ -46,6 +47,7 @@ app.use("/api/login", public);
 app.use("/api", auth, profile);
 app.use("/api", auth, users);
 app.use("/api", auth, registers);
+app.use("/api", auth, consumable);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

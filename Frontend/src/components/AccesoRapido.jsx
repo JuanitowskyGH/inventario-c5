@@ -5,7 +5,7 @@ import InventoryIcon from "../icons/InventoryIcon";
 import ReportIcon from "../icons/ReportIcon";
 import PersonIcon from '@material-ui/icons/Person';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 
 export const AccesoRapido = ({ role }) => {
@@ -42,7 +42,7 @@ export const AccesoRapido = ({ role }) => {
           >
             Inventario
             <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-white">
-            <LibraryBooksOutlinedIcon style={{ fontSize: 200 }} />
+            <LibraryBooksIcon style={{ fontSize: 200 }} />
             </span>
           </Link>
         </div>
