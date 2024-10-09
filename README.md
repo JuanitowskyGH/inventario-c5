@@ -6,6 +6,19 @@ En la terminal:
 cd frontend/backend
 npm run dev
 
+# COMANDOS GIT
+
+- git clone https/: liga - Para clonar el repositorio
+- git branch feature/hola-mundo - Crear nueva rama
+- git checkout develop - Entrar a las ramas
+- git status - Ver la rama y los cambios
+- git add . - Agregar el commit
+- git commit -m "mensaje" - Mensaje
+- git push --set-upstream origin feature/hola-mundo - Subir las cosas
+
+- git pull - Actualizar el git
+
+
 # COMANDOS MIGRACIONES
 Sequelize CLI [Node: 10.21.0, CLI: 6.0.0, ORM: 6.1.0]
 

@@ -53,6 +53,8 @@ const create = async (req, res) => {
       edicion,
     } = req.body;
     const newDescripcion = descripcion || "Sin descripción";
+    const formTipo = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
+
     if (
       !etiqueta ||
       !numAnterior ||
@@ -70,7 +72,7 @@ const create = async (req, res) => {
     let inventario = await Inventario.create({
       etiqueta,
       numAnterior,
-      tipo,
+      tipo: formTipo,
       descripcion: newDescripcion,
       marca,
       modelo,
@@ -111,10 +113,11 @@ const update = async (req, res) => {
       edicion,
     } = req.body;
     const newDescripcion = descripcion || "Sin descripción";
+    const formTipo = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
     const updateData = {
       etiqueta,
       numAnterior,
-      tipo,
+      tipo: formTipo,
       descripcion: newDescripcion,
       marca,
       modelo,

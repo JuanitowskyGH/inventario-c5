@@ -52,7 +52,7 @@ const App = () => {
           <Route path="/updateinventario/:id" element={<UpdateInventario />} />
           <Route path="/addconsumibles" element={<AddConsumibles />} />
           <Route path="/consumibles" element={<Consumibles />} />
-          <Route path="/records/:tipo" element={<VerConsumibles />} />
+          <Route path="/records/:tipo/:modelo" element={<VerConsumibles />} />
         </Route>
         <Route element={<ProtectedRoute roles={["Administrador"]} />}>
           <Route path="/updateusuarios/:id" element={<UpdateUsuarios />} />

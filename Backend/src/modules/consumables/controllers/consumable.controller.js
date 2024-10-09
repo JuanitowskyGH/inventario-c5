@@ -3,8 +3,8 @@ const { Inventario, User } = require("../../index.model");
 const getTypes = async (req, res) => {
   try {
     const types = await Inventario.findAll({
-      attributes: ['tipo'],
-      group: ['tipo']
+      attributes: ['tipo', 'modelo'],
+      group: ['tipo', 'modelo']
     });
     res.json(types);
   } catch (error) {
@@ -16,10 +16,10 @@ const getTypes = async (req, res) => {
 };
 
 const getByType = async (req, res) => {
-  const { tipo } = req.params;
+  const { tipo, modelo } = req.params;
   try {
     const registros = await Inventario.findAll({
-      where: { tipo },
+      where: { tipo, modelo },
       include: [
         {
           model: User,
@@ -31,7 +31,7 @@ const getByType = async (req, res) => {
     res.json(registros);
   } catch (error) {
     res.status(500).json({
-      message: "Error al obtener los registros por tipo",
+      message: "Error al obtener los registros por tipo y modelo",
       error: error.message,
     });
   }

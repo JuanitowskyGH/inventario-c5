@@ -19,8 +19,8 @@ export const TablaConsumibles = () => {
       .catch(error => console.error('Error fetching types:', error));
   }, []);
 
-  const handleViewRecords = (tipo) => {
-    navigate(`/records/${tipo}`);
+  const handleViewRecords = (tipo, modelo) => {
+    navigate(`/records/${tipo}/${modelo}`);
   };
 
   return (
@@ -30,6 +30,7 @@ export const TablaConsumibles = () => {
         <thead>
           <tr>
             <th>Tipo</th>
+            <th>Modelo</th>
             <th>Acción</th>
           </tr>
         </thead>
@@ -37,8 +38,9 @@ export const TablaConsumibles = () => {
           {types.map((type, index) => (
             <tr key={index}>
               <td>{type.tipo}</td>
+              <td>{type.modelo}</td>
               <td>
-                <button onClick={() => handleViewRecords(type.tipo)}>Ver Registros</button>
+                <button onClick={() => handleViewRecords(type.tipo, type.modelo)}>Ver Registros</button>
               </td>
             </tr>
           ))}
