@@ -1,10 +1,12 @@
 import IconUpdate from "../icons/UpdateIcon";
 import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
-import InfoIcon from "../icons/InfoIcon";
-import EyeIcon from "../icons/EyeIcon";
-import EyeIconClose from "../icons/EyeIconClose";
+import InfoIcon from '@material-ui/icons/Info';
 import { updateHook } from "../hooks/users/update.hook";
 import { Tooltip, Popover } from "flowbite-react";
+import CachedIcon from '@material-ui/icons/Cached';
+import LockIcon from '@material-ui/icons/Lock';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 export const FormCuenta = () => {
   const {
@@ -183,7 +185,7 @@ export const FormCuenta = () => {
               type="submit"
               className="py-3 px-2 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
             >
-              <IconUpdate className="w-6 h-6 mr-2" />
+              <CachedIcon className="w-6 h-6 mr-2" />
               Actualizar información
             </button>
             <button
@@ -191,10 +193,10 @@ export const FormCuenta = () => {
               onClick={PasswordVisibility}
               className="px-2  text-base font-medium text-center inline-flex items-center rounded-lg text-white bg-blue-tlax "
             >
-              {showNewPassword ? (
-                <EyeIconClose className="w-5 h-10" />
+              {showPassword ? (
+                <VisibilityOffIcon className="w-5 h-10" />
               ) : (
-                <EyeIcon className="w-5 h-10" />
+                <VisibilityIcon className="w-5 h-10" />
               )}
               
             </button>
@@ -289,7 +291,7 @@ export const FormCuenta = () => {
               type="submit"
               className="py-3 px-2 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
             >
-              <IconLockPasswordLine className="w-6 h-6 mr-2" />
+              <LockIcon className="w-6 h-6 mr-2" />
               Actualizar contraseña
             </button>
             <button
@@ -298,9 +300,9 @@ export const FormCuenta = () => {
               className="px-2  text-base font-medium text-center inline-flex items-center rounded-lg text-white bg-blue-tlax "
             >
               {showNewPassword ? (
-                <EyeIconClose className="w-5 h-10" />
+                <VisibilityOffIcon className="w-5 h-10" />
               ) : (
-                <EyeIcon className="w-5 h-10" />
+                <VisibilityIcon className="w-5 h-10" />
               )}
               
             </button>

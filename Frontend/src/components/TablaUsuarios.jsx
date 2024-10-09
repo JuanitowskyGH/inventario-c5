@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import InfoIcon from '@material-ui/icons/Info';
 import DeleteUserIcon from "../icons/DeleteUserIcon";
 import EditUserIcon from "../icons/EditUserIcon";
 import { Tooltip, Popover } from "flowbite-react";
 import { tableHook } from "../hooks/users/table.hook";
 import endpoints from "../services/endpoints";
-import InfoIcon from "../icons/InfoIcon";
+//import InfoIcon from "../icons/InfoIcon";
 import authService from "../services/authService";
 import OrderIcon from "../icons/OrderIcon";
 import SearchIcon from "../icons/SearchIcon";
@@ -150,7 +153,7 @@ export const TablaUsuarios = ({ role }) => {
               Imagen
             </th>
             {(role === "Administrador" || role === "Moderador") && (
-              <th scope="col" className="pr-6 py-3">
+              <th scope="col" className="align-middle py-3">
                 Acciones
               </th>
             )}
@@ -192,7 +195,7 @@ export const TablaUsuarios = ({ role }) => {
                   <Tooltip color="primary" content="Editar usuario">
                     <Link to={`/updateusuarios/${item.id}`}>
                       <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                        <EditUserIcon />
+                        <EditIcon />
                       </span>
                     </Link>
                   </Tooltip>
@@ -202,7 +205,7 @@ export const TablaUsuarios = ({ role }) => {
                         className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
                         onClick={() => deleteUsuario(item.id)}
                       >
-                        <DeleteUserIcon />
+                        <DeleteForeverIcon />
                       </span>
                     </Link>
                   </Tooltip>

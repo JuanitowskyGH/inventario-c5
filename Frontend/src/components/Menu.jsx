@@ -1,3 +1,9 @@
+import AddToQueueIcon from '@material-ui/icons/AddToQueue';
+import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
+import PostAddOutlinedIcon from '@material-ui/icons/PostAddOutlined';
 import UserIcon from "../icons/UserIcon";
 import AddUserIcon from "../icons/AddUserIcon";
 import InventoryIcon from "../icons/InventoryIcon";
@@ -177,7 +183,7 @@ export const Menu = ({ role, onMenuToggle }) => {
                     className="flex items-center p-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                         text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >
-                    <UserIcon
+                    <PersonOutlineOutlinedIcon
                       className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                       aria-hidden="true"
                     />
@@ -193,7 +199,7 @@ export const Menu = ({ role, onMenuToggle }) => {
                       className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                         dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                     >
-                      <AddUserIcon
+                      <PersonAddOutlinedIcon
                         className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true"
                       />
@@ -217,7 +223,7 @@ export const Menu = ({ role, onMenuToggle }) => {
                   className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                         dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
-                  <InventoryIcon
+                  <LibraryBooksOutlinedIcon
                     className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                     aria-hidden="true"
                   />
@@ -233,12 +239,51 @@ export const Menu = ({ role, onMenuToggle }) => {
                     className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                         dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >
-                    <AddInventoryIcon
+                    <PostAddOutlinedIcon
                       className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                       aria-hidden="true"
                     />
                     <span className="pl-7 ms-3 whitespace-nowrap">
                       Agregar registro
+                    </span>
+                  </Link>
+                </li>
+              )}
+            </ul>
+            <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+              <li>
+                <h5 className="flex justify-start pl-2 text-base uppercase font-semibold text-gray-500 dark:text-gray-400">
+                  Consumibles
+                </h5>
+              </li>
+              <li>
+                <Link
+                  to={"/inventario"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
+                        dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                >
+                  <DesktopWindowsIcon
+                    className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    aria-hidden="true"
+                  />
+                  <span className="pl-7 ms-3 whitespace-nowrap text-left">
+                    Ver consumibles
+                  </span>
+                </Link>
+              </li>
+              {(role === "Administrador" || role === "Moderador") && (
+                <li>
+                  <Link
+                    to={"/addinventario"}
+                    className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
+                        dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  >
+                    <AddToQueueIcon
+                      className="flex-shrink text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                      aria-hidden="true"
+                    />
+                    <span className="pl-7 ms-3 whitespace-nowrap">
+                      Agregar consumible
                     </span>
                   </Link>
                 </li>

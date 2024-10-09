@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import UserIcon from "../icons/UserIcon";
 import InventoryIcon from "../icons/InventoryIcon";
 import ReportIcon from "../icons/ReportIcon";
+import PersonIcon from '@material-ui/icons/Person';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
+
 
 export const AccesoRapido = ({ role }) => {
   const isAdminOrMod = role === "Administrador" || role === "Moderador";
@@ -26,7 +30,7 @@ export const AccesoRapido = ({ role }) => {
             >
               Usuarios
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-white">
-                <UserIcon className="w-32 h-32 p-3" />
+                <PersonIcon style={{ fontSize: 200 }} />
               </span>
             </Link>
           </div>
@@ -38,7 +42,7 @@ export const AccesoRapido = ({ role }) => {
           >
             Inventario
             <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-white">
-              <InventoryIcon className="w-32 h-32 p-3" />
+            <LibraryBooksOutlinedIcon style={{ fontSize: 200 }} />
             </span>
           </Link>
         </div>
@@ -48,8 +52,8 @@ export const AccesoRapido = ({ role }) => {
             className="flex flex-col p-3 w-full justify-center items-center shadow-md shadow-black text-3xl rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-110 hover:bg-blue-tlax-light duration-300"
           >
             Reportes
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-white">
-              <ReportIcon className="w-32 h-32 p-3" />
+            <span className="pt-2 text-lg text-default-400 cursor-pointer active:opacity-50 text-white">
+              <AssignmentIcon style={{ fontSize: 200 }} />
             </span>
           </Link>
         </div>

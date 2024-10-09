@@ -1,12 +1,17 @@
 import EditInventoryIcon from "../icons/EditInventoryIcon";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import SwapVertIcon from '@material-ui/icons/SwapVert';
+import InfoIcon from '@material-ui/icons/Info';
+import SearchIcon from '@material-ui/icons/Search';
 import DeleteInventoryIcon from "../icons/DeleteInventoryIcon";
 import { Link } from "react-router-dom";
 import { Tooltip, Popover } from "flowbite-react";
 import endpoints from "../services/endpoints";
 import { tableHook } from "../hooks/registers/table.hook";
-import InfoIcon from "../icons/InfoIcon";
+//import InfoIcon from "../icons/InfoIcon";
 import LoadIcon from "../icons/LoadIcon";
-import SearchIcon from "../icons/SearchIcon";
+//import SearchIcon from "../icons/SearchIcon";
 import OrderIcon from "../icons/OrderIcon";
 import LeftIcon from "../icons/LeftIcon";
 import RightIcon from "../icons/RightIcon";
@@ -52,8 +57,8 @@ export const TablaInventario = ({ role }) => {
             <label htmlFor="table-search" className="sr-only">
               Buscar
             </label>
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <SearchIcon />
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
+              <SearchIcon style={{color: "GrayText"}}/>
             </div>
             <input
               type="text"
@@ -227,7 +232,7 @@ export const TablaInventario = ({ role }) => {
               Imagen
             </th>
             {(role === "Administrador" || role === "Moderador") && (
-              <th scope="col" className="px-3 py-3">
+              <th scope="col" className="text-center py-3">
                 Acciones
               </th>
             )}
@@ -272,7 +277,7 @@ export const TablaInventario = ({ role }) => {
                   <Tooltip color="primary" content="Editar registro">
                     <Link to={`/updateinventario/${item.id}`}>
                       <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                        <EditInventoryIcon />
+                        <EditIcon />
                       </span>
                     </Link>
                   </Tooltip>
@@ -282,7 +287,7 @@ export const TablaInventario = ({ role }) => {
                         className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
                         onClick={() => deleteRegistro(item.id)}
                       >
-                        <DeleteInventoryIcon />
+                        <DeleteForeverIcon />
                       </span>
                     </Link>
                   </Tooltip>

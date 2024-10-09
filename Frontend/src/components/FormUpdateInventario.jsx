@@ -1,4 +1,6 @@
 import EditInventoryIcon from "../icons/EditInventoryIcon";
+import EditIcon from '@material-ui/icons/Edit';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Discard from "../icons/DiscardIcon";
 import { Link } from "react-router-dom";
 import { updateHook } from "../hooks/registers/update.hook";
@@ -301,15 +303,15 @@ export const FormUpdateInventario = () => {
           </div>
           <div className="grid lg:grid-cols-2 gap-5 px-16 py-8">
             <button className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
-              <EditInventoryIcon className="w-6 h-6 mr-2" />
+              <EditIcon className="w-6 h-6 mr-2" />
               Actualizar Registro
             </button>
             <Link
               to="/inventario"
               replace
-              className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-red-600 hover:-translate-y-1 hover:scale-100 hover:bg-red-500 duration-300"
+              className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-red-600 transition ease-in-out delay-150 border-2 border-red-600 hover:-translate-y-1 hover:scale-100 hover:border-red-300 hover:text-red-300 duration-300"
             >
-              <Discard className="w-6 h-6 mr-2" />
+              <ExitToAppIcon className="w-6 h-6 mr-2" />
               Cancelar
             </Link>
           </div>
