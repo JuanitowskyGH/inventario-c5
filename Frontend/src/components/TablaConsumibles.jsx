@@ -20,7 +20,10 @@ export const TablaConsumibles = () => {
   }, []);
 
   const handleViewRecords = (tipo, modelo) => {
-    navigate(`/records/${tipo}/${modelo}`);
+    const encodedTipo = encodeURIComponent(tipo);
+    const encodedModelo = encodeURIComponent(modelo);
+    console.log(`Navigating to /records/${encodedTipo}/${encodedModelo}`);
+    navigate(`/records/${encodedTipo}/${encodedModelo}`);
   };
 
   return (

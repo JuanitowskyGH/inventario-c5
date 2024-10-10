@@ -7,6 +7,7 @@ import ProtectedRoute from "./ProtectedRoute";
 //PAGINAS
 //PAGINAS PUBLICAS
 import Login from "./pages/Login";
+import { Pruebas } from "./components/Pruebas";
 
 //PAGINAS DE ERROR
 import { NotFound } from "./pages/NotFound";
@@ -36,6 +37,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/pruebas/:id" element={<Pruebas />} />
         <Route path="*" element={<NotFound />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/unauthorized" element={<Administracion />} />

@@ -17,9 +17,14 @@ const getTypes = async (req, res) => {
 
 const getByType = async (req, res) => {
   const { tipo, modelo } = req.params;
+  console.log(`Received request for tipo: ${tipo}, modelo: ${modelo}`);
   try {
+    const decodedTipo = decodeURIComponent(tipo);
+    const decodedModelo = decodeURIComponent(modelo);
+    console.log(`Decoded tipo: ${decodedTipo}, Decoded modelo: ${decodedModelo}`);
+    
     const registros = await Inventario.findAll({
-      where: { tipo, modelo },
+      where: { tipo: decodedTipo, modelo: decodedModelo },
       include: [
         {
           model: User,
@@ -28,8 +33,10 @@ const getByType = async (req, res) => {
         }
       ],
     });
+    console.log(`Found registros: ${JSON.stringify(registros)}`);
     res.json(registros);
   } catch (error) {
+    console.error(`Error fetching records: ${error.message}`);
     res.status(500).json({
       message: "Error al obtener los registros por tipo y modelo",
       error: error.message,

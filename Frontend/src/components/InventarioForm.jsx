@@ -220,24 +220,26 @@ export const InventarioForm = () => {
           <div className="relative">
             <input
               type="text"
-              name="edicion"
-              value={inventario.edicion}
+              name="responsable"
+              value={inventario.responsable}
               onChange={handleChange}
-              id="edicion"
+              id="responsable"
               className={`block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 ${
-                errors.edicion ? "input-error" : "border-gray-300"
+                errors.responsable ? "input-error" : "border-gray-300"
               }  appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer`}
               placeholder=" "
             />
             <label
-              htmlFor="edicion"
+              htmlFor="responsable"
               className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-tlax peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
             >
-              Edicion
+              Responsable *
             </label>
           </div>
         </div>
-        <div className="relative row-span-3">
+
+        <div className="grid items-end gap-6 mb-6 mt-6 lg:grid-cols-2">
+        <div className="relative">
           <textarea
             type="text"
             name="descripcion"
@@ -256,26 +258,6 @@ export const InventarioForm = () => {
             Descripcion
           </label>
         </div>
-        <div className="grid items-end gap-6 mb-6 mt-6 lg:grid-cols-2">
-          <div className="relative">
-            <input
-              type="text"
-              name="responsable"
-              value={inventario.responsable}
-              onChange={handleChange}
-              id="responsable"
-              className={`block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 ${
-                errors.responsable ? "input-error" : "border-gray-300"
-              }  appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer`}
-              placeholder=" "
-            />
-            <label
-              htmlFor="responsable"
-              className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-tlax peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
-            >
-              Responsable *
-            </label>
-          </div>
           <div className="">
             <label
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

@@ -214,20 +214,6 @@ export const TablaInventario = ({ role }) => {
                 </a>
               </div>
             </th>
-            <th scope="col" className="px-6 py-3">
-              <div className="flex items-center">
-                Edicion
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    requestSort("edicion");
-                  }}
-                >
-                  <OrderIcon />
-                </a>
-              </div>
-            </th>
             <th scope="col" className="px-6 py-3  text-center">
               Imagen
             </th>
@@ -260,7 +246,6 @@ export const TablaInventario = ({ role }) => {
               <td className="px-6 py-4">{item.departamento}</td>
               <td className="px-6 py-4">{item.responsable}</td>
               <td className="px-6 py-4">{item.ubicacion}</td>
-              <td className="px-6 py-4">{item.edicion}</td>
               <td className="px-6 py-4">
                 <img
                   src={

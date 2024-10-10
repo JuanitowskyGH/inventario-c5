@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('registers', {
       id: {
         allowNull: false,
@@ -43,7 +43,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
         defaultValue: "Sin No. de serie",
-        unique: true,
       },
       departamento: {
         type: Sequelize.STRING,
@@ -56,11 +55,6 @@ module.exports = {
       ubicacion: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      edicion: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        defaultValue: "Sin edición",
       },
       imagen: {
         type: Sequelize.STRING,

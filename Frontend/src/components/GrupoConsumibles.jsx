@@ -10,25 +10,30 @@ export const GrupoConsumibles = () => {
 
   useEffect(() => {
     const user = authService.getCurrentUser();
-    axios.get(`${endpoints.consumables}/${tipo}/${modelo}`, {
+    const decodedTipo = decodeURIComponent(tipo);
+    const decodedModelo = decodeURIComponent(modelo);
+    console.log(`Fetching records for tipo: ${decodedTipo}, modelo: ${decodedModelo}`);
+    axios.get(`${endpoints.consumables}/${encodeURIComponent(decodedTipo)}/${encodeURIComponent(decodedModelo)}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
     })
-      .then(response => setRecords(response.data))
+      .then(response => {
+        console.log(`Received records: ${JSON.stringify(response.data)}`);
+        setRecords(response.data);
+      })
       .catch(error => console.error('Error fetching records:', error));
   }, [tipo, modelo]);
 
   return (
     <div>
-      <h1>Registros de tipo: {tipo} y modelo: {modelo}</h1>
+      <h1>Registros de tipo: {decodeURIComponent(tipo)} y modelo: {decodeURIComponent(modelo)}</h1>
       <table>
         <thead>
           <tr>
             <th>Descripción</th>
             <th>Marca</th>
             <th>Modelo</th>
-            <th>Creado por</th>
           </tr>
         </thead>
         <tbody>
@@ -37,9 +42,6 @@ export const GrupoConsumibles = () => {
               <td>{record.descripcion}</td>
               <td>{record.marca}</td>
               <td>{record.modelo}</td>
-              <td>{record.creatorI
-                              ? `${record.creatorI.nombre} ${record.creatorI.apellidop} ${record.creatorI.apellidom}`
-                              : "Desconocido"}</td>
             </tr>
           ))}
         </tbody>

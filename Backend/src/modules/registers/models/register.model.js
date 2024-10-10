@@ -16,6 +16,7 @@ const Inventario = database.define(
     etiqueta: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
         isNumeric: true,
@@ -46,7 +47,6 @@ const Inventario = database.define(
       type: DataTypes.STRING,
       allowNull: true,
       defaultValue: "Sin No. de serie",
-      unique: true,
     },
     departamento: {
       type: DataTypes.STRING,
@@ -59,11 +59,6 @@ const Inventario = database.define(
     ubicacion: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    edicion: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: "Sin edición",
     },
     imagen: {
       type: DataTypes.STRING,

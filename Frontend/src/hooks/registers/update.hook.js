@@ -20,7 +20,6 @@ export const updateHook = () => {
     serie: "",
     departamento: "",
     ubicacion: "",
-    edicion: "",
     responsable: "",
     imagen: "",
     descripcion: "",
@@ -75,7 +74,6 @@ export const updateHook = () => {
       serie: !inventario.serie,
       departamento: !inventario.departamento,
       ubicacion: !inventario.ubicacion,
-      edicion: !inventario.edicion,
       responsable: !inventario.responsable,
       descripcion: !inventario.descripcion,
     };

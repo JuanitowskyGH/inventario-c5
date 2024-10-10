@@ -50,7 +50,6 @@ const create = async (req, res) => {
       departamento,
       responsable,
       ubicacion,
-      edicion,
     } = req.body;
     const newDescripcion = descripcion || "Sin descripción";
     const formTipo = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
@@ -80,7 +79,6 @@ const create = async (req, res) => {
       departamento,
       responsable,
       ubicacion,
-      edicion,
       imagen,
       createdBy: req.user.id,
     });
@@ -110,7 +108,6 @@ const update = async (req, res) => {
       departamento,
       responsable,
       ubicacion,
-      edicion,
     } = req.body;
     const newDescripcion = descripcion || "Sin descripción";
     const formTipo = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
@@ -125,7 +122,6 @@ const update = async (req, res) => {
       departamento,
       responsable,
       ubicacion,
-      edicion,
     };
 
     if (req.file) {
