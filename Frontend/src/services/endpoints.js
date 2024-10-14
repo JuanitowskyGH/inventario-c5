@@ -9,8 +9,10 @@ const endpoints = {
   usuarioId: `${API_BASE_URL}/users/`,
   inventarioId: `${API_BASE_URL}/inventario/`,
   login: `${API_BASE_URL}/login`,
+  consumibles: `${API_BASE_URL}/consumables`,
+  consumibleId: `${API_BASE_URL}/consumables/`,
   types: `${API_BASE_URL}/consumables/types`,
-  consumables: `${API_BASE_URL}/consumables/type`,
+  grupo: `${API_BASE_URL}/consumables/type`,
   base: "http://localhost:4000/",
 };
 

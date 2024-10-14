@@ -274,7 +274,7 @@ export const Menu = ({ role, onMenuToggle }) => {
               {(role === "Administrador" || role === "Moderador") && (
                 <li>
                   <Link
-                    to={"/addinventario"}
+                    to={"/addconsumibles"}
                     className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                         dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >

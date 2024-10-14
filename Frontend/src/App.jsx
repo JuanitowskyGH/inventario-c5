@@ -27,6 +27,7 @@ import { AddUsuarios } from "./pages/AddUsuarios";
 import { UpdateInventario } from "./pages/UpdateInventario";
 import { AddConsumibles } from "./pages/AddConsumibles";
 import { Consumibles } from "./pages/Consumibles";
+import { UpdateConsumible } from "./pages/UpdateConsumible";
 import { VerConsumibles } from "./pages/VerConsumibles";
 
 //PAGINAS QUE SOLO SE PUEDEN ACCESAR DESDE ROL ADMINISTRADOR
@@ -54,7 +55,8 @@ const App = () => {
           <Route path="/updateinventario/:id" element={<UpdateInventario />} />
           <Route path="/addconsumibles" element={<AddConsumibles />} />
           <Route path="/consumibles" element={<Consumibles />} />
-          <Route path="/records/:tipo/:modelo" element={<VerConsumibles />} />
+          <Route path="/records/:tipo/:marca" element={<VerConsumibles />} />
+          <Route path="/updateconsumible/:id" element={<UpdateConsumible />} />
         </Route>
         <Route element={<ProtectedRoute roles={["Administrador"]} />}>
           <Route path="/updateusuarios/:id" element={<UpdateUsuarios />} />

@@ -1,5 +1,17 @@
 const { Inventario, User } = require("../../index.model");
 
+const toUpperCaseFields = (obj) => {
+  const newObj = {};
+  for (const key in obj) {
+    if (obj[key] && typeof obj[key] === 'string') {
+      newObj[key] = obj[key].toUpperCase();
+    } else {
+      newObj[key] = obj[key];
+    }
+  }
+  return newObj;
+};
+
 //CONTROLADOR PARA HACER LAS PETICIONES A LA BASE DE DATOS
 //CONTROLADOR PARA OBTENER TODOS LOS REGISTROS
 const getAll = async (req, res) => {
@@ -51,8 +63,6 @@ const create = async (req, res) => {
       responsable,
       ubicacion,
     } = req.body;
-    const newDescripcion = descripcion || "Sin descripción";
-    const formTipo = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
 
     if (
       !etiqueta ||
@@ -68,17 +78,22 @@ const create = async (req, res) => {
       });
     }
 
-    let inventario = await Inventario.create({
+    const upperCaseData = toUpperCaseFields({
       etiqueta,
       numAnterior,
-      tipo: formTipo,
-      descripcion: newDescripcion,
+      tipo,
+      descripcion: descripcion || "Sin descripción",
       marca,
       modelo,
       serie,
       departamento,
       responsable,
       ubicacion,
+    });
+      
+
+    let inventario = await Inventario.create({
+      ...upperCaseData,
       imagen,
       createdBy: req.user.id,
     });
@@ -109,26 +124,25 @@ const update = async (req, res) => {
       responsable,
       ubicacion,
     } = req.body;
-    const newDescripcion = descripcion || "Sin descripción";
-    const formTipo = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
-    const updateData = {
+
+    const upperCaseData = toUpperCaseFields({
       etiqueta,
       numAnterior,
-      tipo: formTipo,
-      descripcion: newDescripcion,
+      tipo,
+      descripcion: descripcion || "Sin descripción",
       marca,
       modelo,
       serie,
       departamento,
       responsable,
       ubicacion,
-    };
+    });
 
     if (req.file) {
-      updateData.imagen = req.file.path.replace(/\\/g, '/');
+      upperCaseData.imagen = req.file.path.replace(/\\/g, '/');
     }
 
-    await Inventario.update(updateData, {
+    await Inventario.update(upperCaseData, {
       where: { id },
     });
 

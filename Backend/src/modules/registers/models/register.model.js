@@ -36,7 +36,8 @@ const Inventario = database.define(
     },
     marca: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: "Sin marca",
     },
     modelo: {
       type: DataTypes.STRING,
