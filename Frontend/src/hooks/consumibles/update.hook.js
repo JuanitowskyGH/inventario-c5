@@ -57,6 +57,12 @@ export const updateHook = () => {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+  
+  const redirect = () => {
+    const { tipo, marca } = consumible;
+    navigate(`/records/${tipo}/${marca}`, { replace: true });
+  };
+
 
   const updateInventario = async (e) => {
     e.preventDefault();
@@ -116,7 +122,7 @@ export const updateHook = () => {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        navigate("/consumibles");
+        redirect();
         Swal.fire({
           title: "Datos actualizados",
           text: "El registro ha sido actualizado exitosamente",
@@ -150,5 +156,6 @@ export const updateHook = () => {
     handleChange,
     handleFileChange,
     updateInventario,
+    redirect
   }
 }

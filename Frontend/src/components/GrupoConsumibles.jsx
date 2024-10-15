@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { Tooltip, Popover } from "flowbite-react";
 import LoadIcon from "../icons/LoadIcon";
 import OrderIcon from "../icons/OrderIcon";
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import Swal from "sweetalert2";
 
 export const GrupoConsumibles = ({ role }) => {
@@ -189,11 +190,14 @@ export const GrupoConsumibles = ({ role }) => {
                 </a>
               </div>
             </th>
-            <th scope="col" className="px-6 py-3  text-center">
+            <th scope="col" className="py-3  text-center">
               Imagen
             </th>
+            <th scope="col" className="px-6 py-3  text-center">
+              Disponibilidad
+            </th>
             {(role === "Administrador" || role === "Moderador") && (
-              <th scope="col" className="text-center py-3">
+              <th scope="col" className="py-3 text-center">
                 Acciones
               </th>
             )}
@@ -215,22 +219,25 @@ export const GrupoConsumibles = ({ role }) => {
               <td className="px-6 py-4">{record.modelo}</td>
               <td className="px-6 py-4">{record.serie}</td>
               <td className="px-6 py-4">{record.responsable}</td>
-              <td className="px-6 py-4">
-                <img
-                  src={
-                    record.imagen
-                      ? `${endpoints.base}${record.imagen}`
-                      : "/inventory.jpg"
-                  }
-                  alt="img"
-                  className="w-full h-auto max-w-sm sm:max-w-md md:h-52 md:w-48 rounded-md mr-3"
-                />
+              <td className="py-4">
+                <div className="flex justify-center items-center">
+                  <img
+                    src={
+                      record.imagen
+                        ? `${endpoints.base}${record.imagen}`
+                        : "/inventory.jpg"
+                    }
+                    alt="img"
+                    className="max-w-[300px] max-h-[200px] object-cover rounded-lg"
+                  />
+                </div>
               </td>
+              <td className="text-center py-4">{record.disponible ? "DISPONIBLE" : "NO DISPONIBLE"}</td>
               {(role === "Administrador" || role === "Moderador") && (
-                <td className="flex py-24 px-4 items-center gap-2">
+                <td className="flex py-20 justify-center gap-2">
                   <Tooltip color="primary" content="Editar registro">
                     <Link to={`/updateconsumible/${record.id}`}>
-                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-tlax">
                         <EditIcon />
                       </span>
                     </Link>
@@ -242,6 +249,13 @@ export const GrupoConsumibles = ({ role }) => {
                         onClick={() => deleteRegistro(record.id)}
                       >
                         <DeleteForeverIcon />
+                      </span>
+                    </Link>
+                  </Tooltip>
+                  <Tooltip color="primary" content="Agregar a solicitud">
+                    <Link>
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-green-700">
+                        <NoteAddIcon />
                       </span>
                     </Link>
                   </Tooltip>

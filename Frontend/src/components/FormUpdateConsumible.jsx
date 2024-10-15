@@ -16,14 +16,9 @@ export const FormUpdateConsumible = () => {
     handleChange,
     handleFileChange,
     updateInventario,
+    redirect
   } = updateHook();
 
-  const navigate = useNavigate();
-
-  const handleCancel = () => {
-    const { tipo, marca } = consumible;
-    navigate(`/records/${tipo}/${marca}`);
-  };
 
   if (loading) {
     return (
@@ -72,7 +67,7 @@ export const FormUpdateConsumible = () => {
               </label>
             </div>
           </div>
-          <div className="grid grid-rows-7 grid-flow-col gap-4 mt-24">
+          <div className="grid grid-rows-5 grid-flow-col gap-4 mt-24">
             <div className="relative">
               <input
                 type="text"
@@ -205,14 +200,14 @@ export const FormUpdateConsumible = () => {
                 Descripcion
               </label>
             </div>
-            <div className="flex col-span-2 justify-end gap-5 py-4">
+            <div className="flex col-span-2 justify-end gap-5 py-8">
             <button className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
               <EditIcon className="w-3 h-3" />
               Actualizar Registro
             </button>
             <button
               type="button"
-              onClick={handleCancel}
+              onClick={redirect}
               className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-red-600 transition ease-in-out delay-150 border-2 border-red-600 hover:-translate-y-1 hover:scale-100 hover:border-red-300 hover:text-red-300 duration-300"
             >
               <ExitToAppIcon className="w-6 h-6 mr-2" />

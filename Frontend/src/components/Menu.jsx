@@ -1,21 +1,30 @@
-import AddToQueueIcon from '@material-ui/icons/AddToQueue';
-import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
-import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
-import PostAddOutlinedIcon from '@material-ui/icons/PostAddOutlined';
+import AddToQueueIcon from "@material-ui/icons/AddToQueue";
+import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
+import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
+import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
+import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
+import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
+import PostAddOutlinedIcon from "@material-ui/icons/PostAddOutlined";
 import UserIcon from "../icons/UserIcon";
 import AddUserIcon from "../icons/AddUserIcon";
 import InventoryIcon from "../icons/InventoryIcon";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import AddInventoryIcon from "../icons/EditInventoryIcon";
 import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
 import SignOutIcon from "../icons/SignOutIcon";
 import { menuHook } from "../hooks/services/menu.hook";
 
 export const Menu = ({ role, onMenuToggle }) => {
-
-  const { isDrawerOpen, isDropdownOpen, isMobile, userInfo, toggleDrawer, toggleDropdown, closeDrawer, logout } = menuHook(onMenuToggle);
+  const {
+    isDrawerOpen,
+    isDropdownOpen,
+    isMobile,
+    userInfo,
+    toggleDrawer,
+    toggleDropdown,
+    closeDrawer,
+    logout,
+  } = menuHook(onMenuToggle);
 
   return (
     <div className="relative">
@@ -121,9 +130,10 @@ export const Menu = ({ role, onMenuToggle }) => {
         tabIndex="-1"
         aria-labelledby="drawer-navigation-label"
       >
-        <h5 
-        id="drawer-navigation-label"
-        className="flex justify-start pl-2 text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
+        <h5
+          id="drawer-navigation-label"
+          className="flex justify-start pl-2 text-base font-semibold text-gray-500 uppercase dark:text-gray-400"
+        >
           Menu
         </h5>
         <button
@@ -272,21 +282,38 @@ export const Menu = ({ role, onMenuToggle }) => {
                 </Link>
               </li>
               {(role === "Administrador" || role === "Moderador") && (
-                <li>
-                  <Link
-                    to={"/addconsumibles"}
-                    className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
+                <div>
+                  <li>
+                    <Link
+                      to={"/addconsumibles"}
+                      className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                         dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                  >
-                    <AddToQueueIcon
-                      className="flex-shrink text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                      aria-hidden="true"
-                    />
-                    <span className="pl-7 ms-3 whitespace-nowrap">
-                      Agregar consumible
-                    </span>
-                  </Link>
-                </li>
+                    >
+                      <AddToQueueIcon
+                        className="flex-shrink text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                        aria-hidden="true"
+                      />
+                      <span className="pl-7 ms-3 whitespace-nowrap">
+                        Agregar consumible
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={"/addconsumibles"}
+                      className="flex items-center p-2 mt-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
+                                      dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                    >
+                      <TurnedInNotIcon
+                        className="flex-shrink text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                        aria-hidden="true"
+                      />
+                      <span className="pl-7 ms-3 whitespace-nowrap">
+                        Solicitudes
+                      </span>
+                    </Link>
+                  </li>
+                </div>
               )}
               <li>
                 <a

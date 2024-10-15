@@ -7,8 +7,8 @@ import authService from "../../services/authService";
 export const submitHook = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
+  const user = authService.getCurrentUser();
   const [consumible, setConsumible] = useState({
-    etiqueta: "",
     tipo: "",
     marca: "",
     modelo: "",
@@ -18,13 +18,17 @@ export const submitHook = () => {
     imagen: "",
   });
 
+  const validateSerie = (serie) => {
+    const seriePattern = /^(\d+)(,\s\d+)*$/;  // Acepta números separados por ", " o solo un número
+    return seriePattern.test(serie);
+  };
+
   useEffect(() => {
     setLoading(false);
   }, []);
 
   const cleanForm = () => {
     setConsumible({
-      etiqueta: "",
       tipo: "",
       marca: "",
       modelo: "",
@@ -49,24 +53,20 @@ export const submitHook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      etiqueta,
-      tipo,
-      responsable,
-    } = consumible;
+    const { tipo, responsable, serie } = consumible;
 
     const newErrors = {
-      etiqueta: !etiqueta,
       tipo: !tipo,
       responsable: !responsable,
+      serie: !validateSerie(serie),
     };
 
     if (Object.values(newErrors).some((error) => error)) {
       setErrors(newErrors);
       Swal.fire({
         icon: "error",
-        title: "Campos vacíos",
-        text: "Por favor, complete todos los campos antes de enviar el formulario.",
+        title: "Campos vacíos o inválidos",
+        text: "Por favor, complete todos los campos correctamente antes de enviar el formulario.",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -75,42 +75,43 @@ export const submitHook = () => {
     }
 
     try {
-      const formDataToSend = new FormData();
-      Object.keys(consumible).forEach((key) => {
-        if (consumible[key]) {
-          formDataToSend.append(key, consumible[key]);
-        }
-      });
+      const serieList = serie.includes(',') ? serie.split(', ').map(serie => serie.trim()) : [serie.trim()];
 
-      console.log('Datos enviados:', Object.fromEntries(formDataToSend.entries()));
+      for (const serieItem of serieList) {
+        const formDataToSend = new FormData();
+        formDataToSend.append('tipo', tipo);
+        formDataToSend.append('marca', consumible.marca);
+        formDataToSend.append('modelo', consumible.modelo);
+        formDataToSend.append('serie', serieItem);
+        formDataToSend.append('descripcion', consumible.descripcion);
+        formDataToSend.append('responsable', responsable);
+        formDataToSend.append('imagen', consumible.imagen);
 
-      const user = authService.getCurrentUser();
-      if (!user) {
-        throw new Error("No se ha iniciado sesión");
+        await axios.post(endpoints.consumibles, formDataToSend, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
       }
 
-      await axios.post(endpoints.consumibles, formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
       Swal.fire({
-        position: "center",
         icon: "success",
-        title: "¡Listo!",
-        text: "El registro ha sido agregado con éxito",
+        title: "Registro creado",
+        text: "El registro ha sido creado exitosamente.",
         showConfirmButton: false,
-        timer: 2000,
+        timer: 1500,
       });
+
       cleanForm();
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
+      console.error('Error al crear el registro:', error);
       Swal.fire({
         icon: "error",
-        title: "Error del servidor",
-        text: "Ocurrió un error al intentar agregar el registro. Por favor, inténtelo de nuevo más tarde.",
+        title: "Error",
+        text: "Hubo un error al crear el registro. Por favor, inténtelo de nuevo.",
         showConfirmButton: false,
+        timer: 1500,
       });
     } finally {
       setLoading(false);
@@ -118,12 +119,12 @@ export const submitHook = () => {
   };
 
   return {
+    consumible,
     errors,
     loading,
-    consumible,
     handleChange,
     handleFileChange,
     handleSubmit,
-    cleanForm
-  }
-}
+    cleanForm,
+  };
+};

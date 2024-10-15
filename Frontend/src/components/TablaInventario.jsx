@@ -229,86 +229,88 @@ export const TablaInventario = ({ role }) => {
             <tr
               key={item.id}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300"
-            >
-              <th
-                scope="row"
-                className="pl-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                {item.id}
-              </th>
-              <td className="pl-3 py-4">{item.etiqueta}</td>
-              <td className="px-6 py-4">{item.numAnterior}</td>
-              <td className="px-6 py-4">{item.tipo}</td>
-              <td className="px-6 py-4">{item.descripcion}</td>
-              <td className="px-6 py-4">{item.marca}</td>
-              <td className="px-6 py-4">{item.modelo}</td>
-              <td className="px-6 py-4">{item.serie}</td>
-              <td className="px-6 py-4">{item.departamento}</td>
-              <td className="px-6 py-4">{item.responsable}</td>
-              <td className="px-6 py-4">{item.ubicacion}</td>
-              <td className="px-6 py-4">
-                <img
-                  src={
-                    item.imagen
-                      ? `${endpoints.base}${item.imagen}`
-                      : "/inventory.jpg"
-                  }
-                  alt="img"
-                  className="w-full h-auto max-w-xs sm:max-w-sm md:max-w-md rounded-md mr-3"
-                />
-              </td>
-              {(role === "Administrador" || role === "Moderador") && (
-                <td className="flex py-24 px-4 items-center gap-2">
-                  <Tooltip color="primary" content="Editar registro">
-                    <Link to={`/updateinventario/${item.id}`}>
-                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
-                        <EditIcon />
-                      </span>
-                    </Link>
-                  </Tooltip>
-                  <Tooltip color="primary" content="Eliminar registro">
-                    <Link>
-                      <span
-                        className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
-                        onClick={() => deleteRegistro(item.id)}
-                      >
-                        <DeleteForeverIcon />
-                      </span>
-                    </Link>
-                  </Tooltip>
-                  <Popover
-                    trigger="hover"
-                    placement="left"
-                    content={
-                      <div className="p-4">
-                        <ul>
-                          <li>
-                            <strong>DATOS DE REGISTRO</strong>
-                          </li>
-                          <li>
-                            <strong>Creado por: </strong>
-                            {item.creatorI
-                              ? `${item.creatorI.nombre} ${item.creatorI.apellidop} ${item.creatorI.apellidom}`
-                              : "Desconocido"}
-                          </li>
-                          <li>
-                            <strong>Fecha: </strong>
-                            {item.createdAt}
-                          </li>
-                          <li>
-                            <strong>Ultima actualización: </strong>
-                            {item.updatedAt}
-                          </li>
-                        </ul>
-                      </div>
-                    }
-                  >
-                    <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
-                      <InfoIcon />
-                    </span>
-                  </Popover>
+                <th
+                  scope="row"
+                  className="pl-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {item.id}
+                </th>
+                <td className="pl-3 py-4">{item.etiqueta}</td>
+                <td className="px-6 py-4">{item.numAnterior}</td>
+                <td className="px-6 py-4">{item.tipo}</td>
+                <td className="px-6 py-4">{item.descripcion}</td>
+                <td className="px-6 py-4">{item.marca}</td>
+                <td className="px-6 py-4">{item.modelo}</td>
+                <td className="px-6 py-4">{item.serie}</td>
+                <td className="px-6 py-4">{item.departamento}</td>
+                <td className="px-6 py-4">{item.responsable}</td>
+                <td className="px-6 py-4">{item.ubicacion}</td>
+                <td className="px-6 py-4">
+                  <div className="flex justify-center items-center">
+                    <img
+                      src={
+                        item.imagen
+                          ? `${endpoints.base}${item.imagen}`
+                          : "/inventory.jpg"
+                      }
+                      alt="img"
+                      className="w-xs h-auto rounded-lg"
+                    />
+                  </div>
                 </td>
-              )}
+                {(role === "Administrador" || role === "Moderador") && (
+                  <td className="flex my-14 px-4 gap-2">
+                    <Tooltip color="primary" content="Editar registro">
+                      <Link to={`/updateinventario/${item.id}`}>
+                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-800">
+                          <EditIcon />
+                        </span>
+                      </Link>
+                    </Tooltip>
+                    <Tooltip color="primary" content="Eliminar registro">
+                      <Link>
+                        <span
+                          className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
+                          onClick={() => deleteRegistro(item.id)}
+                        >
+                          <DeleteForeverIcon />
+                        </span>
+                      </Link>
+                    </Tooltip>
+                    <Popover
+                      trigger="hover"
+                      placement="left"
+                      content={
+                        <div className="p-4">
+                          <ul>
+                            <li>
+                              <strong>DATOS DE REGISTRO</strong>
+                            </li>
+                            <li>
+                              <strong>Creado por: </strong>
+                              {item.creatorI
+                                ? `${item.creatorI.nombre} ${item.creatorI.apellidop} ${item.creatorI.apellidom}`
+                                : "Desconocido"}
+                            </li>
+                            <li>
+                              <strong>Fecha: </strong>
+                              {item.createdAt}
+                            </li>
+                            <li>
+                              <strong>Ultima actualización: </strong>
+                              {item.updatedAt}
+                            </li>
+                          </ul>
+                        </div>
+                      }
+                    >
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
+                        <InfoIcon />
+                      </span>
+                    </Popover>
+                  </td>
+                )}
             </tr>
           ))}
         </tbody>

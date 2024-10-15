@@ -72,28 +72,33 @@ export const TablaConsumibles = () => {
           </div>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {filteredTypes.map((type, index) => (
-          <div key={index} className="flex flex-col justify-between max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <div>
-              <div className="flex items-center justify-center w-20 h-20 mx-auto bg-blue-100 rounded-full dark:bg-blue-500 dark:bg-opacity-40">
-                <ImportantDevicesIcon style={{ fontSize: 50 }} />
-              </div>
-              <div className="mt-4 mb-2 text-center">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{type.tipo}</h5>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{type.marca}</p>
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <button
-                onClick={() => handleViewRecords(type.tipo, type.marca)}
-                className="py-2 px-3 text-base font-medium justify-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
-              >
-                Ver Registros
-                <ArrowForwardIcon className="w-6 h-6 ml-2" />
-              </button>
-            </div>
-          </div>
-        ))}
+      {filteredTypes.map((type, index) => (
+  <div key={index} 
+  className={`flex flex-col justify-between max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${
+    type.disponibles <= 3 ? 'border-red-500 shadow-red-500' : ''
+  }`}
+  >
+    <div>
+      <div className="flex items-center justify-center w-20 h-20 mx-auto bg-blue-100 rounded-full dark:bg-blue-500 dark:bg-opacity-40">
+        <ImportantDevicesIcon style={{ fontSize: 50 }} />
+      </div>
+      <div className="mt-4 mb-2 text-center">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{type.tipo}</h5>
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{type.marca}</p>
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Disponibles: {type.disponibles}</p>
+      </div>
+    </div>
+    <div className="flex justify-center">
+      <button
+        onClick={() => handleViewRecords(type.tipo, type.marca)}
+        className="py-2 px-3 text-base font-medium justify-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
+      >
+        Ver Registros
+        <ArrowForwardIcon className="w-6 h-6 ml-2" />
+      </button>
+    </div>
+  </div>
+))}
       </div>
     </div>
   );
