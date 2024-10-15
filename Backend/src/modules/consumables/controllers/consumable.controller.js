@@ -1,4 +1,5 @@
 const { Consumible, User } = require("../../index.model");
+const Sequelize = require("sequelize");
 
 // Función para transformar todos los campos a mayúsculas
 const toUpperCaseFields = (obj) => {
@@ -18,39 +19,51 @@ const create = async (req, res) => {
   try {
     const imagen = req.file ? req.file.path.replace(/\\/g, '/') : null;
     const {
-      etiqueta,
       tipo,
       descripcion,
       marca,
       modelo,
       serie,
       responsable,
+      disponible
     } = req.body;
 
-    if (!etiqueta || !tipo || !responsable) {
+    if (!tipo || !responsable) {
       return res.status(400).json({
         message: "Todos los campos son requeridos",
       });
     }
 
+    if (!/^(\d+)(,\s\d+)*$/.test(serie)) {
+      return res.status(400).json({ mensaje: 'El formato de las series no es válido. Asegúrate de ingresar una serie o varias series separadas por una coma y un espacio.' });
+    }
+
+    const serieList = serie.includes(',') ? serie.split(', ').map(serie => serie.trim()) : [serie.trim()];
+
     // Transformar todos los campos a mayúsculas
     const upperCaseData = toUpperCaseFields({
-      etiqueta,
       tipo,
       descripcion: descripcion || "Sin descripción",
       marca,
       modelo,
-      serie,
       responsable,
     });
 
-    let consumible = await Consumible.create({
-      ...upperCaseData,
-      imagen,
-      createdBy: req.user.id,
-    });
+    // Crear los consumibles por cada serie
+    const consumiblesCreados = [];
+    for (const serieItem of serieList) {
+      const consumible = await Consumible.create({
+        ...upperCaseData,
+        serie: serieItem,
+        imagen,
+        disponible,
+        createdBy: req.user.id,
+      });
 
-    res.status(201).json(consumible);
+      consumiblesCreados.push(consumible);
+    }
+
+    res.status(201).json(consumiblesCreados);
   } catch (error) {
     console.error('Error al crear el registro:', error);
     res.status(500).json({
@@ -107,8 +120,13 @@ const update = async (req, res) => {
 const getTypes = async (req, res) => {
   try {
     const types = await Consumible.findAll({
-      attributes: ['tipo', 'marca'],
-      group: ['tipo', 'marca',]
+      attributes: [
+        'tipo',
+        'marca',
+        [Sequelize.fn('COUNT', Sequelize.col('DISPONIBLE')), 'totalRegistros'],
+        [Sequelize.fn('SUM', Sequelize.literal('CASE WHEN DISPONIBLE = true THEN 1 ELSE 0 END')), 'disponibles']
+      ],
+      group: ['tipo', 'marca']
     });
     res.json(types);
   } catch (error) {
@@ -135,7 +153,16 @@ const getByType = async (req, res) => {
         }
       ],
     });
-    res.json(registros);
+
+    // Transformar el campo DISPONIBLE
+    const registrosTransformados = registros.map(registro => {
+      return {
+        ...registro.toJSON(),
+        DISPONIBLE: registro.DISPONIBLE ? "disponible" : "no disponible"
+      };
+    });
+
+    res.json(registrosTransformados);
   } catch (error) {
     res.status(500).json({
       message: "Error al obtener los registros por tipo y marca",

@@ -13,15 +13,6 @@ const Consumible = database.define(
       autoIncrement: true,
       allowNull: false,
     },
-    etiqueta: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        notEmpty: true,
-        isNumeric: true,
-      },
-    },
     tipo: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -48,6 +39,11 @@ const Consumible = database.define(
     responsable: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    disponible: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
     },
     imagen: {
       type: DataTypes.STRING,
