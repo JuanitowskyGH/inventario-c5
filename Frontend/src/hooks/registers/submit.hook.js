@@ -5,6 +5,7 @@ import endpoints from "../../services/endpoints";
 import authService from "../../services/authService";
 
 export const submitHook = () => {
+  const user = authService.getCurrentUser();
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
   const [inventario, setInventario] = useState({
@@ -42,6 +43,19 @@ export const submitHook = () => {
     setErrors({});
   };
 
+  const sendClean = (fieldsToKeep = {}) => {
+    setInventario((prevState) => ({
+      ...prevState,
+      ...fieldsToKeep,
+      etiqueta: "",
+      numAnterior: "",
+      serie: "",
+      descripcion: "",
+      imagen: "",
+    }));
+    setErrors({});
+  };
+
   const handleChange = (e) => {
     const { value, name } = e.target;
     setInventario({ ...inventario, [name]: value });
@@ -59,7 +73,6 @@ export const submitHook = () => {
       etiqueta,
       numAnterior,
       tipo,
-      marca,
       departamento,
       ubicacion,
       responsable,
@@ -69,7 +82,6 @@ export const submitHook = () => {
       etiqueta: !etiqueta,
       numAnterior: !numAnterior,
       tipo: !tipo,
-      marca: !marca,
       departamento: !departamento,
       ubicacion: !ubicacion,
       responsable: !responsable,
@@ -96,7 +108,7 @@ export const submitHook = () => {
         }
       });
 
-      const user = authService.getCurrentUser();
+
       if (!user) {
         throw new Error("No se ha iniciado sesión");
       }
@@ -115,15 +127,32 @@ export const submitHook = () => {
         showConfirmButton: false,
         timer: 2000,
       });
-      cleanForm();
+      sendClean({ 
+        tipo: inventario.tipo,
+        marca: inventario.marca,
+        modelo: inventario.modelo,
+        departamento: inventario.departamento,
+        ubicacion: inventario.ubicacion,
+        responsable: inventario.responsable,
+      });
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error del servidor",
-        text: "Ocurrió un error al intentar agregar el registro. Por favor, inténtelo de nuevo más tarde.",
-        showConfirmButton: false,
-      });
+      if (error.response && error.response.status === 400 && error.response.data.message === "La etiqueta ya está registrada") {
+        Swal.fire({
+          icon: "error",
+          title: "Etiqueta duplicada",
+          text: "La etiqueta ya está registrada. Por favor, ingrese una etiqueta diferente.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error del servidor",
+          text: "Ocurrió un error al intentar agregar el registro. Por favor, inténtelo de nuevo más tarde.",
+          showConfirmButton: false,
+        });
+      }
     } finally {
       setLoading(false);
     }

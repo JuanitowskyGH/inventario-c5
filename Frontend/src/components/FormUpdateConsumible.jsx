@@ -47,7 +47,7 @@ export const FormUpdateConsumible = () => {
                 Los campos marcados con * son obligatorios.
               </p>
               <figure className="mt-10">
-                <img className="h-auto w-screen rounded-lg" src={img} />
+                <img className="h-auto max-w-screen rounded-lg" src={img} />
                 <figcaption className="my-6 text-sm text-center text-gray-500 dark:text-gray-400">
                   <strong> Número de registro: {consumible.id}</strong>
                 </figcaption>
@@ -67,26 +67,7 @@ export const FormUpdateConsumible = () => {
               </label>
             </div>
           </div>
-          <div className="grid grid-rows-5 grid-flow-col gap-4 mt-24">
-            <div className="relative">
-              <input
-                type="text"
-                name="etiqueta"
-                value={consumible.etiqueta || ""}
-                onChange={handleChange}
-                id="etiqueta"
-                className={`block rounded-t-lg px-2.5 pb-3.5 pt-6 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 ${
-                  errors.etiqueta ? "input-error" : "border-gray-300"
-                } appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-tlax peer`}
-                placeholder=" "
-              />
-              <label
-                htmlFor="etiqueta"
-                className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-tlax peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
-              >
-                Etiqueta *
-              </label>
-            </div>
+          <div className="grid grid-rows-4 grid-flow-col gap-4 mt-24">
             <div className="relative">
               <input
                 type="text"
@@ -163,7 +144,7 @@ export const FormUpdateConsumible = () => {
                 Serie
               </label>
             </div>
-            <div className="relative col-start-2">
+            <div className="relative">
               <input
                 type="text"
                 name="responsable"
@@ -182,7 +163,7 @@ export const FormUpdateConsumible = () => {
                 Responsable *
               </label>
             </div>
-            <div className="relative col-span-2">
+            <div className="relative col-start-2">
               <textarea
                 name="descripcion"
                 value={consumible.descripcion || ""}
@@ -200,7 +181,7 @@ export const FormUpdateConsumible = () => {
                 Descripcion
               </label>
             </div>
-            <div className="flex col-span-2 justify-end gap-5 py-8">
+            <div className="flex col-span-2 justify-end gap-5 py-16">
             <button className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300">
               <EditIcon className="w-3 h-3" />
               Actualizar Registro

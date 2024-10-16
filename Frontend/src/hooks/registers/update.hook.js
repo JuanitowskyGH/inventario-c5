@@ -122,14 +122,15 @@ export const updateHook = () => {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        navigate("/inventario");
         Swal.fire({
           title: "Datos actualizados",
           text: "El registro ha sido actualizado exitosamente",
           icon: "success",
           showConfirmButton: false,
           timer: 2000,
-        });
+        }).then(() => 
+          window.location.reload()
+        );
       } catch (error) {
         console.error("Error al actualizar el registro:", error);
         Swal.fire({

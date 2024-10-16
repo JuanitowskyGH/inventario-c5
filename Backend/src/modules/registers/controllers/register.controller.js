@@ -68,13 +68,19 @@ const create = async (req, res) => {
       !etiqueta ||
       !numAnterior ||
       !tipo ||
-      !marca ||
       !departamento ||
       !responsable ||
       !ubicacion
     ) {
       return res.status(400).json({
         message: "Todos los campos son requeridos",
+      });
+    }
+
+    const etiquetaExistente = await Inventario.findOne({ where: { etiqueta } });
+    if (etiquetaExistente) {
+      return res.status(400).json({
+        message: "La etiqueta ya está registrada",
       });
     }
 

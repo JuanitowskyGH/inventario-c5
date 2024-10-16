@@ -19,7 +19,7 @@ export const submitHook = () => {
   });
 
   const validateSerie = (serie) => {
-    const seriePattern = /^(\d+)(,\s\d+)*$/;  // Acepta números separados por ", " o solo un número
+    const seriePattern = /^(\d+)(,\s\d+)*$/;
     return seriePattern.test(serie);
   };
 
@@ -37,6 +37,18 @@ export const submitHook = () => {
       responsable: "",
       imagen: "",
     });
+    setErrors({});
+  };
+
+  const sendClean = (fieldsToKeep = {}) => {
+    setConsumible((prevState) => ({
+      ...prevState,
+      ...fieldsToKeep,
+      modelo: "",
+      serie: "",
+      descripcion: "",
+      imagen: ""
+    }));
     setErrors({});
   };
 
@@ -58,7 +70,7 @@ export const submitHook = () => {
     const newErrors = {
       tipo: !tipo,
       responsable: !responsable,
-      serie: !validateSerie(serie),
+      serie: serie && !validateSerie(serie),
     };
 
     if (Object.values(newErrors).some((error) => error)) {
@@ -75,14 +87,14 @@ export const submitHook = () => {
     }
 
     try {
-      const serieList = serie.includes(',') ? serie.split(', ').map(serie => serie.trim()) : [serie.trim()];
+      const serieList = serie ? serie.includes(',') ? serie.split(', ').map(serie => serie.trim()) : [serie.trim()] : [null];
 
       for (const serieItem of serieList) {
         const formDataToSend = new FormData();
         formDataToSend.append('tipo', tipo);
         formDataToSend.append('marca', consumible.marca);
         formDataToSend.append('modelo', consumible.modelo);
-        formDataToSend.append('serie', serieItem);
+        if (serieItem) formDataToSend.append('serie', serieItem);
         formDataToSend.append('descripcion', consumible.descripcion);
         formDataToSend.append('responsable', responsable);
         formDataToSend.append('imagen', consumible.imagen);
@@ -102,8 +114,11 @@ export const submitHook = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-
-      cleanForm();
+      sendClean({
+        tipo: consumible.tipo,
+        marca: consumible.marca,
+        responsable: consumible.responsable,
+      })
     } catch (error) {
       console.error('Error al crear el registro:', error);
       Swal.fire({

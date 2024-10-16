@@ -5,19 +5,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('consumables', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      etiqueta: {
-        type: Sequelize.STRING,
+        autoIncrement: true,
         allowNull: false,
-        unique: true,
-        validate: {
-          notEmpty: true,
-          isNumeric: true,
-        },
       },
       tipo: {
         type: Sequelize.STRING,
@@ -29,21 +20,27 @@ module.exports = {
       },
       marca: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: "SIN MARCA",
       },
       modelo: {
         type: Sequelize.STRING,
         allowNull: true,
-        defaultValue: "Sin modelo",
+        defaultValue: "SIN MODELO",
       },
       serie: {
         type: Sequelize.STRING,
         allowNull: true,
-        defaultValue: "Sin No. de serie",
+        defaultValue: "SIN NO. DE SERIE",
       },
       responsable: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      disponible: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
       imagen: {
         type: Sequelize.STRING,

@@ -12,7 +12,6 @@ export const updateHook = () => {
   const [errors, setErrors] = useState({});
   const [consumible, setInventario] = useState({
     id: "",
-    etiqueta: "",
     tipo: "",
     marca: "",
     modelo: "",
@@ -69,7 +68,6 @@ export const updateHook = () => {
 
     // Validar campos vacíos
     const newErrors = {
-      etiqueta: !consumible.etiqueta,
       tipo: !consumible.tipo,
       marca: !consumible.marca,
       modelo: !consumible.modelo,

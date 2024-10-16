@@ -34,11 +34,13 @@ const create = async (req, res) => {
       });
     }
 
-    if (!/^(\d+)(,\s\d+)*$/.test(serie)) {
+    // Validar el formato de la serie solo si está presente
+    if (serie && !/^(\d+)(,\s\d+)*$/.test(serie)) {
       return res.status(400).json({ mensaje: 'El formato de las series no es válido. Asegúrate de ingresar una serie o varias series separadas por una coma y un espacio.' });
     }
 
-    const serieList = serie.includes(',') ? serie.split(', ').map(serie => serie.trim()) : [serie.trim()];
+    // Separar las series si están presentes, de lo contrario usar [null]
+    const serieList = serie ? (serie.includes(',') ? serie.split(', ').map(serie => serie.trim()) : [serie.trim()]) : [null];
 
     // Transformar todos los campos a mayúsculas
     const upperCaseData = toUpperCaseFields({
@@ -52,14 +54,17 @@ const create = async (req, res) => {
     // Crear los consumibles por cada serie
     const consumiblesCreados = [];
     for (const serieItem of serieList) {
-      const consumible = await Consumible.create({
+      const consumibleData = {
         ...upperCaseData,
-        serie: serieItem,
         imagen,
         disponible,
         createdBy: req.user.id,
-      });
+      };
+      if (serieItem) {
+        consumibleData.serie = serieItem;
+      }
 
+      const consumible = await Consumible.create(consumibleData);
       consumiblesCreados.push(consumible);
     }
 
@@ -78,7 +83,6 @@ const update = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      etiqueta,
       tipo,
       descripcion,
       marca,
@@ -89,7 +93,6 @@ const update = async (req, res) => {
     const newDescripcion = descripcion || "Sin descripción";
 
     const upperCaseData = toUpperCaseFields({
-      etiqueta,
       tipo,
       descripcion: newDescripcion || "Sin descripción",
       marca,

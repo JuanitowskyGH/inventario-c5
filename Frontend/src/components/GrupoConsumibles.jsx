@@ -20,6 +20,7 @@ export const GrupoConsumibles = ({ role }) => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const user = authService.getCurrentUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const decodedTipo = decodeURIComponent(tipo);
@@ -69,19 +70,24 @@ export const GrupoConsumibles = ({ role }) => {
         text: "El registro ha sido eliminado con éxito",
         showConfirmButton: false,
         timer: 2000,
-      }).then(() => {
-        window.location.reload();
-      });
-      //setData(data.filter((item) => item.id !== id));
-      //getInventario();
+      })
+      setRecords(records.filter((record) => record.id !== id));
     }
   };
 
-  /*const filteredTypes = types.filter(type =>
-    type.tipo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    type.marca.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-*/
+  const filteredRecords = records.filter((record) => {
+    const serie = record.serie ? record.serie.toString().toLowerCase() : "";
+    const responsable = record.responsable ? record.responsable.toString().toLowerCase() : "";
+    const disponibilidad = record.disponibilidad ? record.disponibilidad.toString().toLowerCase() : "";
+    const searchTermLower = searchTerm.toLowerCase();
+
+    return (
+      serie.includes(searchTermLower) ||
+      responsable.includes(searchTermLower) ||
+      disponibilidad.includes(searchTermLower)
+    );
+  });
+
   if (loading) {
     return (
       <div className="text-center">
@@ -111,8 +117,8 @@ export const GrupoConsumibles = ({ role }) => {
             </div>
             <input
               type="text"
-              /*value={searchTerm}
-              onChange={(e) => searchTerm(e.target.value)}*/
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               id="table-search"
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 focus:ring-blue-tlax focus:border-blue-tlax dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Buscar"
@@ -204,9 +210,9 @@ export const GrupoConsumibles = ({ role }) => {
           </tr>
         </thead>
         <tbody>
-          {records.map((record, index) => (
+          {filteredRecords.map((record) => (
             <tr
-              key={index}
+              key={record.id}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300"
             >
               <th
