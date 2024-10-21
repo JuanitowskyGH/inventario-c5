@@ -31,3 +31,6 @@ consumable.get("/consumables/:id", getById);
 consumable.delete("/consumables/:id", remove);
 
 module.exports = consumable;
+
+/* POR ALGUNA EXTRAÑA RAZON SI SE MUEVEN LAS RUTAS YA NO 
+   OBTIENE LOS CONSUMIBLES ??? */

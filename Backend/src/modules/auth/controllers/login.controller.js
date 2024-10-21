@@ -1,7 +1,7 @@
 const { User, Role } = require("../../index.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config");
+const config = require("../../../config");
 
 const login = async (req, res) => {
   const { username, password } = req.body;
@@ -24,7 +24,7 @@ const login = async (req, res) => {
     const role = user.role ? user.role.name : null;
     const token = jwt.sign(
       { id: user.id, username: user.username, role },
-      config.secret,
+      config.development.jwtsecret,
       { expiresIn: "2h" }
     );
 

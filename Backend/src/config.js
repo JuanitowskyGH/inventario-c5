@@ -9,6 +9,7 @@ module.exports = {
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "testdb",
     host: process.env.DB_HOST || "localhost",
+    jwtsecret: process.env.JWT_SECRET,
     dialect: "mysql",
   },
   test: {
@@ -16,6 +17,7 @@ module.exports = {
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "pruebas",
     host: process.env.DB_HOST || "localhost",
+    jwtsecret: process.env.JWT_SECRET,
     dialect: "mysql",
   },
   production: {
@@ -23,6 +25,7 @@ module.exports = {
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "pruebas",
     host: process.env.DB_HOST || "localhost",
+    jwtsecret: process.env.JWT_SECRET,
     dialect: "mysql",
   },
 };

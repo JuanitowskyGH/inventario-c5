@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config");
+const config = require("../../../config");
 
 //MIDDLEWARE PARA VERIFICAR SI EL USUARIO ESTÁ AUTENTICADO
 
@@ -14,7 +14,7 @@ const auth = (req, res, next) => {
     : authHeader;
 
   try {
-    const decoded = jwt.verify(token, config.secret);
+    const decoded = jwt.verify(token, config.development.jwtsecret);
     req.userId = decoded.id;
     next();
   } catch (error) {
