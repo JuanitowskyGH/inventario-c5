@@ -35,12 +35,12 @@ const create = async (req, res) => {
     }
 
     // Validar el formato de la serie solo si está presente
-    if (serie && !/^(\d+)(,\s\d+)*$/.test(serie)) {
+    if (serie && !/^(\d+)(,\s?\d+)*$/.test(serie)) {
       return res.status(400).json({ mensaje: 'El formato de las series no es válido. Asegúrate de ingresar una serie o varias series separadas por una coma y un espacio.' });
     }
 
     // Separar las series si están presentes, de lo contrario usar [null]
-    const serieList = serie ? (serie.includes(',') ? serie.split(', ').map(serie => serie.trim()) : [serie.trim()]) : [null];
+    const serieList = serie ? serie.split(',').map(serie => serie.trim()) : [null];
 
     // Transformar todos los campos a mayúsculas
     const upperCaseData = toUpperCaseFields({

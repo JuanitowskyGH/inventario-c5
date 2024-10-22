@@ -118,7 +118,7 @@ export const updateHook = () => {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: "¡Error!",
+        title: "¡Error al actualizar informacion!",
         text: "Ingrese su contraseña para confirmar",
         showConfirmButton: false,
         timer: 2000,
@@ -185,15 +185,12 @@ export const updateHook = () => {
         text: "Información actualizada con éxito",
         showConfirmButton: false,
         timer: 2000,
-      }).then(() => {
-      window.location.reload();
-      });
+      })
     } catch (error) {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "¡Error!",
-        text: "Contraseña incorrecta",
+        title: "¡Contraseña incorrecta!",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -209,6 +206,19 @@ export const updateHook = () => {
       return;
     }
 
+    // Verificar que todos los campos estén llenos
+    if (!passValues.currentPassword || !passValues.newPassword || !passValues.confirmNewPassword) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "¡Error al actualizar contraseña!",
+        text: "Llene los campos para continuar",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+
     // Validar nueva contraseña
     if (!validatePassword(passValues.newPassword)) {
       Swal.fire({
@@ -218,19 +228,6 @@ export const updateHook = () => {
         text: 'La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una letra minúscula, un número y un carácter especial.',
         confirmButtonColor: "#0B1556",
         confirmButtonText: "Entendido",
-      });
-      return;
-    }
-
-    // Verificar que todos los campos estén llenos
-    if (!passValues.currentPassword || !passValues.newPassword || !passValues.confirmNewPassword) {
-      Swal.fire({
-        position: "center",
-        icon: "warning",
-        title: "¡Error!",
-        text: "Llene los campos para continuar",
-        showConfirmButton: false,
-        timer: 2000,
       });
       return;
     }

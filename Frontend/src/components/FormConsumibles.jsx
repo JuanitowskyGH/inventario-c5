@@ -27,7 +27,7 @@ export const FormConsumibles = () => {
               Agregar consumible
             </h1>
             <p>
-              Llena los campos para agregar un nuevo consumible.
+              Llena los campos para agregar un nuevo consumible. Para agregar varios del mismo tipo, separa las series con ","
               <br />
               Los campos marcados con * son obligatorios.
             </p>

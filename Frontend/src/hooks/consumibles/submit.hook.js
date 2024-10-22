@@ -19,7 +19,7 @@ export const submitHook = () => {
   });
 
   const validateSerie = (serie) => {
-    const seriePattern = /^(\d+)(,\s\d+)*$/;
+    const seriePattern = /^(\d+)(,\s?\d+)*$/;
     return seriePattern.test(serie);
   };
 
@@ -87,7 +87,7 @@ export const submitHook = () => {
     }
 
     try {
-      const serieList = serie ? serie.includes(',') ? serie.split(', ').map(serie => serie.trim()) : [serie.trim()] : [null];
+      const serieList = serie ? serie.split(',').map(serie => serie.trim()) : [null];
 
       for (const serieItem of serieList) {
         const formDataToSend = new FormData();

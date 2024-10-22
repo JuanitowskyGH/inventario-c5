@@ -102,11 +102,7 @@ export const GrupoConsumibles = ({ role }) => {
   return (
     <div className="relative overflow-x-auto bg-white shadow-md sm:rounded-lg w-full">
       <div className="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-        Lista de consumibles.
-        <ul className="list-disc ml-10 text-base pt-2">
-          <li>Tipo: {decodeURIComponent(tipo)}</li>
-          <li>Marca: {decodeURIComponent(marca)}</li>
-        </ul>
+        Lista de consumibles de Tipo: "{decodeURIComponent(tipo)}" y Marca: "{decodeURIComponent(marca)}"
         <div className="flex justify-between items-center mt-4">
           <div className="relative w-2/5">
             <label htmlFor="table-search" className="sr-only">
@@ -234,13 +230,20 @@ export const GrupoConsumibles = ({ role }) => {
                         : "/inventory.jpg"
                     }
                     alt="img"
-                    className="max-w-[300px] max-h-[200px] object-cover rounded-lg"
+                    className="max-w-[300px] max-h-[200px] object-cover rounded-lg mr-6"
                   />
                 </div>
               </td>
-              <td className="text-center py-4">{record.disponible ? "DISPONIBLE" : "NO DISPONIBLE"}</td>
-              {(role === "Administrador" || role === "Moderador") && (
-                <td className="flex py-20 justify-center gap-2">
+              <td className="text-center py-4">
+                <span
+                  className={`px-2 py-1 rounded-full text-white ${
+                    record.disponible ? "bg-green-500 shadow-md shadow-green-700" : "bg-red-500 shadow-md shadow-red-700"
+                  }`}
+                >
+                  {record.disponible ? "DISPONIBLE" : "NO DISPONIBLE"}
+                </span>
+              </td>              {(role === "Administrador" || role === "Moderador") && (
+                <td className="flex py-24 px-4 justify-center gap-2">
                   <Tooltip color="primary" content="Editar registro">
                     <Link to={`/updateconsumible/${record.id}`}>
                       <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-tlax">

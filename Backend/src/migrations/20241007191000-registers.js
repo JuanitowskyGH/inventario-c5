@@ -5,14 +5,15 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('registers', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true,
+        allowNull: false,
       },
       etiqueta: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
         validate: {
           notEmpty: true,
           isNumeric: true,
@@ -32,17 +33,18 @@ module.exports = {
       },
       marca: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: "SIN MARCA",
       },
       modelo: {
         type: Sequelize.STRING,
         allowNull: true,
-        defaultValue: "Sin modelo",
+        defaultValue: "SIN MODELO",
       },
       serie: {
         type: Sequelize.STRING,
         allowNull: true,
-        defaultValue: "Sin No. de serie",
+        defaultValue: "S/N",
       },
       departamento: {
         type: Sequelize.STRING,
@@ -75,11 +77,7 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATEONLY,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
       },
-    },
-    {
-      timestamps: false,
     });
   },
 

@@ -37,17 +37,17 @@ const Inventario = database.define(
     marca: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "Sin marca",
+      defaultValue: "SIN MARCA",
     },
     modelo: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "Sin modelo",
+      defaultValue: "SIN MODELO",
     },
     serie: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "Sin No. de serie",
+      defaultValue: "S/N",
     },
     departamento: {
       type: DataTypes.STRING,
@@ -80,11 +80,7 @@ const Inventario = database.define(
     updatedAt: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
     },
-  },
-  {
-    timestamps: false,
   }
 );
 

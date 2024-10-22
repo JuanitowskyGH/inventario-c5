@@ -7,8 +7,10 @@ import authService from "../../services/authService";
 export const menuHook = ( onMenuToggle ) => {
   
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [dropdownOpen, setDropdownOpen] = useState(
+    { dropdown: false },
+  );
   const [userInfo, setUserInfo] = useState({
     nombre: "",
     apellidop: "",
@@ -60,6 +62,20 @@ export const menuHook = ( onMenuToggle ) => {
     navigate("/");
   };
 
+  const handleMouseEnter = (dropdown) => {
+    setDropdownOpen((prevState) => ({
+      ...prevState,
+      [dropdown]: true,
+    }));
+  };
+
+  const handleMouseLeave = (dropdown) => {
+    setDropdownOpen((prevState) => ({
+      ...prevState,
+      [dropdown]: false,
+    }));
+  };
+
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
     onMenuToggle(!isDrawerOpen);
@@ -70,19 +86,16 @@ export const menuHook = ( onMenuToggle ) => {
     onMenuToggle(false);
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
 
   return {
     isDrawerOpen,
-    isDropdownOpen,
+    dropdownOpen,
     isMobile,
     userInfo,
     toggleDrawer,
     closeDrawer,
-    toggleDropdown,
+    handleMouseEnter,
+    handleMouseLeave,
     logout,
   }
 }

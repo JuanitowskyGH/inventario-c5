@@ -31,7 +31,7 @@ module.exports = {
       serie: {
         type: Sequelize.STRING,
         allowNull: true,
-        defaultValue: "SIN NO. DE SERIE",
+        defaultValue: "S/N",
       },
       responsable: {
         type: Sequelize.STRING,
@@ -61,11 +61,7 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATEONLY,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
       },
-    },
-    {
-      timestamps: false,
     });
   },
 

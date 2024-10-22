@@ -3,7 +3,7 @@ import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
-import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
+import TurnedInNotIcon from "@material-ui/icons/TurnedInNot";
 import PostAddOutlinedIcon from "@material-ui/icons/PostAddOutlined";
 import UserIcon from "../icons/UserIcon";
 import AddUserIcon from "../icons/AddUserIcon";
@@ -17,14 +17,16 @@ import { menuHook } from "../hooks/services/menu.hook";
 export const Menu = ({ role, onMenuToggle }) => {
   const {
     isDrawerOpen,
-    isDropdownOpen,
     isMobile,
     userInfo,
+    dropdownOpen,
+    handleMouseEnter,
     toggleDrawer,
-    toggleDropdown,
     closeDrawer,
+    handleMouseLeave,
     logout,
   } = menuHook(onMenuToggle);
+
 
   return (
     <div className="relative">
@@ -58,11 +60,7 @@ export const Menu = ({ role, onMenuToggle }) => {
                 to={"/dashboard"}
                 className="flex ml-8 ms-2 md:me-24 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300"
               >
-                <img
-                  src="/favicon.ico"
-                  className="h-8 me-3"
-                  alt="FlowBite Logo"
-                />
+                <img src="/favicon.ico" className="h-8 me-3" alt="Tlx Logo" />
                 <span className="self-center text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-blue-tlax text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white italic">
                   Inventario C5i
                 </span>
@@ -70,11 +68,15 @@ export const Menu = ({ role, onMenuToggle }) => {
             </div>
 
             <div className="flex items-center">
-              <div className="relative inline-block text-left">
+              <div
+                className="relative inline-block text-left"
+                onMouseEnter={() => handleMouseEnter('dropdown')}
+                onMouseLeave={() => handleMouseLeave('dropdown')}
+              >
                 <button
                   type="button"
                   className="flex items-center focus:outline-none transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-95 duration-150"
-                  onClick={toggleDropdown}
+                  //onClick={toggleDropdown}
                 >
                   <img
                     src={userInfo.imagenUrl || "/user.jpg"}
@@ -86,33 +88,37 @@ export const Menu = ({ role, onMenuToggle }) => {
                   </span>
                 </button>
                 <div
-                  className={`origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 ${
-                    isDropdownOpen ? "block" : "hidden"
-                  }`}
-                  style={{ zIndex: 9999 }} // Asegurarse de que el dropdown se superpone al contenido
-                >
-                  <div className="py-1">
-                    <Link
-                      to="/cuenta"
-                      className="px-4 py-2 w-full h-full 
+                  className={`absolute z-20 w-full ${
+                    dropdownOpen.dropdown ? "block" : "hidden"
+                  } bg-white divide-y divide-gray-100 rounded-lg shadow w-64 dark:bg-gray-700`}>
+                  <ul
+                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                  >
+                    <li>
+                      <Link
+                        to="/cuenta"
+                        className="px-4 py-2 w-full h-full 
                       transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                       text-base italic text-center inline-flex items-center
                        text-gray-700 hover:bg-gray-100"
-                    >
-                      <UserIcon className="w-3 h-3 mr-2" />
-                      Perfil
-                    </Link>
-                    <button
-                      onClick={logout}
-                      className="px-4 py-2 w-full h-full font-semibold
+                      >
+                        <UserIcon className="w-3 h-3 mr-2" />
+                        Perfil
+                      </Link>{" "}
+                    </li>
+                    <li>
+                      <button
+                        onClick={logout}
+                        className="px-4 py-2 w-full h-full font-semibold
                       transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
                       text-base italic text-center inline-flex items-center 
                       text-gray-700 hover:bg-gray-100"
-                    >
-                      <SignOutIcon className="w-3 h-3 mr-2" />
-                      Cerrar sesión
-                    </button>
-                  </div>
+                      >
+                        <SignOutIcon className="w-3 h-3 mr-2" />
+                        Cerrar sesión
+                      </button>{" "}
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

@@ -15,7 +15,6 @@ const Role = sequelize.define(TABLA, {
   },
   updatedAt: {
     type: DataTypes.DATEONLY,
-    defaultValue: DataTypes.NOW,
   },
 });
 

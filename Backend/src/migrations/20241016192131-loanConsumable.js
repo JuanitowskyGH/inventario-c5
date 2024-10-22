@@ -17,7 +17,11 @@ module.exports = {
           model: 'consumables',
           key: 'id',
         }
-      }
+      },
+      createdAt: {
+        type: Sequelize.DATEONLY,
+        defaultValue: Sequelize.NOW,
+      },
     });
   },
   

@@ -15,6 +15,10 @@ const LoanConsumable = sequelize.define('loanConsumable', {
       model: 'consumables',
       key: 'id',
     },
+    createdAt: {
+      type: Sequelize.DATEONLY,
+      defaultValue: Sequelize.NOW,
+    },
   },
 });
 

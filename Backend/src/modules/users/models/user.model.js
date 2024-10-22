@@ -50,7 +50,6 @@ const User = sequelize.define(TABLA, {
   },
   updatedAt: {
     type: DataTypes.DATEONLY,
-    defaultValue: DataTypes.NOW,
   },
 });
 

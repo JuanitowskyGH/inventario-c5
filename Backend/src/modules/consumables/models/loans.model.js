@@ -13,8 +13,6 @@ const Loans = sequelize.define('loans', {
     allowNull: false,
     defaultValue: Sequelize.NOW,
   }
-  },{
-    timestamps: false,
   });
 
 module.exports = Loans;

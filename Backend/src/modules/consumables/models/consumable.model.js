@@ -34,7 +34,7 @@ const Consumible = database.define(
     serie: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "SIN NO. DE SERIE",
+      defaultValue: "S/N",
     },
     responsable: {
       type: DataTypes.STRING,
@@ -64,11 +64,7 @@ const Consumible = database.define(
     updatedAt: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
     },
-  },
-  {
-    timestamps: false,
   }
 );
 
