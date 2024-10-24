@@ -31,9 +31,7 @@ export const rolesHook = () => {
         }
 
         const response = await axios.get(endpoints.usuarioId + id, {
-          headers: {
-            Authorization: `Bearer ${token.token}`,
-          },
+          withCredentials: true
         });
         setUser(response.data);
       } catch (error) {
@@ -72,9 +70,7 @@ export const rolesHook = () => {
           throw new Error("Token not found");
         }
         await axios.put(endpoints.usuarioId + id, { roleId: user.roleId}, {
-          headers: {
-            Authorization: `Bearer ${token.token}`,
-          },
+          withCredentials: true
         });
         navigate("/usuarios");
         Swal.fire({

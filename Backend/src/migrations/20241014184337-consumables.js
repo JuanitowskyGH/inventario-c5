@@ -21,12 +21,12 @@ module.exports = {
       marca: {
         type: Sequelize.STRING,
         allowNull: true,
-        defaultValue: "SIN MARCA",
+        defaultValue: "S/M",
       },
       modelo: {
         type: Sequelize.STRING,
         allowNull: true,
-        defaultValue: "SIN MODELO",
+        defaultValue: "S/M",
       },
       serie: {
         type: Sequelize.STRING,

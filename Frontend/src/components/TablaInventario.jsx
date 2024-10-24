@@ -1,6 +1,7 @@
 import EditInventoryIcon from "../icons/EditInventoryIcon";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import PostAddOutlinedIcon from "@material-ui/icons/PostAddOutlined";
 import SwapVertIcon from '@material-ui/icons/SwapVert';
 import InfoIcon from '@material-ui/icons/Info';
 import SearchIcon from '@material-ui/icons/Search';
@@ -90,6 +91,22 @@ export const TablaInventario = ({ role }) => {
           </div>
         </div>
       </div>
+      {data.length === 0 ? (
+        <div className="p-5 text-center bg-white">
+          <hr className="border-t-2 mb-4 border-gray-200 dark:border-gray-700" />
+          <p className="mb-5 text-lg font-semibold text-gray-700 dark:text-gray-400">
+            Aún no hay registros disponibles.
+          </p>
+          <Link
+            to="/addinventario"
+            className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-blue-tlax transition ease-in-out delay-150 border-2 border-blue-tlax hover:-translate-y-1 hover:scale-100 hover:border-blue-tlax-light hover:text-blue-tlax-light duration-300"
+          >
+            <PostAddOutlinedIcon className="w-6 h-6 mr-2" />
+            Agregar Consumibles
+          </Link>
+          <hr className="border-t-2 mt-4 border-gray-200 dark:border-gray-700" />
+        </div>
+      ) : (
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -315,6 +332,7 @@ export const TablaInventario = ({ role }) => {
           ))}
         </tbody>
       </table>
+      )}
 
       {/* PAGINATION */}
       <div className="flex flex-col items-left pl-12 py-4">

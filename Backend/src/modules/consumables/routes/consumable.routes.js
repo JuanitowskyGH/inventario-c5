@@ -8,7 +8,7 @@ const consumable = express.Router();
 //CONFIGURACION DE MULTER PARA GUARDAR IMAGENES
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/registers");
+    cb(null, "public/consumables");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);

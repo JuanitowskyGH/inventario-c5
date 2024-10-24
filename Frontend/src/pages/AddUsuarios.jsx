@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Menu } from "../components/Menu";
 import { UsuariosForm } from "../components/UsuariosForm";
-import authService from "../services/authService";
+import { authRole } from "../services/authRole";
 
 export const AddUsuarios = () => {
-  const user = authService.getCurrentUser();
+  const { user } = authRole();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = (isOpen) => {
     setIsMenuOpen(isOpen);
   }
+
   return (
     <div className="absolute w-full h-full">
       <div>

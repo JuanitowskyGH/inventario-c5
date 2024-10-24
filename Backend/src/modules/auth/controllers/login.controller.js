@@ -24,14 +24,48 @@ const login = async (req, res) => {
     const role = user.role ? user.role.name : null;
     const token = jwt.sign(
       { id: user.id, username: user.username, role },
-      config.development.jwtsecret,
+      config.secure.jwtsecret,
       { expiresIn: "2h" }
     );
 
-    return res.json({ token });
+    // Establece el token en las cookies
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: config.secure.process, // Asegúrate de que sea seguro en producción
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000, // 2 horas
+    });
+
+    return res.json({ message: "Usuario autenticado" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = { login };
+// Controlador de Logout
+const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: config.secure.process,
+    sameSite: "strict",
+  });
+  return res.json({ message: "Logout successful" });
+};
+
+// Controlador para Obtener el Usuario Actual
+const getCurrentUser = (req, res) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, config.secure.jwtsecret);
+    return res.json({ id: decoded.id, username: decoded.username, role: decoded.role });
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+module.exports = { login, logout, getCurrentUser };

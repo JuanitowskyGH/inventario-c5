@@ -1,12 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu } from "../components/Menu";
-import authService from "../services/authService";
+import { authRole } from "../services/authRole";
 
 export const Administracion = () => {
-  const user = authService.getCurrentUser();
+  const { user } = authRole();
   const navigate = useNavigate();
-
   const handleGoBack = () => {
     navigate(-2);
   };

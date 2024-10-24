@@ -27,16 +27,14 @@ export const tableHook = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = authService.getCurrentUser();
-      if (!user) {
+      const currentUser = await authService.getCurrentUser();
+      if (!currentUser) {
         navigate("/");
         return;
       }
       try {
         const response = await axios.get(endpoints.usuarios, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          withCredentials: true
         });
         setData(response.data);
       } catch (error) {
@@ -102,15 +100,13 @@ export const tableHook = () => {
       cancelButtonText: "Cancelar",
     });
     if (confirm.isConfirmed) {
-      const user = authService.getCurrentUser();
-      if (!user) {
+      const currentUser = await authService.getCurrentUser();
+      if (!currentUser) {
         navigate("/");
         return;
       }
       await axios.delete(`${endpoints.usuarios}/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+        withCredentials: true
       });
       Swal.fire({
         icon: "success",

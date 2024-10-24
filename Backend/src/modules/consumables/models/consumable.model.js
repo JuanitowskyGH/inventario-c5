@@ -24,12 +24,12 @@ const Consumible = database.define(
     marca: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "SIN MARCA",
+      defaultValue: "S/M",
     },
     modelo: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "SIN MODELO",
+      defaultValue: "S/M",
     },
     serie: {
       type: DataTypes.STRING,

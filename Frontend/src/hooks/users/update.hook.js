@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import endpoints from "../../services/endpoints";
 import Swal from "sweetalert2";
+import authService from "../../services/authService";
 
 export const updateHook = () => {
 
@@ -41,7 +42,7 @@ export const updateHook = () => {
   useEffect(() => {
     setLoading(false);
     const fetchUserInfo = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = await authService.getCurrentUser();
       if (!user) {
         navigate("/");
         return;
@@ -49,7 +50,7 @@ export const updateHook = () => {
       try {
         const response = await axios.get(endpoints.cuenta, {
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            withCredentials: true
           },
         });
         setUserInfo({
@@ -109,7 +110,7 @@ export const updateHook = () => {
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = await authService.getCurrentUser();
     if (!user) {
       navigate("/");
       return;
@@ -141,9 +142,7 @@ export const updateHook = () => {
       await axios.post(endpoints.verify,
         { password: formValues.password },
         {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          withCredentials: true
         }
       );
 
@@ -163,7 +162,7 @@ export const updateHook = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            withCredentials: true,
             'Content-Type': 'multipart/form-data'
           },
         }
@@ -200,7 +199,7 @@ export const updateHook = () => {
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = await authService.getCurrentUser();
     if (!user) {
       navigate("/");
       return;
@@ -248,9 +247,7 @@ export const updateHook = () => {
     try {
       // Verificar la contraseña actual antes de actualizar la nueva contraseña
       await axios.post(endpoints.verify, { password: passValues.currentPassword }, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
-        },
+        withCredentials: true
       });
 
       // Mostrar confirmación de SweetAlert
@@ -271,9 +268,7 @@ export const updateHook = () => {
           currentPassword: passValues.currentPassword,
           newPassword: passValues.newPassword,
         }, {
-          headers: {
-            'Authorization': `Bearer ${user.token}`,
-          },
+          withCredentials: true
         });
 
         Swal.fire({

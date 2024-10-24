@@ -75,7 +75,7 @@ export const submitHook = () => {
       await axios.post(endpoints.usuarios, formData, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          withCredentials: true
         },
       });
       Swal.fire({

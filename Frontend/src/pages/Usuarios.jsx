@@ -1,10 +1,10 @@
 import React, {useState } from "react";
 import { Menu } from "../components/Menu";
 import { TablaUsuarios } from "../components/TablaUsuarios";
-import authService from "../services/authService";
+import { authRole } from "../services/authRole";
 
 export const Usuarios = () => {
-  const user = authService.getCurrentUser();
+  const { user } = authRole();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = (isOpen) => {
     setIsMenuOpen(isOpen);

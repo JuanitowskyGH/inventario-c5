@@ -1,38 +1,35 @@
 import axios from "axios";
-import { jwtDecode as decode } from "jwt-decode";
 import endpoints from "./endpoints";
+
+// Configurar Axios para enviar cookies con cada solicitud
+axios.defaults.withCredentials = true;
 
 //FUNCION PARA INICIAR SESION
 const login = async (username, password) => {
   try {
     const response = await axios.post(endpoints.login, { username, password });
-    if (response.data.token) {
-      localStorage.setItem("user", JSON.stringify(response.data));
-    }
     return response.data;
   } catch (error) {
-    return error.response.data;
+    if (error.response && error.response.data) {
+      return error.response.data;
+    }
+    return { message: "Error de conexión" };
   }
 };
 
 //FUNCION PARA CERRAR SESION
 const logout = () => {
-  localStorage.removeItem("user");
+  axios.post(endpoints.logout);
 };
 
 //FUNCION PARA OBTENER EL USUARIO ACTUAL 
-const getCurrentUser = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  if (user && user.token) {
-    const decoded = decode(user.token);
-    const currentTime = Date.now() / 1000;
-    if (decoded.exp < currentTime) {
-      logout();
-      return null;
-    }
-    return { ...user, role: decoded.role };
+const getCurrentUser = async () => {
+  try {
+    const response = await axios.get(endpoints.current);
+    return response.data;
+  } catch (error) {
+    return null;
   }
-  return null;
 };
 
 export default {

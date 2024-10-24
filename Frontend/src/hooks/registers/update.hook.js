@@ -29,14 +29,12 @@ export const updateHook = () => {
   useEffect(() => {
     const getInventario = async () => {
       try {
-        const user = authService.getCurrentUser();
+        const user = await authService.getCurrentUser();
         if (!user) {
           throw new Error("Usuario no autenticado");
         }
         const response = await axios.get(endpoints.inventarioId + id, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          withCredentials: true
         });
         setInventario(response.data);
       } catch (error) {
@@ -111,7 +109,7 @@ export const updateHook = () => {
       }
 
       try {
-        const user = authService.getCurrentUser();
+        const user = await authService.getCurrentUser();
         if (!user) {
           throw new Error("Usuario no autenticado");
         }
@@ -119,7 +117,7 @@ export const updateHook = () => {
         await axios.put(endpoints.inventarioId + id, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${user.token}`,
+            withCredentials: true,
           },
         });
         Swal.fire({

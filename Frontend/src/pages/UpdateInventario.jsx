@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { FormUpdateInventario } from "../components/FormUpdateInventario";
 import { Menu } from "../components/Menu";
-import authService from "../services/authService";
+import { authRole } from "../services/authRole";
 
 export const UpdateInventario = () => {
-  const user = authService.getCurrentUser();
+  const { user } = authRole();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = (isOpen) => {
     setIsMenuOpen(isOpen);

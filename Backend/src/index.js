@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const config = require("./config.js");
 const db = require("../src/database/database.js");
 const helmet = require("helmet");
+const cookieParser = require("cookie-parser");
 
 //RUTAS DE LOS MODULOS
 const registers = require("./modules/registers/routes/register.routes.js");
@@ -15,10 +16,11 @@ const { auth } = require("./modules/auth/middleware/auth.middleware.js");
 
 //MIDDLEWARE
 const app = express();
+app.use(cookieParser());
 
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static("public"));
 app.use(helmet({
@@ -43,7 +45,7 @@ app.use(helmet({
 }));
 
 //RUTAS
-app.use("/api/login", public);
+app.use("/api/auth", public);
 app.use("/api", auth, profile);
 app.use("/api", auth, users);
 app.use("/api", auth, registers);

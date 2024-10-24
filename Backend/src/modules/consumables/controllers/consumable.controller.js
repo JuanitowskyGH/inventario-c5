@@ -46,8 +46,8 @@ const create = async (req, res) => {
     const upperCaseData = toUpperCaseFields({
       tipo,
       descripcion: descripcion || "Sin descripción",
-      marca,
-      modelo,
+      marca: marca || "S/M",
+      model: modelo || "S/M",
       responsable,
     });
 
@@ -95,9 +95,9 @@ const update = async (req, res) => {
     const upperCaseData = toUpperCaseFields({
       tipo,
       descripcion: newDescripcion || "Sin descripción",
-      marca,
-      modelo,
-      serie,
+      marca: marca || "S/M",
+      modelo: modelo || "S/M",
+      serie: serie || "S/N",
       responsable,
     });
 

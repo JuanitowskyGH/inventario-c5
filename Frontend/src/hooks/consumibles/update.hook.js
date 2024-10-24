@@ -30,9 +30,7 @@ export const updateHook = () => {
           throw new Error("Usuario no autenticado");
         }
         const response = await axios.get(endpoints.consumibleId + id, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          withCredentials: true
         });
         setInventario(response.data);
       } catch (error) {
@@ -69,11 +67,7 @@ export const updateHook = () => {
     // Validar campos vacíos
     const newErrors = {
       tipo: !consumible.tipo,
-      marca: !consumible.marca,
-      modelo: !consumible.modelo,
-      serie: !consumible.serie,
       responsable: !consumible.responsable,
-      descripcion: !consumible.descripcion,
     };
 
     if (Object.values(newErrors).some((error) => error)) {
@@ -117,7 +111,7 @@ export const updateHook = () => {
         await axios.put(endpoints.consumibleId + id, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${user.token}`,
+            withCredentials: true,
           },
         });
         redirect();

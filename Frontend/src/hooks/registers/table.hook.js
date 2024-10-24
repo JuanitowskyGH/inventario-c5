@@ -6,7 +6,6 @@ import authService from "../../services/authService";
 import endpoints from "../../services/endpoints";
 
 export const tableHook = () => {
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -29,16 +28,14 @@ export const tableHook = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = authService.getCurrentUser();
-      if (!user) {
-        navigate("/login");
+      const currentUser = await authService.getCurrentUser();
+      if (!currentUser) {
+        navigate("/");
         return;
       }
       try {
         const response = await axios.get(endpoints.inventario, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          withCredentials: true
         });
         setData(response.data);
       } catch (error) {
@@ -101,15 +98,13 @@ export const tableHook = () => {
       cancelButtonText: "Cancelar",
     });
     if (confirm.isConfirmed) {
-      const user = authService.getCurrentUser();
-      if (!user) {
-        navigate("/login");
+      const currentUser = await authService.getCurrentUser();
+      if (!currentUser) {
+        navigate("/");
         return;
       }
       await axios.delete(`${endpoints.inventario}/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+        withCredentials: true,
       });
       Swal.fire({
         icon: "success",

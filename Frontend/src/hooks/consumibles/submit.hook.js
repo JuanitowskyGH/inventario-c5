@@ -102,7 +102,7 @@ export const submitHook = () => {
         await axios.post(endpoints.consumibles, formDataToSend, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${user.token}`,
+            withCredentials: true,
           },
         });
       }

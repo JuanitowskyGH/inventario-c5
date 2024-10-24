@@ -1,7 +1,7 @@
 const { User, Role } = require("../../index.model");
 const bcrypt = require("bcrypt");
 
-//CONTROLADOR PARA OBTENER LA INFORMACIÓN DEL PERFIL DEL USUARIO
+// CONTROLADOR PARA OBTENER LA INFORMACIÓN DEL PERFIL DEL USUARIO
 const getUserInfo = async (req, res) => {
   try {
     const user = await User.findByPk(req.userId, {
@@ -22,7 +22,7 @@ const getUserInfo = async (req, res) => {
   }
 };
 
-//CONTROLADOR PARA ACTUALIZAR LA INFORMACIÓN DEL PERFIL DEL USUARIO
+// CONTROLADOR PARA ACTUALIZAR LA INFORMACIÓN DEL PERFIL DEL USUARIO
 const updateUserInfo = async (req, res) => {
   const { nombre, apellidop, apellidom, username } = req.body;
   const imagen = req.file ? req.file.path.replace(/\\/g, '/') : null;
@@ -69,7 +69,7 @@ const updatePassword = async (req, res) => {
   }
 };
 
-//CONTROLADOR PARA VERIFICAR LA CONTRASEÑA DEL USUARIO
+// CONTROLADOR PARA VERIFICAR LA CONTRASEÑA DEL USUARIO
 const verifyPassword = async (req, res) => {
   const { password } = req.body;
   try {
@@ -80,7 +80,7 @@ const verifyPassword = async (req, res) => {
 
     const passValid = await bcrypt.compare(password, user.password);
     if (!passValid) {
-      return res.status(404).json({ message: "Invalid password" });
+      return res.status(400).json({ message: "Invalid password" });
     }
     return res.status(200).json({ valid: passValid });
   } catch (error) {

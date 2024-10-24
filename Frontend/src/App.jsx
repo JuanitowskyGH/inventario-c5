@@ -48,8 +48,7 @@ const App = () => {
           <Route path="/inventario" element={<Inventario />} />
           <Route path="/cuenta" element={<Cuenta />} />
         </Route>
-        <Route
-          element={<ProtectedRoute roles={["Administrador", "Moderador"]} />}>
+        <Route element={<ProtectedRoute roles={["Administrador", "Moderador"]} />}>
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/addinventario" element={<AddInventario />} />
           <Route path="/updateinventario/:id" element={<UpdateInventario />} />
@@ -67,6 +66,5 @@ const App = () => {
   );
 };
 
-const container = document.getElementById("root");
-const root = createRoot(container);
+const root = createRoot(document.getElementById("root"));
 root.render(<App />);

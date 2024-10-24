@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Menu } from "../components/Menu";
 import { TablaInventario } from "../components/TablaInventario";
-import authService from "../services/authService";
+import { authRole } from "../services/authRole";
 
 export const Inventario = () => {
-  const user = authService.getCurrentUser();
+  const { user } = authRole();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const toggleMenu = (isOpen) => {
     setIsMenuOpen(isOpen);
   }

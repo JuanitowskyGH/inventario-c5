@@ -13,9 +13,7 @@ export const consumableHook = () => {
     useEffect(() => {
       const user = authService.getCurrentUser();
       axios.get(endpoints.types, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+        withCredentials: true
       })
         .then(response => setTypes(response.data))
         .catch(error => console.error('Error fetching types:', error));

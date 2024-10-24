@@ -12,6 +12,7 @@ import { Tooltip, Popover } from "flowbite-react";
 import LoadIcon from "../icons/LoadIcon";
 import OrderIcon from "../icons/OrderIcon";
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Swal from "sweetalert2";
 
 export const GrupoConsumibles = ({ role }) => {
@@ -31,9 +32,7 @@ export const GrupoConsumibles = ({ role }) => {
           decodedTipo
         )}/${encodeURIComponent(decodedModelo)}`,
         {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          withCredentials: true
         }
       )
       .then((response) => {
@@ -56,13 +55,11 @@ export const GrupoConsumibles = ({ role }) => {
     });
     if (confirm.isConfirmed) {
       if (!user) {
-        navigate("/login");
+        navigate("/");
         return;
       }
       await axios.delete(`${endpoints.consumibles}/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+        withCredentials: true
       });
       Swal.fire({
         icon: "success",
@@ -141,6 +138,22 @@ export const GrupoConsumibles = ({ role }) => {
           </div>
         </div>
       </div>
+      {filteredRecords.length === 0 ? (
+
+        <div className="p-5 text-center">
+        <hr className="border-t-2 mb-4 border-gray-200 dark:border-gray-700"/>
+          <p className="mb-5 text-lg font-semibold text-gray-700 dark:text-gray-400">No hay registros disponibles.</p>
+          <Link
+                to="/consumibles"
+                replace
+                className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-blue-tlax transition ease-in-out delay-150 border-2 border-blue-tlax hover:-translate-y-1 hover:scale-100 hover:border-blue-tlax-light hover:text-blue-tlax-light duration-300"
+              >
+                <ExitToAppIcon className="w-6 h-6 mr-2" />
+                Volver
+              </Link>
+          <hr className="border-t-2 mt-4 border-gray-200 dark:border-gray-700"/>
+        </div>
+      ) : (
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -207,10 +220,7 @@ export const GrupoConsumibles = ({ role }) => {
         </thead>
         <tbody>
           {filteredRecords.map((record) => (
-            <tr
-              key={record.id}
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300"
-            >
+            <tr key={record.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
               <th
                 scope="row"
                 className="pl-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -242,7 +252,8 @@ export const GrupoConsumibles = ({ role }) => {
                 >
                   {record.disponible ? "DISPONIBLE" : "NO DISPONIBLE"}
                 </span>
-              </td>              {(role === "Administrador" || role === "Moderador") && (
+              </td>              
+              {(role === "Administrador" || role === "Moderador") && (
                 <td className="flex py-24 px-4 justify-center gap-2">
                   <Tooltip color="primary" content="Editar registro">
                     <Link to={`/updateconsumible/${record.id}`}>
@@ -305,6 +316,7 @@ export const GrupoConsumibles = ({ role }) => {
           ))}
         </tbody>
       </table>
+    )}
 
       {/* PAGINATION
       <div className="flex flex-col items-left pl-12 py-4">

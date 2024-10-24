@@ -4,13 +4,10 @@ import axios from "axios";
 import endpoints from "../../services/endpoints";
 import authService from "../../services/authService";
 
-export const menuHook = ( onMenuToggle ) => {
-  
+export const menuHook = (onMenuToggle) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [dropdownOpen, setDropdownOpen] = useState(
-    { dropdown: false },
-  );
+  const [dropdownOpen, setDropdownOpen] = useState({ dropdown: false });
   const [userInfo, setUserInfo] = useState({
     nombre: "",
     apellidop: "",
@@ -25,16 +22,14 @@ export const menuHook = ( onMenuToggle ) => {
     };
 
     const fetchUserInfo = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (!user) {
+      const currentUser = await authService.getCurrentUser();
+      if (!currentUser) {
         navigate("/");
         return;
       }
       try {
         const response = await axios.get(endpoints.cuenta, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          withCredentials: true, 
         });
         setUserInfo({
           nombre: response.data.nombre,
@@ -86,7 +81,6 @@ export const menuHook = ( onMenuToggle ) => {
     onMenuToggle(false);
   };
 
-
   return {
     isDrawerOpen,
     dropdownOpen,
@@ -97,5 +91,5 @@ export const menuHook = ( onMenuToggle ) => {
     handleMouseEnter,
     handleMouseLeave,
     logout,
-  }
-}
+  };
+};
