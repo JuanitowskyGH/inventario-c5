@@ -1,25 +1,26 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../../database/database');
+const Loan = require('./loans.model');
+const Consumable = require('./consumable.model');
 
 const LoanConsumable = sequelize.define('loanConsumable', {
   loanId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'loans',
+      model: Loan,
       key: 'id',
     },
   },
   consumableId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'consumables',
+      model: Consumable,
       key: 'id',
     },
-    createdAt: {
-      type: Sequelize.DATEONLY,
-      defaultValue: Sequelize.NOW,
-    },
   },
+}, {
+  tableName: 'loanConsumable',
+  timestamps: false,
 });
 
 module.exports = LoanConsumable;

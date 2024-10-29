@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import endpoints from '../../services/endpoints';
-import authService from '../../services/authService';
 
+// HOOK PARA OBTENER LOS CONSUMIBLES REGISTRADOS
 export const consumableHook = () => {
     const [types, setTypes] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -11,7 +11,6 @@ export const consumableHook = () => {
     const navigate = useNavigate();
   
     useEffect(() => {
-      const user = authService.getCurrentUser();
       axios.get(endpoints.types, {
         withCredentials: true
       })
@@ -20,6 +19,7 @@ export const consumableHook = () => {
         setLoading(false);
     }, []);
   
+    // DECODIFICAR LA URL CON CARACTERES
     const handleViewRecords = (tipo, marca) => {
       const encodedTipo = encodeURIComponent(tipo);
       const encodedModelo = encodeURIComponent(marca);

@@ -5,7 +5,7 @@ const authUser = require('../../auth/middleware/user.middleware');
 const { getAll, getById, create, update, remove } = require("../controllers/register.controller.js");
 const inventario = express.Router();
 
-//CONFIGURACION DE MULTER PARA GUARDAR IMAGENES
+// CONFIGURACION DE MULTER PARA GUARDAR IMAGENES
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/registers");
@@ -16,10 +16,10 @@ const storage = multer.diskStorage({
   },
 });
 
-//MIDDLEWARE PARA SUBIR IMAGENES
+// MIDDLEWARE PARA SUBIR IMAGENES
 const upload = multer({ storage: storage });
 
-//RUTAS
+// RUTAS PARA MANEJAR EL CRUD DEL INVENTARIO
 inventario.get("/inventario", getAll);
 inventario.get("/inventario/:id", getById);
 inventario.post("/inventario", authUser, upload.single("imagen"), create);

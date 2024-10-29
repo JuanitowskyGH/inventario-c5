@@ -1,10 +1,10 @@
 import axios from "axios";
 import endpoints from "./endpoints";
 
-// Configurar Axios para enviar cookies con cada solicitud
+// AXIOS PARA ENVIAR COOKIES EN CADA SOLICITUD
 axios.defaults.withCredentials = true;
 
-//FUNCION PARA INICIAR SESION
+// FUNCION PARA INICIAR SESION
 const login = async (username, password) => {
   try {
     const response = await axios.post(endpoints.login, { username, password });
@@ -17,12 +17,12 @@ const login = async (username, password) => {
   }
 };
 
-//FUNCION PARA CERRAR SESION
+// FUNCION PARA CERRAR SESION
 const logout = () => {
   axios.post(endpoints.logout);
 };
 
-//FUNCION PARA OBTENER EL USUARIO ACTUAL 
+// FUNCION PARA OBTENER EL USUARIO ACTUAL 
 const getCurrentUser = async () => {
   try {
     const response = await axios.get(endpoints.current);

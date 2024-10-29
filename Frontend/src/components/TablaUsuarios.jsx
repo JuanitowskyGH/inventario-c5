@@ -52,8 +52,9 @@ export const TablaUsuarios = ({ role }) => {
             Realiza la búsqueda de un registro en específico con:
             <b> ID, Nombre, Apellidos, Nombre de usuario y Permisos</b>
           </p>
-          <div className="flex justify-between items-center mt-4">
-            <div className="relative w-2/5">
+        <div className="grid grid-cols-2">
+          <div className="items-center mt-4">
+            <div className="relative w-auto">
               <label htmlFor="table-search" className="sr-only">
                 Buscar
               </label>
@@ -69,6 +70,8 @@ export const TablaUsuarios = ({ role }) => {
                 placeholder="Buscar"
               />
             </div>
+          </div>
+          <div className="flex justify-end">
             <div className="flex items-center">
               <label htmlFor="itemsPerPage" className="mr-2 text-sm text-gray-700 dark:text-gray-400">
                 Registros por página:
@@ -87,6 +90,7 @@ export const TablaUsuarios = ({ role }) => {
             </div>
           </div>
         </div>
+      </div>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
           <tr>

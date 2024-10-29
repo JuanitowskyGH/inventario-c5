@@ -1,7 +1,6 @@
 const { User, Role } = require("../../index.model");
 const bcrypt = require("bcrypt");
 
-//CONTROLADOR PARA HACER LAS PETICIONES A LA BASE DE DATOS
 //CONTROLADOR PARA CREAR UN USUARIO
 const create = async (req, res) => {
   const { nombre, apellidop, apellidom, username, password, roleId } = req.body;

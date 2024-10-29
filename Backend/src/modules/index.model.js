@@ -6,7 +6,7 @@ const LoanConsumable = require("./consumables/models/loanConsumable.model.js");
 const Loans = require("./consumables/models/loans.model.js");
 const Status = require("./consumables/models/status.model.js");
 
-  //RELACIONES ENTRE TABLAS
+  // RELACIONES ENTRE TABLAS
   User.belongsTo(Role, { foreignKey: "roleId" });
   Role.hasMany(User, { foreignKey: "roleId" });
 

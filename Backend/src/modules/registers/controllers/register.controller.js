@@ -1,5 +1,6 @@
 const { Inventario, User } = require("../../index.model");
 
+// FUNCION PARA TRANSFORMAR LOS DATOS EN MAYUSCULAS
 const toUpperCaseFields = (obj) => {
   const newObj = {};
   for (const key in obj) {
@@ -12,8 +13,7 @@ const toUpperCaseFields = (obj) => {
   return newObj;
 };
 
-//CONTROLADOR PARA HACER LAS PETICIONES A LA BASE DE DATOS
-//CONTROLADOR PARA OBTENER TODOS LOS REGISTROS
+// CONTROLADOR PARA OBTENER TODOS LOS REGISTROS
 const getAll = async (req, res) => {
   try {
     const inventario = await Inventario.findAll({
@@ -34,7 +34,7 @@ const getAll = async (req, res) => {
   }
 };
 
-//CONTROLADOR PARA OBTENER UN REGISTRO POR ID
+// CONTROLADOR PARA OBTENER UN REGISTRO POR ID
 const getById = async (req, res) => {
   try {
     const inventario = await Inventario.findByPk(req.params.id);
@@ -47,7 +47,7 @@ const getById = async (req, res) => {
   }
 };
 
-//CONTROLADOR PARA CREAR UN REGISTRO
+// CONTROLADOR PARA CREAR UN REGISTRO
 const create = async (req, res) => {
   try {
     const imagen = req.file ? req.file.path.replace(/\\/g, '/') : null;
@@ -106,7 +106,6 @@ const create = async (req, res) => {
 
     res.status(201).json({ inventario, message: "Registro creado" });
   } catch (error) {
-    console.error("Error al crear el registro:", error);
     res.status(500).json({
       message: "Error al crear el registro",
       error: error.message,
@@ -130,6 +129,27 @@ const update = async (req, res) => {
       responsable,
       ubicacion,
     } = req.body;
+
+    if (
+      !etiqueta ||
+      !numAnterior ||
+      !tipo ||
+      !departamento ||
+      !responsable ||
+      !ubicacion
+    ) {
+      return res.status(400).json({
+        message: "Todos los campos son requeridos",
+      });
+    }
+
+    // BUSCAR FUNCION PARA HACER QUE NO CUENTE LA PROPIA ETIQUETA DEL REGISTRO QUE SE QUIERE ACTUALIZAR
+    const etiquetaExistente = await Inventario.findOne({ where: { etiqueta } });
+    if (etiquetaExistente) {
+      return res.status(400).json({
+        message: "La etiqueta ya está registrada",
+      });
+    }
 
     const upperCaseData = toUpperCaseFields({
       etiqueta,

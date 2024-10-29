@@ -5,9 +5,9 @@ import axios from "axios";
 import authService from "../../services/authService";
 import endpoints from "../../services/endpoints";
 
+// HOOK PARA ACTUALIZAR UN REGISTRO
 export const updateHook = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState({});
   const [inventario, setInventario] = useState({
@@ -68,12 +68,9 @@ export const updateHook = () => {
       numAnterior: !inventario.numAnterior,
       tipo: !inventario.tipo,
       marca: !inventario.marca,
-      modelo: !inventario.modelo,
-      serie: !inventario.serie,
       departamento: !inventario.departamento,
       ubicacion: !inventario.ubicacion,
       responsable: !inventario.responsable,
-      descripcion: !inventario.descripcion,
     };
 
     if (Object.values(newErrors).some((error) => error)) {
@@ -130,14 +127,13 @@ export const updateHook = () => {
           window.location.reload()
         );
       } catch (error) {
-        console.error("Error al actualizar el registro:", error);
         Swal.fire({
           icon: "error",
           title: "Error del servidor",
           text:
-            error.response?.data?.message ||
-            "Ocurrió un error al intentar actualizar el registro. Por favor, inténtelo de nuevo más tarde.",
-          showConfirmButton: true,
+          error.response?.data?.message,
+          showConfirmButton: false,
+          timer: 2000
         });
       }
     }

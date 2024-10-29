@@ -2,13 +2,14 @@ import React from "react";
 import Alerta from "../components/Alerta";
 import { useEffect, useState } from "react";
 import { LoginForm } from "../components/LoginForm";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [showAlert, setShowAlert] = useState(false);
   useEffect(() => {
-    if (localStorage.getItem("showAlert") === "true") {
+    if (Cookies.get("showAlert") === "true") {
       setShowAlert(true);
-      localStorage.removeItem("showAlert");
+      Cookies.remove("showAlert");
     }
   }, []);
   return (

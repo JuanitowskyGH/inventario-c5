@@ -65,6 +65,7 @@ const Inventario = database.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    // RELACION PARA AGREGAR EL USUARIO QUE CREO EL REGISTRO
     createdBy: {
       type: DataTypes.INTEGER,
       references: {

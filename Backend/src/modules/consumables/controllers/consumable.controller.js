@@ -1,7 +1,7 @@
 const { Consumible, User } = require("../../index.model");
 const Sequelize = require("sequelize");
 
-// Función para transformar todos los campos a mayúsculas
+// FUNCION PARA TRANSFORMAR A MAYUSCULAS
 const toUpperCaseFields = (obj) => {
   const newObj = {};
   for (const key in obj) {
@@ -34,15 +34,15 @@ const create = async (req, res) => {
       });
     }
 
-    // Validar el formato de la serie solo si está presente
+    // VALIDAR EL FORMATO DE LA SERIE SOLO SI ESTA DISPONIBLE
     if (serie && !/^(\d+)(,\s?\d+)*$/.test(serie)) {
-      return res.status(400).json({ mensaje: 'El formato de las series no es válido. Asegúrate de ingresar una serie o varias series separadas por una coma y un espacio.' });
+      return res.status(400).json({ mensaje: 'El formato de las series no es válido. Asegúrate de ingresar una serie o varias series separadas por una coma.' });
     }
 
-    // Separar las series si están presentes, de lo contrario usar [null]
+    // SEPARAR LAS SERIES SI ESTAN PRESENTES
     const serieList = serie ? serie.split(',').map(serie => serie.trim()) : [null];
 
-    // Transformar todos los campos a mayúsculas
+    // TRANSFORMAR LA INFORMACION A MAYUSCULAS
     const upperCaseData = toUpperCaseFields({
       tipo,
       descripcion: descripcion || "Sin descripción",
@@ -51,7 +51,7 @@ const create = async (req, res) => {
       responsable,
     });
 
-    // Crear los consumibles por cada serie
+    // CREAR LOS REGISTROS PARA CADA SERIE
     const consumiblesCreados = [];
     for (const serieItem of serieList) {
       const consumibleData = {
@@ -70,7 +70,6 @@ const create = async (req, res) => {
 
     res.status(201).json(consumiblesCreados);
   } catch (error) {
-    console.error('Error al crear el registro:', error);
     res.status(500).json({
       message: "Error al crear el registro",
       error: error.message,
@@ -120,6 +119,7 @@ const update = async (req, res) => {
   }
 };
 
+// OBTENER LOS REGISTROS POR TIPO Y MARCA
 const getTypes = async (req, res) => {
   try {
     const types = await Consumible.findAll({
@@ -140,6 +140,7 @@ const getTypes = async (req, res) => {
   }
 };
 
+// OBTENER LOS REGISTROS PARA EL TIPO Y MARCA
 const getByType = async (req, res) => {
   const { tipo, marca } = req.params;
   try {
@@ -157,7 +158,7 @@ const getByType = async (req, res) => {
       ],
     });
 
-    // Transformar el campo DISPONIBLE
+    // TRANSFORMAR EL CAMPO "DISPONIBLE"
     const registrosTransformados = registros.map(registro => {
       return {
         ...registro.toJSON(),
@@ -188,7 +189,6 @@ const getById = async (req, res) => {
 
     res.status(200).json(consumible);
   } catch (error) {
-    console.error('Error al obtener el consumible:', error);
     res.status(500).json({
       message: "Error al obtener el consumible",
       error: error.message,

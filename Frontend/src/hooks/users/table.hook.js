@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import endpoints from "../../services/endpoints";
 import authService from "../../services/authService";
 
+// HOOK PARA OBTENER A LOS USUARIOS
 export const tableHook = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,6 +46,7 @@ export const tableHook = () => {
     fetchData();
   }, [navigate]);
 
+  // ORDENAMIENTO DE DATOS
   const sortedData = [...data].sort((a, b) => {
     if (
       typeof a[sortConfig.key] === "number" &&
@@ -64,6 +66,7 @@ export const tableHook = () => {
     }
   });
 
+  // FILTRO DE DATOS
   function searchItems(sortedData) {
     return sortedData.filter((item) => {
       return search.some((key) => {
@@ -121,6 +124,7 @@ export const tableHook = () => {
     }
   };
 
+  //PAGINACION FILTRADA
   const filteredData = searchItems(sortedData);
   const paginatedData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,

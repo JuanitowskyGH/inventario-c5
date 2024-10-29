@@ -13,6 +13,9 @@ const Loans = sequelize.define('loans', {
     allowNull: false,
     defaultValue: Sequelize.NOW,
   }
+  }, {
+    tableName: 'loans',
+    timestamps: false,
   });
 
 module.exports = Loans;

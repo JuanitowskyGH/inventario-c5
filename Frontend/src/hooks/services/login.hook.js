@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
 
+// HOOK PARA INICIAR SESION
 export const loginHook = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");

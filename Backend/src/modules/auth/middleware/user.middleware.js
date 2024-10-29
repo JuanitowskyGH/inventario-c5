@@ -1,5 +1,6 @@
 const { User } = require("../../index.model");
 
+// MIDDLEWARE PARA CONTROLAR EL ESTADO DEL USUARIO
 const authUser = async (req, res, next) => {
   if (!req.userId) {
     return res.status(401).json({ message: "Unauthorized to actions" });

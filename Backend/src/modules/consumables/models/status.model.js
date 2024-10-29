@@ -14,6 +14,7 @@ const Status = sequelize.define('status', {
     unique: true,
   },
 }, {
+  tableName: 'status',
   timestamps: false,
 });
 

@@ -30,6 +30,7 @@ const User = sequelize.define(TABLA, {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  // RELACION PARA ASIGNAR UN ROL A UN USUARIO
   roleId: {
     type: DataTypes.INTEGER,
     references: {
@@ -37,6 +38,7 @@ const User = sequelize.define(TABLA, {
       key: "id",
     },
   },
+  // RELACION PARA AGREGAR EL USUARIO QUE CREO EL REGISTRO
   createdBy: {
     type: DataTypes.INTEGER,
     references: {

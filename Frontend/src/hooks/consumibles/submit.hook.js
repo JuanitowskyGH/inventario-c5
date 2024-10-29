@@ -2,12 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import endpoints from "../../services/endpoints";
-import authService from "../../services/authService";
 
+// HOOK PARA ACTUALIZAR UN CONSUMIBLE
 export const submitHook = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
-  const user = authService.getCurrentUser();
   const [consumible, setConsumible] = useState({
     tipo: "",
     marca: "",
@@ -18,6 +17,7 @@ export const submitHook = () => {
     imagen: "",
   });
 
+  // VALIDAR EL CAMPO DE NUMERO DE SERIE
   const validateSerie = (serie) => {
     const seriePattern = /^(\d+)(,\s?\d+)*$/;
     return seriePattern.test(serie);
@@ -87,8 +87,8 @@ export const submitHook = () => {
     }
 
     try {
+      // COLOCAR REGISTROS POR NUMERO DE SERIE INGRESADO
       const serieList = serie ? serie.split(',').map(serie => serie.trim()) : [null];
-
       for (const serieItem of serieList) {
         const formDataToSend = new FormData();
         formDataToSend.append('tipo', tipo);
@@ -120,7 +120,6 @@ export const submitHook = () => {
         responsable: consumible.responsable,
       })
     } catch (error) {
-      console.error('Error al crear el registro:', error);
       Swal.fire({
         icon: "error",
         title: "Error",

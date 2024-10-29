@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false,
         defaultValue: Sequelize.NOW,
-      }
+      },
       });
   },
 

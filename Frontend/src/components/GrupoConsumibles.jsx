@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { LoanContext } from "../services/LoanService";
 import axios from "axios";
 import endpoints from "../services/endpoints";
 import authService from "../services/authService";
@@ -16,6 +17,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Swal from "sweetalert2";
 
 export const GrupoConsumibles = ({ role }) => {
+  const { selectedConsumables, addToList, removeFromList } = useContext(LoanContext);
   const { tipo, marca } = useParams();
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,11 +28,7 @@ export const GrupoConsumibles = ({ role }) => {
   useEffect(() => {
     const decodedTipo = decodeURIComponent(tipo);
     const decodedModelo = decodeURIComponent(marca);
-    axios
-      .get(
-        `${endpoints.grupo}/${encodeURIComponent(
-          decodedTipo
-        )}/${encodeURIComponent(decodedModelo)}`,
+    axios.get(`${endpoints.grupo}/${encodeURIComponent(decodedTipo)}/${encodeURIComponent(decodedModelo)}`,
         {
           withCredentials: true
         }
@@ -41,6 +39,20 @@ export const GrupoConsumibles = ({ role }) => {
       .catch((error) => console.error("Error fetching records:", error));
     setLoading(false);
   }, [tipo, marca]);
+
+  const handleAddToList = (record) => {
+    console.log("Consumable added to cart:", record);
+    addToList(record);
+  };
+
+  const handleRemoveFromList = (recordId) => {
+    console.log("Consumable removed from cart:", recordId);
+    removeFromList(recordId);
+  };
+
+  const isInList = (recordId) => {
+    return selectedConsumables.some((consumable) => consumable.id === recordId);
+  };
 
   const deleteRegistro = async (id) => {
     const confirm = await Swal.fire({
@@ -98,8 +110,12 @@ export const GrupoConsumibles = ({ role }) => {
 
   return (
     <div className="relative overflow-x-auto bg-white shadow-md sm:rounded-lg w-full">
-      <div className="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-        Lista de consumibles de Tipo: "{decodeURIComponent(tipo)}" y Marca: "{decodeURIComponent(marca)}"
+      <div className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+        <p className="font-bold text-2xl">Datos del consumible seleccionado:</p> 
+          <ul className="list-disc pl-8 pt-3">
+            <li>Tipo: "{decodeURIComponent(tipo)}"</li>
+            <li>Marca: "{decodeURIComponent(marca)}"</li>
+          </ul>
         <div className="flex justify-between items-center mt-4">
           <div className="relative w-2/5">
             <label htmlFor="table-search" className="sr-only">
@@ -272,13 +288,26 @@ export const GrupoConsumibles = ({ role }) => {
                       </span>
                     </Link>
                   </Tooltip>
-                  <Tooltip color="primary" content="Agregar a solicitud">
-                    <Link>
+
+                    {isInList(record.id) ? (
+                      <Tooltip color="danger" content="Quitar de solicitud">
+                    
+                    <button onClick={() => handleRemoveFromList(record.id)}>
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-700">
+                        <NoteAddIcon />
+                      </span>
+                    </button>
+                    </Tooltip>
+                    ) : (
+                      <Tooltip color="primary" content="Agregar a solicitud">
+                    <button onClick={() => handleAddToList(record)}>
                       <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-green-700">
                         <NoteAddIcon />
                       </span>
-                    </Link>
-                  </Tooltip>
+                    </button>
+                    </Tooltip>
+                    )}
+                    
                   <Popover
                     trigger="hover"
                     placement="left"

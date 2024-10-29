@@ -4,6 +4,7 @@ import axios from "axios";
 import endpoints from "../../services/endpoints";
 import authService from "../../services/authService";
 
+// HOOK PARA CONTROLAR EL MENU
 export const menuHook = (onMenuToggle) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -21,6 +22,7 @@ export const menuHook = (onMenuToggle) => {
       setIsMobile(window.innerWidth < 768);
     };
 
+    // OBTENER LA INFORMACION DEL USUARIO AUTENTICADO
     const fetchUserInfo = async () => {
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) {
@@ -37,7 +39,7 @@ export const menuHook = (onMenuToggle) => {
           apellidom: response.data.apellidom,
           imagenUrl: response.data.imagen
             ? `${endpoints.base}${response.data.imagen.replace(/\\/g, "/")}`
-            : "", // Convertir las barras invertidas a barras y agregar la base URL
+            : ""
         });
       } catch (error) {
         alert("Error al cargar la información");
@@ -57,6 +59,8 @@ export const menuHook = (onMenuToggle) => {
     navigate("/");
   };
 
+
+  // MOVIMIENTO DE LOS BOTONES DEL MENU
   const handleMouseEnter = (dropdown) => {
     setDropdownOpen((prevState) => ({
       ...prevState,

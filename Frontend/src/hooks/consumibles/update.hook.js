@@ -5,6 +5,7 @@ import axios from "axios";
 import authService from "../../services/authService";
 import endpoints from "../../services/endpoints";
 
+// HOOK PARA ACTUALIZAR UN CONSUMIBLE
 export const updateHook = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -34,7 +35,6 @@ export const updateHook = () => {
         });
         setInventario(response.data);
       } catch (error) {
-        console.error("Error fetching inventory data: ", error);
       } finally {
         setLoading(false);
       }
@@ -64,7 +64,7 @@ export const updateHook = () => {
   const updateInventario = async (e) => {
     e.preventDefault();
 
-    // Validar campos vacíos
+    // VALIDAR CAMPOS VACIOS
     const newErrors = {
       tipo: !consumible.tipo,
       responsable: !consumible.responsable,
@@ -123,7 +123,6 @@ export const updateHook = () => {
           timer: 2000,
         });
       } catch (error) {
-        console.error("Error al actualizar el registro:", error);
         Swal.fire({
           icon: "error",
           title: "Error del servidor",

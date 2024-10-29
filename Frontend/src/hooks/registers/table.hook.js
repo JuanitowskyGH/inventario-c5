@@ -5,6 +5,7 @@ import axios from "axios";
 import authService from "../../services/authService";
 import endpoints from "../../services/endpoints";
 
+// HOOK PARA OBTENER LOS REGISTROS
 export const tableHook = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,7 @@ export const tableHook = () => {
     setLoading(false);
   }, [navigate]);
 
+  // ORDENAMIENTO DE LOS DATOS
   const sortedData = [...data].sort((a, b) => {
     if (
       typeof a[sortConfig.key] === "number" &&
@@ -65,6 +67,7 @@ export const tableHook = () => {
     }
   });
 
+  // FILTRO DE BUSQUEDA
   function searchItems(sortedData) {
     return sortedData.filter((item) => {
       return search.some((newItem) => {

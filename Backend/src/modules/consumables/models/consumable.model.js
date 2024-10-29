@@ -49,6 +49,7 @@ const Consumible = database.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    // RELACION PARA OBTENER EL ID DEL USUARIO QUE CREA EL CONSUMIBLE
     createdBy: {
       type: DataTypes.INTEGER,
       references: {

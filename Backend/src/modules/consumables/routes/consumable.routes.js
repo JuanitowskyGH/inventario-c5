@@ -5,7 +5,7 @@ const authUser = require('../../auth/middleware/user.middleware');
 const { create, getTypes, update, getByType, getById, remove } = require("../controllers/consumable.controller.js");
 const consumable = express.Router();
 
-//CONFIGURACION DE MULTER PARA GUARDAR IMAGENES
+// CONFIGURACION DE MULTER PARA GUARDAR IMAGENES
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/consumables");
@@ -16,9 +16,10 @@ const storage = multer.diskStorage({
   },
 });
 
-//MIDDLEWARE PARA SUBIR IMAGENES
+// MIDDLEWARE PARA SUBIR IMAGENES
 const upload = multer({ storage: storage });
 
+// RUTAS PARA EL CRUD DE LOS CONSUMIBLES
 consumable.post("/consumables", authUser, upload.single("imagen"), create);
 consumable.put("/consumables/:id", upload.single("imagen"), update);
 consumable.get("/consumables/types", getTypes);

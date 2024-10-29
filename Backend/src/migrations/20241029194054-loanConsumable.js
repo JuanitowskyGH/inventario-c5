@@ -1,6 +1,5 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('loanConsumable', {
@@ -10,23 +9,23 @@ module.exports = {
           model: 'loans',
           key: 'id',
         },
+        allowNull: false,
       },
       consumableId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'consumables',
           key: 'id',
-        }
-      },
-      createdAt: {
-        type: Sequelize.DATEONLY,
-        defaultValue: Sequelize.NOW,
-      },
+        },
+        allowNull: false,
+      }
+    }, {
+      tableName: 'loanConsumable',
+      timestamps: false,
     });
   },
-  
 
-  async down (queryInterface, Sequelize) {
+  down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('loanConsumable');
   }
 };

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import endpoints from "../../services/endpoints";
 import authService from "../../services/authService";
 
+// HOOK PARA ACTUALIZAR EL ROL DE UN USUARIO
 export const rolesHook = () => {
 
   const { id } = useParams();
@@ -23,6 +24,7 @@ export const rolesHook = () => {
   const apellidos = `${user.apellidop || ""} ${user.apellidom || ""}`;
 
   useEffect(() => {
+    // OBTENER INFORMACION DE UN USUARIO
     const getUser = async () => {
       try {
         const token = authService.getCurrentUser();
@@ -53,6 +55,7 @@ export const rolesHook = () => {
 
   const updateUser = async (e) => {
     e.preventDefault();
+    // ACTUALIZAR EL ROL DEL USUARIO
     const confirm = await Swal.fire({
       title: "¿Esta seguro de asignar estos permisos a este usuario?",
       text: "Tendra acceso a ciertas partes del sistema",

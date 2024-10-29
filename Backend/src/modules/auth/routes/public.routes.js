@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { login, logout, getCurrentUser } = require('../controllers/login.controller')
-const { auth } = require("./../middleware/auth.middleware");
 
+// RUTAS PARA CONTROLAR EL ACCESO
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/currentUser', getCurrentUser);

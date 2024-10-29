@@ -4,7 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const { getUserInfo, updateUserInfo, verifyPassword, updatePassword } = require('../controllers/profile.controller');
 
-//CONFIGURACION DE MULTER PARA GUARDAR IMAGENES
+// CONFIGURACION DE MULTER PARA GUARDAR IMAGENES
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/users");
@@ -15,9 +15,10 @@ const storage = multer.diskStorage({
   },
 });
 
-//MIDDLEWARE PARA SUBIR IMAGENES
+// MIDDLEWARE PARA SUBIR IMAGENES
 const upload = multer({ storage: storage });
 
+// RUTAS PARA LAS FUNCIONES DEL PERFIL DE USUARIO
 router.get('/info', getUserInfo);
 router.put('/info', upload.single("imagen"), updateUserInfo);
 router.put('/upass', updatePassword);

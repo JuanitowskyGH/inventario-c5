@@ -5,6 +5,7 @@ import endpoints from "../../services/endpoints";
 import Swal from "sweetalert2";
 import authService from "../../services/authService";
 
+// HOOK PARA ACTUALIZAR LOS DATOS DEL USUARIO AUTENTICADO
 export const updateHook = () => {
 
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,7 @@ export const updateHook = () => {
         return;
       }
       try {
+        // OBTENER LA INFORMACION DEL USUARIO AUTENTICADO
         const response = await axios.get(endpoints.cuenta, {
           headers: {
             withCredentials: true
@@ -89,6 +91,7 @@ export const updateHook = () => {
     }
   };
 
+  //VALIDAR CONTRASEÑA SEGURA
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
@@ -138,7 +141,7 @@ export const updateHook = () => {
     });
     if (confirm.isConfirmed) {
     try {
-      // Verificar la contraseña antes de actualizar los datos
+      // VERIFICAR LA CONTRASEÑA ANTES DE ENVIAR LOS DATOS
       await axios.post(endpoints.verify,
         { password: formValues.password },
         {
@@ -146,7 +149,7 @@ export const updateHook = () => {
         }
       );
 
-      // Crear un FormData para enviar la imagen y otros datos
+      // ENVIAR LA IMAGEN Y DEMAS DATOS
       const formData = new FormData();
       formData.append('nombre', formValues.nombre);
       formData.append('apellidop', formValues.apellidoP);
@@ -156,7 +159,7 @@ export const updateHook = () => {
         formData.append('imagen', formValues.imagen);
       }
 
-      // Actualizar la información del usuario
+      // ACTUALIZAR LA INFORMACION
       const updateResponse = await axios.put(
         endpoints.cuenta,
         formData,
@@ -174,7 +177,7 @@ export const updateHook = () => {
         apellidop: formValues.apellidoP,
         apellidom: formValues.apellidoM,
         username: formValues.username,
-        imagenUrl: updateResponse.data.imagen ? `${endpoints.base}${updateResponse.data.imagen}` : '' // Actualizar la URL de la imagen
+        imagenUrl: updateResponse.data.imagen ? `${endpoints.base}${updateResponse.data.imagen}` : ''
  
       });
       Swal.fire({
@@ -205,7 +208,7 @@ export const updateHook = () => {
       return;
     }
 
-    // Verificar que todos los campos estén llenos
+    // VERIFICAR QUE LOS CAMPOS ESTEN LLENOS PARA EL CAMBIO DE CONTRASEÑA
     if (!passValues.currentPassword || !passValues.newPassword || !passValues.confirmNewPassword) {
       Swal.fire({
         position: "center",
@@ -218,7 +221,7 @@ export const updateHook = () => {
       return;
     }
 
-    // Validar nueva contraseña
+    // VALIDAR LA NUEVA CONTRASEÑA
     if (!validatePassword(passValues.newPassword)) {
       Swal.fire({
         position: "center",
@@ -231,7 +234,7 @@ export const updateHook = () => {
       return;
     }
 
-    // Verificar que las contraseñas coincidan
+    // VERIFICAR QUE COINCIDAN LAS CONTRASEÑAS
     if (passValues.newPassword !== passValues.confirmNewPassword) {
       Swal.fire({
         position: "center",
@@ -245,12 +248,11 @@ export const updateHook = () => {
     }
 
     try {
-      // Verificar la contraseña actual antes de actualizar la nueva contraseña
+      // VERIFICAR LA CONTRASEÑA ACTUAL ANTES DE ACTUALIZAR LOS DATOS
       await axios.post(endpoints.verify, { password: passValues.currentPassword }, {
         withCredentials: true
       });
 
-      // Mostrar confirmación de SweetAlert
       const confirm = await Swal.fire({
         title: "¿Está seguro de cambiar la contraseña?",
         text: "Recuerde su nueva contraseña para futuros accesos",
@@ -263,7 +265,7 @@ export const updateHook = () => {
       });
 
       if (confirm.isConfirmed) {
-        // Actualizar la contraseña del usuario
+        // ACTUALIZAR LA CONTRASEÑA DEL USUARIO
         await axios.put(endpoints.updatePass, {
           currentPassword: passValues.currentPassword,
           newPassword: passValues.newPassword,
@@ -312,5 +314,3 @@ export const updateHook = () => {
     handlePasswordSubmit,
   }
 }
-
-//Administrador123?

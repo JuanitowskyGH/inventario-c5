@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../../../config");
 
+// CONTROLADOR PARA ACCEDER
 const login = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -20,7 +21,7 @@ const login = async (req, res) => {
       return res.status(404).json({ message: "Contraseña incorrecta" });
     }
 
-    //PARA ACCEDER AL NOMBRE DEL ROL
+    // PARA ACCEDER AL NOMBRE DEL ROL
     const role = user.role ? user.role.name : null;
     const token = jwt.sign(
       { id: user.id, username: user.username, role },
@@ -28,12 +29,12 @@ const login = async (req, res) => {
       { expiresIn: "2h" }
     );
 
-    // Establece el token en las cookies
+    // COLOCAR EL TOKEN EN UNA COOKIE
     res.cookie("token", token, {
       httpOnly: true,
-      secure: config.secure.process, // Asegúrate de que sea seguro en producción
+      secure: config.secure.process,
       sameSite: "strict",
-      maxAge: 2 * 60 * 60 * 1000, // 2 horas
+      maxAge: 2 * 60 * 60 * 1000, // 2hrs
     });
 
     return res.json({ message: "Usuario autenticado" });
@@ -42,7 +43,7 @@ const login = async (req, res) => {
   }
 };
 
-// Controlador de Logout
+// CONTROLADOR PARA SALIR
 const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
@@ -52,7 +53,7 @@ const logout = (req, res) => {
   return res.json({ message: "Logout successful" });
 };
 
-// Controlador para Obtener el Usuario Actual
+// CONTROLADOR PARA OBTENER AL USUARIO ACTUAL
 const getCurrentUser = (req, res) => {
   const token = req.cookies.token;
 

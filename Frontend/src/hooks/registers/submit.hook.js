@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import endpoints from "../../services/endpoints";
 import authService from "../../services/authService";
 
+// HOOK PARA AGREGAR UN NUEVO REGISTRO
 export const submitHook = () => {
   const user = authService.getCurrentUser();
   const [errors, setErrors] = useState({});
