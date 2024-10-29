@@ -20,3 +20,5 @@ const Status = require("./consumables/models/status.model.js");
   Consumible.belongsToMany(Loans, { through: LoanConsumable, as: "loans", foreignKey: "consumableId" });
 
 module.exports = { User, Role, Inventario, Consumible, Loans, Status, LoanConsumable};
+
+//PARA PROBAR EL GITIGNORE
