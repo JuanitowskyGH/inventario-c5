@@ -162,7 +162,7 @@ const getByType = async (req, res) => {
     const registrosTransformados = registros.map(registro => {
       return {
         ...registro.toJSON(),
-        DISPONIBLE: registro.DISPONIBLE ? "disponible" : "no disponible"
+        DISPONIBLE: registro.DISPONIBLE ? "DISPONIBLE" : "NO DISPONIBLE"
       };
     });
 

@@ -55,7 +55,7 @@ const aprobarPrestamo = async (req, res) => {
       where: {
         id: loanId,
       },
-      include: [{ model: Consumable, as: 'Consumibles' }]
+      include: [{ model: Consumable, as: 'consumables' }]
     });
 
     if (!prestamo) {
@@ -63,7 +63,7 @@ const aprobarPrestamo = async (req, res) => {
     }
 
     const estadoPendiente = await Status.findOne({ where: { status: 'Pendiente' } });
-    if (prestamo.estadoId !== estadoPendiente.id) {
+    if (prestamo.statusId !== estadoPendiente.id) {
       return res.status(500).json({ message: 'Error al obtener el estado del préstamo' });
     }
 
@@ -72,7 +72,7 @@ const aprobarPrestamo = async (req, res) => {
       return res.status(500).json({ message: 'Error al obtener el estado del préstamo' });
     }
 
-    prestamo.estadoId = estadoAprobado.id;
+    prestamo.statusId = estadoAprobado.id;
     await prestamo.save();
 
     await Consumable.update({ disponible: false }, { where: { id: prestamo.Consumable.map(consumible => consumible.id) } });
@@ -93,14 +93,14 @@ const obtenerSolicitudes = async (req, res) => {
     }
 
     const prestamos = await Loans.findAndCountAll({
-      where: { estadoId: estadoPrestamo.id },
+      where: { statusId: estadoPrestamo.id },
       include: [
         { model: User, as: 'user', attributes: ['username', 'nombre', 'apellidop', 'apellidom'] },
         { model: Consumable, as: 'consumables' }
       ]
     });
 
-    return res.json(prestamos);
+    return res.json(prestamos.rows);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

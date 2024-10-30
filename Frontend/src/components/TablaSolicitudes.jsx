@@ -12,7 +12,7 @@ export const TablaSolicitudes = () => {
         withCredentials: true,
       })
       .then((response) => {
-        const { solicitudes } = response.data;
+        const solicitudes = response.data;
         setSolicitudes(solicitudes || []);
       })
       .catch((error) => {
@@ -51,27 +51,27 @@ export const TablaSolicitudes = () => {
               key={solicitud.id}
               className="p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm"
             >
+                           <h3 className="text-lg font-semibold text-gray-700">
+                Ticket:{" "} {solicitud.id}
+              </h3>
               <h3 className="text-lg font-semibold text-gray-700">
                 Solicitante:{" "}
-                {solicitud.Usuario
-                  ? `${solicitud.Usuario.nombre} ${solicitud.Usuario.apellidop} ${solicitud.Usuario.apellidom}`
-                  : "Usuario no disponible"}
+                {solicitud.user
+                  ? `${solicitud.user.nombre} ${solicitud.user.apellidop} ${solicitud.user.apellidom}`
+                  : "user no disponible"}
               </h3>
               <p className="text-sm text-gray-600">
-                <strong>Usuario:</strong>{" "}
-                {solicitud.Usuario?.username || "Usuario no disponible"}
+                <strong>user:</strong>{" "}
+                {solicitud.user?.username || "user no disponible"}
               </p>
               <div className="text-sm text-gray-600 mb-4">
                 <strong>Consumibles Solicitados:</strong>
-                {solicitud.Consumibles && solicitud.Consumibles.length > 0 ? (
-                  solicitud.Consumibles.map((consumible) => (
+                {solicitud.consumables && solicitud.consumables.length > 0 ? (
+                  solicitud.consumables.map((consumible) => (
                     <div
                       key={consumible.id}
                       className="mt-2 p-3 border border-gray-300 rounded-md bg-white shadow-sm"
                     >
-                      <p>
-                        <strong>Ticket:</strong> {consumible.id}
-                      </p>
                       <p>
                         <strong>Tipo:</strong> {consumible.tipo}
                       </p>

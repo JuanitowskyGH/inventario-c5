@@ -12,12 +12,14 @@ import { Link } from "react-router-dom";
 import { Tooltip, Popover } from "flowbite-react";
 import LoadIcon from "../icons/LoadIcon";
 import OrderIcon from "../icons/OrderIcon";
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Swal from "sweetalert2";
 
 export const GrupoConsumibles = ({ role }) => {
-  const { selectedConsumables, addToList, removeFromList } = useContext(LoanContext);
+  const { selectedConsumables, addToList, removeFromList } =
+    useContext(LoanContext);
   const { tipo, marca } = useParams();
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,9 +30,13 @@ export const GrupoConsumibles = ({ role }) => {
   useEffect(() => {
     const decodedTipo = decodeURIComponent(tipo);
     const decodedModelo = decodeURIComponent(marca);
-    axios.get(`${endpoints.grupo}/${encodeURIComponent(decodedTipo)}/${encodeURIComponent(decodedModelo)}`,
+    axios
+      .get(
+        `${endpoints.grupo}/${encodeURIComponent(
+          decodedTipo
+        )}/${encodeURIComponent(decodedModelo)}`,
         {
-          withCredentials: true
+          withCredentials: true,
         }
       )
       .then((response) => {
@@ -41,12 +47,32 @@ export const GrupoConsumibles = ({ role }) => {
   }, [tipo, marca]);
 
   const handleAddToList = (record) => {
-    console.log("Consumable added to cart:", record);
     addToList(record);
+    let timerInterval;
+    Swal.fire({
+      position: "bottom-start",
+      title: "¡Listo!",
+      html: "Se ha agregado el consumible a la lista de solicitud",
+      //allowOutsideClick: false,
+      toast: true,
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup().querySelector("b");
+        if (timer) {
+          timerInterval = setInterval(() => {
+            timer.textContent = `${Swal.getTimerLeft()}`;
+          }, 100);
+        }
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    });
   };
 
   const handleRemoveFromList = (recordId) => {
-    console.log("Consumable removed from cart:", recordId);
     removeFromList(recordId);
   };
 
@@ -71,7 +97,7 @@ export const GrupoConsumibles = ({ role }) => {
         return;
       }
       await axios.delete(`${endpoints.consumibles}/${id}`, {
-        withCredentials: true
+        withCredentials: true,
       });
       Swal.fire({
         icon: "success",
@@ -79,15 +105,19 @@ export const GrupoConsumibles = ({ role }) => {
         text: "El registro ha sido eliminado con éxito",
         showConfirmButton: false,
         timer: 2000,
-      })
+      });
       setRecords(records.filter((record) => record.id !== id));
     }
   };
 
   const filteredRecords = records.filter((record) => {
     const serie = record.serie ? record.serie.toString().toLowerCase() : "";
-    const responsable = record.responsable ? record.responsable.toString().toLowerCase() : "";
-    const disponibilidad = record.disponibilidad ? record.disponibilidad.toString().toLowerCase() : "";
+    const responsable = record.responsable
+      ? record.responsable.toString().toLowerCase()
+      : "";
+    const disponibilidad = record.disponibilidad
+      ? record.disponibilidad.toString().toLowerCase()
+      : "";
     const searchTermLower = searchTerm.toLowerCase();
 
     return (
@@ -111,11 +141,11 @@ export const GrupoConsumibles = ({ role }) => {
   return (
     <div className="relative overflow-x-auto bg-white shadow-md sm:rounded-lg w-full">
       <div className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-        <p className="font-bold text-2xl">Datos del consumible seleccionado:</p> 
-          <ul className="list-disc pl-8 pt-3">
-            <li>Tipo: "{decodeURIComponent(tipo)}"</li>
-            <li>Marca: "{decodeURIComponent(marca)}"</li>
-          </ul>
+        <p className="font-bold text-2xl">Datos del consumible seleccionado:</p>
+        <ul className="list-disc pl-8 pt-3">
+          <li>Tipo: "{decodeURIComponent(tipo)}"</li>
+          <li>Marca: "{decodeURIComponent(marca)}"</li>
+        </ul>
         <div className="flex justify-between items-center mt-4">
           <div className="relative w-2/5">
             <label htmlFor="table-search" className="sr-only">
@@ -155,197 +185,215 @@ export const GrupoConsumibles = ({ role }) => {
         </div>
       </div>
       {filteredRecords.length === 0 ? (
-
         <div className="p-5 text-center">
-        <hr className="border-t-2 mb-4 border-gray-200 dark:border-gray-700"/>
-          <p className="mb-5 text-lg font-semibold text-gray-700 dark:text-gray-400">No hay registros disponibles.</p>
+          <hr className="border-t-2 mb-4 border-gray-200 dark:border-gray-700" />
+          <p className="mb-5 text-lg font-semibold text-gray-700 dark:text-gray-400">
+            No hay registros disponibles.
+          </p>
           <Link
-                to="/consumibles"
-                replace
-                className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-blue-tlax transition ease-in-out delay-150 border-2 border-blue-tlax hover:-translate-y-1 hover:scale-100 hover:border-blue-tlax-light hover:text-blue-tlax-light duration-300"
-              >
-                <ExitToAppIcon className="w-6 h-6 mr-2" />
-                Volver
-              </Link>
-          <hr className="border-t-2 mt-4 border-gray-200 dark:border-gray-700"/>
+            to="/consumibles"
+            replace
+            className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-blue-tlax transition ease-in-out delay-150 border-2 border-blue-tlax hover:-translate-y-1 hover:scale-100 hover:border-blue-tlax-light hover:text-blue-tlax-light duration-300"
+          >
+            <ExitToAppIcon className="w-6 h-6 mr-2" />
+            Volver
+          </Link>
+          <hr className="border-t-2 mt-4 border-gray-200 dark:border-gray-700" />
         </div>
       ) : (
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="pl-3 py-3">
-              <div className="flex items-center">
-                ID
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    requestSort("id");
-                  }}
-                >
-                  <OrderIcon />
-                </a>
-              </div>
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Descripcion
-            </th>
-            <th scope="col" className="px-6 py-3">
-              <div className="flex items-center">
-                Modelo
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    requestSort("modelo");
-                  }}
-                >
-                  <OrderIcon />
-                </a>
-              </div>
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Serie
-            </th>
-            <th scope="col" className="px-6 py-3">
-              <div className="flex items-center">
-                Responsable
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    requestSort("responsable");
-                  }}
-                >
-                  <OrderIcon />
-                </a>
-              </div>
-            </th>
-            <th scope="col" className="py-3  text-center">
-              Imagen
-            </th>
-            <th scope="col" className="px-6 py-3  text-center">
-              Disponibilidad
-            </th>
-            {(role === "Administrador" || role === "Moderador") && (
-              <th scope="col" className="py-3 text-center">
-                Acciones
-              </th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredRecords.map((record) => (
-            <tr key={record.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300">
-              <th
-                scope="row"
-                className="pl-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                {record.id}
-              </th>
-              <td className="px-6 py-4">{record.descripcion}</td>
-              <td className="px-6 py-4">{record.modelo}</td>
-              <td className="px-6 py-4">{record.serie}</td>
-              <td className="px-6 py-4">{record.responsable}</td>
-              <td className="py-4">
-                <div className="flex justify-center items-center">
-                  <img
-                    src={
-                      record.imagen
-                        ? `${endpoints.base}${record.imagen}`
-                        : "/inventory.jpg"
-                    }
-                    alt="img"
-                    className="max-w-[300px] max-h-[200px] object-cover rounded-lg mr-6"
-                  />
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="pl-3 py-3">
+                <div className="flex items-center">
+                  ID
+                  <a
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      requestSort("id");
+                    }}
+                  >
+                    <OrderIcon />
+                  </a>
                 </div>
-              </td>
-              <td className="text-center py-4">
-                <span
-                  className={`px-2 py-1 rounded-full text-white ${
-                    record.disponible ? "bg-green-500 shadow-md shadow-green-700" : "bg-red-500 shadow-md shadow-red-700"
-                  }`}
-                >
-                  {record.disponible ? "DISPONIBLE" : "NO DISPONIBLE"}
-                </span>
-              </td>              
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Descripcion
+              </th>
+              <th scope="col" className="px-6 py-3">
+                <div className="flex items-center">
+                  Modelo
+                  <a
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      requestSort("modelo");
+                    }}
+                  >
+                    <OrderIcon />
+                  </a>
+                </div>
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Serie
+              </th>
+              <th scope="col" className="px-6 py-3">
+                <div className="flex items-center">
+                  Responsable
+                  <a
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      requestSort("responsable");
+                    }}
+                  >
+                    <OrderIcon />
+                  </a>
+                </div>
+              </th>
+              <th scope="col" className="py-3  text-center">
+                Imagen
+              </th>
+              <th scope="col" className="px-6 py-3  text-center">
+                Disponibilidad
+              </th>
               {(role === "Administrador" || role === "Moderador") && (
-                <td className="flex py-24 px-4 justify-center gap-2">
-                  <Tooltip color="primary" content="Editar registro">
-                    <Link to={`/updateconsumible/${record.id}`}>
-                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-tlax">
-                        <EditIcon />
-                      </span>
-                    </Link>
-                  </Tooltip>
-                  <Tooltip color="primary" content="Eliminar registro">
-                    <Link>
-                      <span
-                        className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
-                        onClick={() => deleteRegistro(record.id)}
-                      >
-                        <DeleteForeverIcon />
-                      </span>
-                    </Link>
-                  </Tooltip>
+                <th scope="col" className="py-3 text-center">
+                  Acciones
+                </th>
+              )}
+            </tr>
+          </thead>
+          <tbody>
+            {filteredRecords.map((record) => (
+              <tr
+                key={record.id}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300"
+              >
+                <th
+                  scope="row"
+                  className="pl-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {record.id}
+                </th>
+                <td className="px-6 py-4">{record.descripcion}</td>
+                <td className="px-6 py-4">{record.modelo}</td>
+                <td className="px-6 py-4">{record.serie}</td>
+                <td className="px-6 py-4">{record.responsable}</td>
+                <td className="py-4">
+                  <div className="flex justify-center items-center">
+                    <img
+                      src={
+                        record.imagen
+                          ? `${endpoints.base}${record.imagen}`
+                          : "/inventory.jpg"
+                      }
+                      alt="img"
+                      className="max-w-[300px] max-h-[200px] object-cover rounded-lg mr-6"
+                    />
+                  </div>
+                </td>
+                <td className="text-center py-4">
+                  <span
+                    className={`px-2 py-1 rounded-full text-white ${
+                      record.disponible
+                        ? "bg-green-500 shadow-md shadow-green-700"
+                        : "bg-red-500 shadow-md shadow-red-700"
+                    }`}
+                  >
+                    {record.disponible ? "DISPONIBLE" : "NO DISPONIBLE"}
+                  </span>
+                </td>
+                {(role === "Administrador" || role === "Moderador") && (
+                  <td className="flex py-24 px-4 justify-center gap-2">
+                    <Tooltip color="primary" content="Editar registro">
+                      <Link to={`/updateconsumible/${record.id}`}>
+                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-tlax">
+                          <EditIcon />
+                        </span>
+                      </Link>
+                    </Tooltip>
+                    <Tooltip color="primary" content="Eliminar registro">
+                      <Link>
+                        <span
+                          className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
+                          onClick={() => deleteRegistro(record.id)}
+                        >
+                          <DeleteForeverIcon />
+                        </span>
+                      </Link>
+                    </Tooltip>
 
                     {isInList(record.id) ? (
                       <Tooltip color="danger" content="Quitar de solicitud">
-                    
-                    <button onClick={() => handleRemoveFromList(record.id)}>
-                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-700">
-                        <NoteAddIcon />
-                      </span>
-                    </button>
-                    </Tooltip>
+                        <button onClick={() => handleRemoveFromList(record.id)}>
+                          <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-700">
+                            <IndeterminateCheckBoxIcon />
+                          </span>
+                        </button>
+                      </Tooltip>
                     ) : (
-                      <Tooltip color="primary" content="Agregar a solicitud">
-                    <button onClick={() => handleAddToList(record)}>
-                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-green-700">
-                        <NoteAddIcon />
-                      </span>
-                    </button>
-                    </Tooltip>
+                      <Tooltip color="primary" content={`${
+                              !record.disponible
+                                ? "No disponible"
+                                : "Agregar a solicitud"
+                            }`}>
+                        <button
+                          onClick={() => handleAddToList(record)}
+                          disabled={!record.disponible}
+                        >
+                          <span
+                            className={`text-lg text-default-400 cursor-pointer active:opacity-50 ${
+                              !record.disponible
+                                ? "text-gray-400"
+                                : "text-green-700"
+                            }`}
+                          >
+                            <AddBoxIcon />
+                          </span>
+                        </button>
+                      </Tooltip>
                     )}
-                    
-                  <Popover
-                    trigger="hover"
-                    placement="left"
-                    content={
-                      <div className="p-4">
-                        <ul>
-                          <li>
-                            <strong>DATOS DE REGISTRO</strong>
-                          </li>
-                          <li>
-                            <strong>Creado por: </strong>
-                            {record.creatorC
-                              ? `${record.creatorC.nombre} ${record.creatorC.apellidop} ${record.creatorC.apellidom}`
-                              : "Desconocido"}
-                          </li>
-                          <li>
-                            <strong>Fecha: </strong>
-                            {record.createdAt}
-                          </li>
-                          <li>
-                            <strong>Ultima actualización: </strong>
-                            {record.updatedAt}
-                          </li>
-                        </ul>
-                      </div>
-                    }
-                  >
-                    <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
-                      <InfoIcon />
-                    </span>
-                  </Popover>
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    )}
+
+                    <Popover
+                      trigger="hover"
+                      placement="left"
+                      content={
+                        <div className="p-4">
+                          <ul>
+                            <li>
+                              <strong>DATOS DE REGISTRO</strong>
+                            </li>
+                            <li>
+                              <strong>Creado por: </strong>
+                              {record.creatorC
+                                ? `${record.creatorC.nombre} ${record.creatorC.apellidop} ${record.creatorC.apellidom}`
+                                : "Desconocido"}
+                            </li>
+                            <li>
+                              <strong>Fecha: </strong>
+                              {record.createdAt}
+                            </li>
+                            <li>
+                              <strong>Ultima actualización: </strong>
+                              {record.updatedAt}
+                            </li>
+                          </ul>
+                        </div>
+                      }
+                    >
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
+                        <InfoIcon />
+                      </span>
+                    </Popover>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {/* PAGINATION
       <div className="flex flex-col items-left pl-12 py-4">

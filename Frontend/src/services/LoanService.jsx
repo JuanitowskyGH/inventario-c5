@@ -34,10 +34,8 @@ export const LoanProvider = ({ children }) => {
   const addToList = (consumable) => {
     setSelectedConsumables((prevConsumables) => {
       if (!prevConsumables.some((selectedConsumable) => selectedConsumable.id === consumable.id)) {
-        console.log('Consumable added to cart:', consumable);
         return [...prevConsumables, consumable];
       }
-      console.log('Consumable already in cart:', consumable);
       return prevConsumables;
     });
   };
@@ -45,13 +43,11 @@ export const LoanProvider = ({ children }) => {
   const removeFromList = (consumableId) => {
     setSelectedConsumables((prevConsumables) => {
       const updatedConsumables = prevConsumables.filter((consumable) => consumable.id !== consumableId);
-      console.log('Consumable removed from cart:', consumableId);
       return updatedConsumables;
     });
   };
 
   const clearList = () => {
-    console.log('Cart cleared');
     setSelectedConsumables([]);
   };
 
