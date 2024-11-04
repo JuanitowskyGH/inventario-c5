@@ -6,13 +6,16 @@ import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import TurnedInNotIcon from "@material-ui/icons/TurnedInNot";
 import PostAddOutlinedIcon from "@material-ui/icons/PostAddOutlined";
 import UserIcon from "../icons/UserIcon";
-import AddUserIcon from "../icons/AddUserIcon";
-import InventoryIcon from "../icons/InventoryIcon";
+import axios from "axios";
 import { Link } from "react-router-dom";
-import AddInventoryIcon from "../icons/EditInventoryIcon";
-import IconLockPasswordLine from "../icons/UpdatePasswordIcon";
+import ListIcon from "@material-ui/icons/List";
 import SignOutIcon from "../icons/SignOutIcon";
 import { menuHook } from "../hooks/services/menu.hook";
+import { useContext, useEffect, useState } from "react";
+import { LoanContext } from "../services/LoanService";
+import endpoints from "../services/endpoints";
+import ListAltIcon from "@material-ui/icons/ListAlt";
+import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
 
 export const Menu = ({ role, onMenuToggle }) => {
   const {
@@ -20,11 +23,13 @@ export const Menu = ({ role, onMenuToggle }) => {
     isMobile,
     userInfo,
     dropdownOpen,
+    newConsumableCount,
+    requestCount,
     handleMouseEnter,
     toggleDrawer,
     closeDrawer,
     handleMouseLeave,
-    logout,
+    logout
   } = menuHook(onMenuToggle);
 
 
@@ -68,10 +73,42 @@ export const Menu = ({ role, onMenuToggle }) => {
             </div>
 
             <div className="flex items-center">
+              {(role === "Administrador" || role === "Moderador") && (
+                <Link
+                  to="/aprobarsolicitudes"
+                  className="mr-6 border border-blue-tlax rounded-md p-2 flex items-center focus:outline-none hover:-translate-y-1 hover:scale-100 hover:bg-gray-100 duration-300"
+                >
+                  <ListAltIcon className=" text-blue-tlax hover:text-blue-tlax-light" />
+                  <span className="italic font-medium text-black pl-1 ">
+                    Solicitudes
+                  </span>
+
+                  {requestCount > 0 && (
+                    <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                      {requestCount}
+                    </span>
+                  )}
+                </Link>
+              )}
+              <Link
+                to="/lista"
+                className="mr-6 border border-blue-tlax rounded-md p-2 flex items-center focus:outline-none hover:-translate-y-1 hover:scale-100 hover:bg-gray-100 duration-300"
+              >
+                <ListIcon className="text-blue-tlax hover:text-blue-tlax-light" />
+                <span className="italic font-medium text-black pl-1 ">
+                  Mi lista
+                </span>
+
+                {newConsumableCount > 0 && (
+                  <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                    {newConsumableCount}
+                  </span>
+                )}
+              </Link>
               <div
                 className="relative inline-block text-left"
-                onMouseEnter={() => handleMouseEnter('dropdown')}
-                onMouseLeave={() => handleMouseLeave('dropdown')}
+                onMouseEnter={() => handleMouseEnter("dropdown")}
+                onMouseLeave={() => handleMouseLeave("dropdown")}
               >
                 <button
                   type="button"
@@ -90,10 +127,9 @@ export const Menu = ({ role, onMenuToggle }) => {
                 <div
                   className={`absolute z-20 w-full ${
                     dropdownOpen.dropdown ? "block" : "hidden"
-                  } bg-white divide-y divide-gray-100 rounded-lg shadow w-64 dark:bg-gray-700`}>
-                  <ul
-                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                  >
+                  } bg-white divide-y divide-gray-100 rounded-lg shadow w-64 dark:bg-gray-700`}
+                >
+                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                     <li>
                       <Link
                         to="/cuenta"
@@ -304,23 +340,74 @@ export const Menu = ({ role, onMenuToggle }) => {
                       </span>
                     </Link>
                   </li>
+                </div>
+              )}
+            </ul>
+            <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+              <li>
+                <h5 className="flex justify-start pl-2 text-base uppercase font-semibold text-gray-500 dark:text-gray-400">
+                  Servicios
+                </h5>
+              </li>
+              {(role === "Administrador" || role === "Moderador") && (
+                <div>
                   <li>
                     <Link
-                      to={"/addconsumibles"}
-                      className="flex items-center p-2 mt-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
-                                      dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                      to={"/aprobarSolicitudes"}
+                      className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
+                        dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                     >
-                      <TurnedInNotIcon
-                        className="flex-shrink text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                      <ListAltIcon
+                        className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true"
                       />
-                      <span className="pl-7 ms-3 whitespace-nowrap">
+                      <span className="pl-7 ms-3 whitespace-nowrap text-left">
                         Solicitudes
+                      </span>
+                      {requestCount > 0 && (
+                        <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                          {requestCount}
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                  <li className="pt-2">
+                    <Link
+                      to={"/reportes"}
+                      className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
+                        dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                    >
+                      <AssignmentOutlinedIcon
+                        className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                        aria-hidden="true"
+                      />
+                      <span className="pl-7 ms-3 whitespace-nowrap text-left">
+                        Reportes
                       </span>
                     </Link>
                   </li>
                 </div>
               )}
+
+              <li>
+                <Link
+                  to={"/lista"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
+                        dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                >
+                  <ListIcon
+                    className="flex-shrink w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    aria-hidden="true"
+                  />
+                  <span className="pl-7 ms-3 whitespace-nowrap">Mi lista</span>
+                  {newConsumableCount > 0 && (
+                    <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                      {newConsumableCount}
+                    </span>
+                  )}
+                </Link>
+              </li>
+
               <li>
                 <a
                   href="https://cesesptlax.gob.mx/"

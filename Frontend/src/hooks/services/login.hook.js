@@ -20,7 +20,6 @@ export const loginHook = () => {
         setError(user.message);
       }
     } catch (error) {
-      console.error("Login error:", error);
       setError("Error al iniciar sesión");
     }
   };

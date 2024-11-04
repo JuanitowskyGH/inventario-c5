@@ -1,4 +1,3 @@
-import React from "react";
 import UserIcon from "../icons/UserIcon";
 import PasswordIcon from "../icons/PasswordIcon";
 import EyeIcon from "../icons/EyeIcon";
@@ -7,7 +6,7 @@ import { loginHook } from "../hooks/services/login.hook";
 
 export const LoginForm = () => {
 
-  const { showPassword, username, password, setUsername, setPassword, handleLogin, togglePasswordVisibility } = loginHook();
+  const { showPassword, username, password, error, setUsername, setPassword, handleLogin, togglePasswordVisibility } = loginHook();
 
   return (
     <form
@@ -17,6 +16,11 @@ export const LoginForm = () => {
       <hr className="w-full h-1 mx-auto mb-5 bg-gray-100 border-0 rounded dark:bg-gray-700" />
       <h1 className="mb-4 text-center text-4xl font-extrabold text-blue-tlax"><span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-tlax from-sky-400">Sistema de Inve</span>ntario C5i</h1>
       <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded dark:bg-gray-700" />
+      {error && (
+        <div className="mb-4 text-sm font-bold text-center text-red-600">
+          {error}
+        </div>
+      )}
       <label
         htmlFor="username"
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

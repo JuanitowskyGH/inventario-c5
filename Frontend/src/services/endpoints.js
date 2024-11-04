@@ -16,8 +16,10 @@ const endpoints = {
   types: `${API_BASE_URL}/consumables/types`,
   grupo: `${API_BASE_URL}/consumables/type`,
   solicitud : `${API_BASE_URL}/request`,
-  aprobarSolicitud: `${API_BASE_URL}/request`,
+  aprobarSolicitud: `${API_BASE_URL}/apprequest`,
+  rechazarSolicitud: `${API_BASE_URL}/decrequest`,
   obtenerSolicitud: `${API_BASE_URL}/getrequest`,
+  reporte: `${API_BASE_URL}/report`,
   base: "http://localhost:4000/",
 };
 

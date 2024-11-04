@@ -8,7 +8,6 @@ import ProtectedRoute from "./ProtectedRoute";
 //PAGINAS
 //PAGINAS PUBLICAS
 import Login from "./pages/Login";
-import { Pruebas } from "./components/Pruebas";
 
 //PAGINAS DE ERROR
 import { NotFound } from "./pages/NotFound";
@@ -31,6 +30,7 @@ import { AddConsumibles } from "./pages/AddConsumibles";
 import { Consumibles } from "./pages/Consumibles";
 import { UpdateConsumible } from "./pages/UpdateConsumible";
 import { VerConsumibles } from "./pages/VerConsumibles";
+import { Reportes } from "./pages/Reportes";
 
 //PAGINAS QUE SOLO SE PUEDEN ACCESAR DESDE ROL ADMINISTRADOR
 import { UpdateUsuarios } from "./pages/UpdateUsuarios";
@@ -42,39 +42,25 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/pruebas/:id" element={<Pruebas />} />
           <Route path="*" element={<NotFound />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/unauthorized" element={<Administracion />} />
           </Route>
-          <Route
-            element={
-              <ProtectedRoute
-                roles={["Administrador", "Moderador", "Lector"]}
-              />
-            }
-          >
+          <Route element={<ProtectedRoute roles={["Administrador", "Moderador", "Lector"]}/>}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/inventario" element={<Inventario />} />
             <Route path="/cuenta" element={<Cuenta />} />
-            <Route path="/solicitudes" element={<ListaSolicitudes />} />
-          </Route>
-          <Route
-            element={<ProtectedRoute roles={["Administrador", "Moderador"]} />}
-          >
-            <Route path="/usuarios" element={<Usuarios />} />
-            <Route path="/addinventario" element={<AddInventario />} />
-            <Route
-              path="/updateinventario/:id"
-              element={<UpdateInventario />}
-            />
-            <Route path="/addconsumibles" element={<AddConsumibles />} />
+            <Route path="/lista" element={<ListaSolicitudes />} />
             <Route path="/consumibles" element={<Consumibles />} />
             <Route path="/records/:tipo/:marca" element={<VerConsumibles />} />
-            <Route
-              path="/updateconsumible/:id"
-              element={<UpdateConsumible />}
-            />
+          </Route>
+          <Route element={<ProtectedRoute roles={["Administrador", "Moderador"]} />}>
+            <Route path="/usuarios" element={<Usuarios />} />
+            <Route path="/addinventario" element={<AddInventario />} />
+            <Route path="/updateinventario/:id" element={<UpdateInventario />}/>
+            <Route path="/addconsumibles" element={<AddConsumibles />} />
+            <Route path="/updateconsumible/:id" element={<UpdateConsumible />}/>
+            <Route path="/reportes" element={<Reportes />} />
           </Route>
           <Route element={<ProtectedRoute roles={["Administrador"]} />}>
             <Route path="/updateusuarios/:id" element={<UpdateUsuarios />} />

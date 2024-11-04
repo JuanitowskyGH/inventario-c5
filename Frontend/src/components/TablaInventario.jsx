@@ -50,8 +50,6 @@ export const TablaInventario = ({ role }) => {
         Lista de registros
         <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
           Aquí puedes ver la lista de los registros con detalles. <br />
-          Realiza la búsqueda de un registro en específico con:{" "}
-          <b>ID, Tipo, Marca, Serie, Departamento, Responsable o Ubicacion.</b>
         </p>
         <div className="grid grid-cols-2">
           <div className="items-center mt-4">
@@ -68,7 +66,7 @@ export const TablaInventario = ({ role }) => {
                 onChange={(e) => setGlobalFilter(e.target.value)}
                 id="table-search"
                 className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 focus:ring-blue-tlax focus:border-blue-tlax-light"
-                placeholder="Buscar"
+                placeholder="ID, Tipo, Marca, Serie, Departamento, Responsable o Ubicacion."
               />
             </div>
           </div>

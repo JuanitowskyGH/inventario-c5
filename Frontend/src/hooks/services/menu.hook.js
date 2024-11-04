@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import endpoints from "../../services/endpoints";
 import authService from "../../services/authService";
-
+import { LoanContext } from "../../services/LoanService";
 // HOOK PARA CONTROLAR EL MENU
 export const menuHook = (onMenuToggle) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -16,6 +16,32 @@ export const menuHook = (onMenuToggle) => {
     imagenUrl: "",
   });
   const navigate = useNavigate();
+  
+  const [newConsumableCount, setNewConsumableCount] = useState(0);
+  const [requestCount, setRequestCount] = useState(0);
+  const { selectedConsumables } = useContext(LoanContext);
+
+  // CONTROL PARA LAS NOTIFICACIONES EN EL MENU
+  useEffect(() => {
+    setNewConsumableCount(selectedConsumables.length);
+  }, [selectedConsumables]);
+
+  useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const response = await axios.get(endpoints.obtenerSolicitud, {
+          withCredentials: true,
+        });
+        const uniqueRequests = new Set(
+          response.data.map((request) => request.id)
+        );
+        setRequestCount(uniqueRequests.size);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchRequests();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,6 +116,8 @@ export const menuHook = (onMenuToggle) => {
     dropdownOpen,
     isMobile,
     userInfo,
+    newConsumableCount,
+    requestCount,
     toggleDrawer,
     closeDrawer,
     handleMouseEnter,

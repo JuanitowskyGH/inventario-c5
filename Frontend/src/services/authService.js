@@ -25,7 +25,7 @@ const logout = () => {
 // FUNCION PARA OBTENER EL USUARIO ACTUAL 
 const getCurrentUser = async () => {
   try {
-    const response = await axios.get(endpoints.current);
+    const response = await axios.get(endpoints.current, { withCredentials: true });
     return response.data;
   } catch (error) {
     return null;
