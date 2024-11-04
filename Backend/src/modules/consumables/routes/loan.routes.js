@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { solicitudPrestamo, aprobarPrestamo, obtenerSolicitudes } = require("../controllers/loan.controller");
+const { solicitudPrestamo, aprobarPrestamo, rechazarPrestamo, obtenerSolicitudes, reportePrestamos } = require("../controllers/loan.controller");
 
 router.post("/request", solicitudPrestamo);
-router.put("/request/:id", aprobarPrestamo);
+router.put("/apprequest/:id", aprobarPrestamo);
+router.put("/decrequest/:id", rechazarPrestamo);
 router.get("/getrequest", obtenerSolicitudes);
+router.get("/report", reportePrestamos);
 
 module.exports = router;

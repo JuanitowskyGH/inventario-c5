@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert('status', [
       { id: 1, status: 'Pendiente' },
       { id: 2, status: 'Aprobado' },
-      { id: 3, status: 'Devuelto' }
+      { id: 3, status: 'Rechazado' }
     ], {});
   },
 

@@ -15,6 +15,28 @@ module.exports = {
         allowNull: false,
         defaultValue: Sequelize.NOW,
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: "id",
+        },
+      },
+      statusId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'status',
+          key: "id",
+        },
+      },
+      // RELACION PARA OBTENER EL ID DEL USUARIO QUE APRUEBA EL PRESTAMO
+      approvedBy: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: "id",
+        },
+      },
       });
   },
 

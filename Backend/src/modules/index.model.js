@@ -16,6 +16,7 @@ const Status = require("./consumables/models/status.model.js");
 
   Loans.belongsTo(User, { as: "user", foreignKey: "userId" });
   Loans.belongsTo(Status, { as: "status", foreignKey: "statusId" });
+  Loans.belongsTo(User, { as: "approved", foreignKey: "approvedBy" });
   Loans.belongsToMany(Consumible, { through: LoanConsumable, as: "consumables", foreignKey: "loanId" });
   Consumible.belongsToMany(Loans, { through: LoanConsumable, as: "loans", foreignKey: "consumableId" });
 

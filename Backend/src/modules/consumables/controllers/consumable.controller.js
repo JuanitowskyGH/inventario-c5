@@ -47,7 +47,7 @@ const create = async (req, res) => {
       tipo,
       descripcion: descripcion || "Sin descripción",
       marca: marca || "S/M",
-      model: modelo || "S/M",
+      modelo: modelo || "S/M",
       responsable,
     });
 

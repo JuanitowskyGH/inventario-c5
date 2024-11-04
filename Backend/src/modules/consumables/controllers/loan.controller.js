@@ -48,9 +48,49 @@ const solicitudPrestamo = async (req, res) => {
 }
 
 const aprobarPrestamo = async (req, res) => {
-  const { id: loanId } = req.params;
+  const { id: idPrestamo } = req.params;
 
   try {
+    const prestamo = await Loans.findOne({
+      where: {
+        id: idPrestamo,
+      },
+      include: [{ model: Consumable, as: 'consumables' }]
+    });
+
+    if (!prestamo) {
+      return res.status(404).json({ message: 'Préstamo no encontrado' });
+    }
+
+    const estadoPrestamo = await Status.findOne({ where: { status: 'Aprobado' } });
+    if (!estadoPrestamo) {
+      return res.status(500).json({ message: 'Error al obtener el estado del préstamo' });
+    }
+
+    prestamo.statusId = estadoPrestamo.id;
+    prestamo.approvedBy = req.userId // Actualiza el campo approvedById
+    await prestamo.save();
+
+    if (prestamo.consumables && Array.isArray(prestamo.consumables)) {
+      await Consumable.update(
+        { disponible: false },
+        { where: { id: prestamo.consumables.map(consumible => consumible.id) } }
+      );
+    } else {
+      return res.status(500).json({ message: 'Error al obtener los consumibles del préstamo' });
+    }
+
+    return res.json({ message: 'Préstamo aprobado' });
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+const rechazarPrestamo = async (req, res) => {
+  try {
+    const { id: loanId } = req.params;
+
     const prestamo = await Loans.findOne({
       where: {
         id: loanId,
@@ -67,21 +107,29 @@ const aprobarPrestamo = async (req, res) => {
       return res.status(500).json({ message: 'Error al obtener el estado del préstamo' });
     }
 
-    const estadoAprobado = await Status.findOne({ where: { status: 'Aprobado' } });
-    if (!estadoAprobado) {
+    const estadoRechazado = await Status.findOne({ where: { status: 'Rechazado' } });
+    if (!estadoRechazado) {
       return res.status(500).json({ message: 'Error al obtener el estado del préstamo' });
     }
 
-    prestamo.statusId = estadoAprobado.id;
+    prestamo.statusId = estadoRechazado.id;
     await prestamo.save();
 
-    await Consumable.update({ disponible: false }, { where: { id: prestamo.Consumable.map(consumible => consumible.id) } });
+    if (prestamo.consumables && Array.isArray(prestamo.consumables)) {
+      await Consumable.update(
+        { disponible: true },
+        { where: { id: prestamo.consumables.map(consumible => consumible.id) } }
+      );
+    } else {
+      return res.status(500).json({ message: 'Error al obtener los consumibles del préstamo' });
+    }
 
-    return res.json({ message: 'Préstamo aprobado' });
-
-  } catch (error) {
+    return res.json({ message: 'Préstamo rechazado' });
+  }
+  catch (error) {
     return res.status(500).json({ message: error.message });
   }
+
 }
 
 const obtenerSolicitudes = async (req, res) => {
@@ -106,4 +154,28 @@ const obtenerSolicitudes = async (req, res) => {
   }
 }
 
-module.exports = { solicitudPrestamo, aprobarPrestamo, obtenerSolicitudes };
+const reportePrestamos = async (req, res) => {
+  try {
+    const estadoAprobado = await Status.findOne({ where: { status: 'Aprobado' } });
+
+    if (!estadoAprobado) {
+      return res.status(500).json({ message: 'Error al obtener el estado del préstamo' });
+    }
+
+    const prestamos = await Loans.findAll({
+      where: { statusId: estadoAprobado.id },
+      include: [
+        { model: User, as: 'user', attributes: ['username', 'nombre', 'apellidop', 'apellidom'] },
+        { model: User, as: 'approved', attributes: ['username', 'nombre', 'apellidop', 'apellidom'] },
+        { model: Consumable, as: 'consumables' }
+      ]
+    });
+
+    return res.json(prestamos);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+
+module.exports = { solicitudPrestamo, aprobarPrestamo, rechazarPrestamo, obtenerSolicitudes, reportePrestamos };
