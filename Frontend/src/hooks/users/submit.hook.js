@@ -23,6 +23,7 @@ export const submitHook = () => {
 
   const [errors, setErrors] = useState({});
 
+  // LIMPIA LOS CAMPOS DEL FORMULARIO DESPUES DE ENVIAR
   const cleanForm = () => {
     setFormData({
       nombre: "",

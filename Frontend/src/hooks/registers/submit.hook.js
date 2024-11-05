@@ -44,6 +44,7 @@ export const submitHook = () => {
     setErrors({});
   };
 
+  // LIMPIA LOS CAMPOS DEL FORMULARIO DESPUES DE ENVIAR
   const sendClean = (fieldsToKeep = {}) => {
     setInventario((prevState) => ({
       ...prevState,

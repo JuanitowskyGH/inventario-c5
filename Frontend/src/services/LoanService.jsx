@@ -6,7 +6,7 @@ export const LoanContext = createContext();
 
 export const LoanProvider = ({ children }) => {
   const [selectedConsumables, setSelectedConsumables] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -17,6 +17,7 @@ export const LoanProvider = ({ children }) => {
     fetchUser();
   }, []);
 
+  // OBTENER LOS CONSUMIBLES SELECCIONADOS DEL USUARIO AUTENTICADO
   useEffect(() => {
     if (user) {
       const userId = user.id;
@@ -32,6 +33,7 @@ export const LoanProvider = ({ children }) => {
     }
   }, [user]);
 
+  // GUARDAR LOS CONSUMIBLES SELECCIONADOS EN LA COOKIE
   useEffect(() => {
     if (user) {
       const userId = user.id;
@@ -40,6 +42,7 @@ export const LoanProvider = ({ children }) => {
     }
   }, [selectedConsumables, user]);
 
+  // AGREGAR UN CONSUMIBLE A LA LISTA DE CONSUMIBLES SELECCIONADOS
   const addToList = (consumable) => {
     setSelectedConsumables((prevConsumables) => {
       if (!prevConsumables.some((selectedConsumable) => selectedConsumable.id === consumable.id)) {
@@ -61,6 +64,7 @@ export const LoanProvider = ({ children }) => {
   };
 
   return (
+    // PROVEER LOS CONSUMIBLES SELECCIONADOS Y EL USUARIO AUTENTICADO
     <LoanContext.Provider value={{ selectedConsumables, addToList, removeFromList, clearList, user }}>
       {children}
     </LoanContext.Provider>

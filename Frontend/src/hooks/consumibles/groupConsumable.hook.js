@@ -16,6 +16,7 @@ const [searchTerm, setSearchTerm] = useState("");
 const user = authService.getCurrentUser();
 const navigate = useNavigate();
 
+// OBTENER LOS CONSUMIBLES DE UN GRUPO ESPECÍFICO POR TIPO Y MARCA
 useEffect(() => {
   const decodedTipo = decodeURIComponent(tipo);
   const decodedModelo = decodeURIComponent(marca);

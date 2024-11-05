@@ -5,7 +5,9 @@ import Swal from "sweetalert2";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+// HOOK PARA LISTAR LOS CONSUMIBLES SELECCIONADOS PARA SOLICITUD
 export const listHook = () => {
+  // TOMADOS DEL CONTEXTO EN LOANSERVICE.JSX EN LA CARPETA SERVICES EN SRC
   const { selectedConsumables, user, removeFromList, clearList } = useContext(LoanContext);
   const clean = selectedConsumables.length === 0;
   const navigate = useNavigate();

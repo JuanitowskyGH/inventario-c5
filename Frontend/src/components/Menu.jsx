@@ -164,7 +164,7 @@ export const Menu = ({ role, onMenuToggle }) => {
 
       <div
         id="drawer-navigation"
-        className={`fixed top-0 left-0 z-40 h-screen p-4 shadow-md shadow-black overflow-y-auto transition-transform ${
+        className={`fixed top-0 left-0 z-40 h-screen p-2 shadow-md shadow-black overflow-y-auto transition-transform ${
           isDrawerOpen ? "translate-x-0" : "-translate-x-full"
         } bg-white w-64 dark:bg-gray-800 ${
           isMobile ? "shadow-lg shadow-black" : ""

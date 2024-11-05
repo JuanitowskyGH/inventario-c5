@@ -12,9 +12,10 @@ export const tableHook = () => {
   const navigate = useNavigate();
   const [sortConfig, setSortConfig] = useState({
     key: "id",
-    direction: "ascending",
+    direction: "descending",
   });
   const [globalFilter, setGlobalFilter] = useState("");
+  // OBTENER LOS NOMBRES DE LAS COLUMNAS PARA FILTRAR
   const [search] = useState([
     "id",
     "tipo",

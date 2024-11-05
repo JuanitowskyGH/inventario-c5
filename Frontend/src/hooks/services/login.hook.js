@@ -13,6 +13,7 @@ export const loginHook = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      // LLAMADA AL SERVICIO DE AUTENTICACION DEL BACKEND
       const user = await authService.login(username, password);
       if (user && user.message === "Usuario autenticado") {
         navigate("/dashboard");

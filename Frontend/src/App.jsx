@@ -24,7 +24,6 @@ import { ListaSolicitudes } from "./pages/ListSolicitudes";
 //PAGINAS QUE SOLO SE PUEDEN ACCESAR DESDE ROL ADMINISTRADOR Y MODERADOR
 import { Usuarios } from "./pages/Usuarios";
 import { AddInventario } from "./pages/AddInventario";
-import { AddUsuarios } from "./pages/AddUsuarios";
 import { UpdateInventario } from "./pages/UpdateInventario";
 import { AddConsumibles } from "./pages/AddConsumibles";
 import { Consumibles } from "./pages/Consumibles";
@@ -33,6 +32,7 @@ import { VerConsumibles } from "./pages/VerConsumibles";
 import { Reportes } from "./pages/Reportes";
 
 //PAGINAS QUE SOLO SE PUEDEN ACCESAR DESDE ROL ADMINISTRADOR
+import { AddUsuarios } from "./pages/AddUsuarios";
 import { UpdateUsuarios } from "./pages/UpdateUsuarios";
 import { Solicitudes } from "./pages/Solicitudes";
 

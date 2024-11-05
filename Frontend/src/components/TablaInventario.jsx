@@ -144,7 +144,8 @@ export const TablaInventario = ({ role }) => {
           <hr className="border-t-2 mt-4 border-gray-200 dark:border-gray-700" />
         </div>
       ) : (
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="pl-3 py-3">
@@ -369,6 +370,7 @@ export const TablaInventario = ({ role }) => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
 
       {/* PAGINATION */}

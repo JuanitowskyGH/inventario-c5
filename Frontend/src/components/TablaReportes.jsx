@@ -114,6 +114,7 @@ export const TablaReportes = () => {
           <hr className="border-t-2 mt-4 border-gray-200 dark:border-gray-700" />
         </div>
       ) : (
+        <div className="overflow-x-auto">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -198,6 +199,7 @@ export const TablaReportes = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
 
       {/* PAGINATION */}
@@ -239,78 +241,3 @@ export const TablaReportes = () => {
     </div>
   );
 };
-/*<div>
-      <h2 className="text-2xl font-semibold text-gray-800 mb-3">
-        Préstamos Aprobados
-      </h2>
-      <p className="text-gray-600 mb-6">
-        Aquí puedes ver los préstamos que han sido aprobados.
-      </p>
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-600">
-                Solicitante
-              </th>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-600">
-                Fecha de Préstamo
-              </th>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-600">
-                No. de Ticket
-              </th>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-600">
-                Consumibles
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {prestamos.length > 0 ? (
-              prestamos.map((prestamo) => (
-                <tr key={prestamo.id}>
-                  <td className="py-2 px-4 border-b border-gray-200">
-                    {prestamo.user
-                      ? `${prestamo.user.nombre} ${prestamo.user.apellidop} ${prestamo.user.apellidom}`
-                      : "Usuario no disponible"}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
-                    {new Date(prestamo.loanDate).toLocaleDateString()}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
-                    {prestamo.id}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
-                    {prestamo.consumables && prestamo.consumables.length > 0 ? (
-                      prestamo.consumables.map((consumible) => (
-                        <div key={consumible.id} className="mb-2">
-                          <p>
-                            <strong>Tipo:</strong> {consumible.tipo}
-                          </p>
-                          <p>
-                            <strong>Descripción:</strong> {consumible.descripcion}
-                          </p>
-                          <p>
-                            <strong>Marca:</strong> {consumible.marca}
-                          </p>
-                          <p>
-                            <strong>Serie:</strong> {consumible.serie}
-                          </p>
-                        </div>
-                      ))
-                    ) : (
-                      <p>No hay consumibles disponibles</p>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="3" className="py-2 px-4 border-b border-gray-200 text-center text-gray-500">
-                  No hay préstamos aprobados
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>*/

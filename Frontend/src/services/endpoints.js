@@ -1,5 +1,6 @@
 const API_BASE_URL = "http://localhost:4000/api";
 
+// ENDPOINTS PARA TOMADOS PARA LLAMAR DESDE LAS RUTAS DE LA API
 const endpoints = {
   usuarios: `${API_BASE_URL}/users`,
   cuenta: `${API_BASE_URL}/info`,
