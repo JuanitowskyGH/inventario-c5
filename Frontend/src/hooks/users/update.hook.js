@@ -11,6 +11,9 @@ export const updateHook = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
+    nombre: '',
+    apellidop: '',
+    apellidom: '',
     roles: [],
     imagenUrl: '',
     password: ''
@@ -56,6 +59,9 @@ export const updateHook = () => {
           },
         });
         setUserInfo({
+          nombre: response.data.nombre,
+          apellidop: response.data.apellidop,
+          apellidom: response.data.apellidom,
           username: response.data.username,
           roles: [response.data.role.name],
           imagenUrl: response.data.imagen ? `${endpoints.base}${response.data.imagen}` : '' 

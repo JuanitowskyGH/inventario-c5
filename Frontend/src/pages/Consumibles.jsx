@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu } from "../components/Menu";
-import { TablaConsumibles } from "../components/TablaConsumibles";
+import { ListaConsumibles } from "../components/ListaConsumibles";
 import { authRole } from "../services/authRole";
 
 export const Consumibles = () => {
@@ -18,7 +18,7 @@ export const Consumibles = () => {
           isMenuOpen ? 'md:ml-64' : 'ml-0'
         }`}>
         <div className="">
-          <TablaConsumibles role={user?.role} />
+          <ListaConsumibles role={user?.role} />
         </div>
       </div>
     </div>

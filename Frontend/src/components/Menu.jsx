@@ -73,7 +73,7 @@ export const Menu = ({ role, onMenuToggle }) => {
             </div>
 
             <div className="flex items-center">
-              {(role === "Administrador" || role === "Moderador") && (
+              {role === "Administrador" && (
                 <Link
                   to="/aprobarsolicitudes"
                   className="mr-6 border border-blue-tlax rounded-md p-2 flex items-center focus:outline-none hover:-translate-y-1 hover:scale-100 hover:bg-gray-100 duration-300"
@@ -349,8 +349,7 @@ export const Menu = ({ role, onMenuToggle }) => {
                   Servicios
                 </h5>
               </li>
-              {(role === "Administrador" || role === "Moderador") && (
-                <div>
+              {role === "Administrador" && (
                   <li>
                     <Link
                       to={"/aprobarSolicitudes"}
@@ -371,7 +370,9 @@ export const Menu = ({ role, onMenuToggle }) => {
                       )}
                     </Link>
                   </li>
-                  <li className="pt-2">
+                  )}
+                  {(role === "Administrador" || role === "Moderador") && (
+                  <li>
                     <Link
                       to={"/reportes"}
                       className="flex items-center p-2 text-gray-900 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-150
@@ -386,9 +387,7 @@ export const Menu = ({ role, onMenuToggle }) => {
                       </span>
                     </Link>
                   </li>
-                </div>
               )}
-
               <li>
                 <Link
                   to={"/lista"}

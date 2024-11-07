@@ -30,7 +30,12 @@ useEffect(() => {
       }
     )
     .then((response) => {
-      setRecords(response.data);
+      const sortedRecords = response.data.sort((a, b) => {
+        if (a.disponible && !b.disponible) return -1;
+        if (!a.disponible && b.disponible) return 1;
+        return 0;
+      });
+      setRecords(sortedRecords);
     })
     .catch((error) => console.error("Error fetching records:", error));
   setLoading(false);
@@ -101,18 +106,14 @@ const deleteRegistro = async (id) => {
 
 const filteredRecords = records.filter((record) => {
   const serie = record.serie ? record.serie.toString().toLowerCase() : "";
-  const responsable = record.responsable
-    ? record.responsable.toString().toLowerCase()
-    : "";
-  const disponibilidad = record.disponibilidad
-    ? record.disponibilidad.toString().toLowerCase()
-    : "";
+  const responsable = record.responsable ? record.responsable.toString().toLowerCase() : "";
+  const modelo = record.modelo  ? record.modelo.toString().toLowerCase() : "";
   const searchTermLower = searchTerm.toLowerCase();
 
   return (
     serie.includes(searchTermLower) ||
     responsable.includes(searchTermLower) ||
-    disponibilidad.includes(searchTermLower)
+    modelo.includes(searchTermLower)
   );
 });
 

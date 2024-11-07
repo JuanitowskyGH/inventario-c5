@@ -62,8 +62,8 @@ export const FormCuenta = () => {
             />
           </div>
           <div className="grid grid-rows-2">
-            <span className="mb-7 self-center text-3xl text-center text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-blue-tlax font-semibold whitespace-nowrap dark:text-white italic">
-              {userInfo.username}
+            <span className="mb-7 self-center text-2xl text-center text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-blue-tlax font-semibold whitespace-nowrap dark:text-white italic">
+               {userInfo.nombre} {userInfo.apellidop} {userInfo.apellidom}
             </span>
             <p className="text-center dark:text-gray-400 mt-2 mx-4">
               Usted tiene permisos de:{" "}

@@ -36,9 +36,7 @@ export const menuHook = (onMenuToggle) => {
           response.data.map((request) => request.id)
         );
         setRequestCount(uniqueRequests.size);
-      } catch (error) {
-        console.error(error);
-      }
+      } catch (error) {}
     };
     fetchRequests();
   }, []);

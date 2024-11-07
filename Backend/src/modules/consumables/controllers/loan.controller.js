@@ -3,7 +3,6 @@ const Consumable = require('../models/consumable.model');
 const Status = require('../models/status.model');
 const Loans = require('../models/loans.model');
 const User = require('../../users/models/user.model');
-const { Op } = require('sequelize');
 
 const solicitudPrestamo = async (req, res) => {
   const { consumibles } = req.body;

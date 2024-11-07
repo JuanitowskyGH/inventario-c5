@@ -1,21 +1,37 @@
-import { consumableHook } from "../hooks/consumibles/consumable.hook";
-import { Link } from "react-router-dom";
-import ImportantDevicesIcon from "@material-ui/icons/ImportantDevices";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { LoanContext } from "../services/LoanService";
+import axios from "axios";
+import endpoints from "../services/endpoints";
+import authService from "../services/authService";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import InfoIcon from "@material-ui/icons/Info";
 import SearchIcon from "@material-ui/icons/Search";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import AddToQueueIcon from "@material-ui/icons/AddToQueue";
-
+import { Link } from "react-router-dom";
+import { Tooltip, Popover } from "flowbite-react";
 import LoadIcon from "../icons/LoadIcon";
+import OrderIcon from "../icons/OrderIcon";
+import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { groupHook } from "../hooks/consumibles/groupConsumable.hook";
 
-export const TablaConsumibles = () => {
+export const TablaConsumibles = ({ role }) => {
+
   const {
+    records,
     loading,
     searchTerm,
     setSearchTerm,
-    filteredTypes,
-    handleViewRecords,
-  } = consumableHook();
+    requestSort,
+    tipo, marca,
+    filteredRecords,
+    deleteRegistro,
+    handleAddToList,
+    handleRemoveFromList,
+    isInList,
+  } = groupHook();
 
   if (loading) {
     return (
@@ -29,88 +45,228 @@ export const TablaConsumibles = () => {
   }
 
   return (
-    <div>
-      <div className="mb-6 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Consumibles
-        </h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
-          Selecciona un tipo de consumible para ver los registros.
-        </p>
-        <div className="relative w-2/5 pt-2">
-          <label htmlFor="table-search" className="sr-only">
-            Buscar
-          </label>
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pt-2 pointer-events-none ">
-            <SearchIcon style={{ color: "GrayText" }} />
+    <div className="relative overflow-x-auto bg-white shadow-md sm:rounded-lg w-full">
+      <div className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+        <p className="font-bold text-2xl">Datos del consumible seleccionado:</p>
+        <ul className="list-disc pl-8 pt-3">
+          <li>Tipo: "{decodeURIComponent(tipo)}"</li>
+          <li>Marca: "{decodeURIComponent(marca)}"</li>
+        </ul>
+        <div className="flex justify-between items-center mt-4">
+          <div className="relative w-2/5">
+            <label htmlFor="table-search" className="sr-only">
+              Buscar 
+            </label>
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
+              <SearchIcon style={{ color: "GrayText" }} />
+            </div>
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              id="table-search"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 focus:ring-blue-tlax focus:border-blue-tlax dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Buscar modelo, serie o responsable"
+            />
           </div>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            id="table-search"
-            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 focus:ring-blue-tlax focus:border-blue-tlax dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Buscar por tipo o marca"
-          />
+          <div className="flex items-center">
+            <label
+              htmlFor="itemsPerPage"
+              className="mr-2 text-sm text-gray-700 dark:text-gray-400"
+            >
+              Registros por página:
+            </label>
+            <select
+              id="itemsPerPage"
+              className="py-1 px-0 w-14 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+              <option value={20}>20</option>
+            </select>
+          </div>
         </div>
       </div>
-      {filteredTypes.length === 0 ? (
-        <div className="p-5 text-center bg-white">
+      {filteredRecords.length === 0 ? (
+        <div className="p-5 text-center">
           <hr className="border-t-2 mb-4 border-gray-200 dark:border-gray-700" />
           <p className="mb-5 text-lg font-semibold text-gray-700 dark:text-gray-400">
-            Aún no hay registros disponibles.
+            No hay registros disponibles.
           </p>
+          {(role === "Administrador" || role === "Moderador") && (
+          <div>
           <Link
-            to="/addconsumibles"
+            to="/consumibles"
+            replace
             className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-blue-tlax transition ease-in-out delay-150 border-2 border-blue-tlax hover:-translate-y-1 hover:scale-100 hover:border-blue-tlax-light hover:text-blue-tlax-light duration-300"
           >
-            <AddToQueueIcon className="w-6 h-6 mr-2" />
-            Agregar Consumibles
+            <ExitToAppIcon className="w-6 h-6 mr-2" />
+            Volver
           </Link>
+          </div>
+          )}
           <hr className="border-t-2 mt-4 border-gray-200 dark:border-gray-700" />
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {filteredTypes.map((type, index) => (
-            <div
-              key={index}
-              className={`flex flex-col justify-between max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${
-                type.disponibles <= 3
-                  ? "border-red-700 shadow-red-800 shadow-md"
-                  : ""
-              }`}
-            >
-              <div>
-                <div className="flex items-center justify-center w-20 h-20 mx-auto bg-blue-100 rounded-full dark:bg-blue-500 dark:bg-opacity-40">
-                  <ImportantDevicesIcon style={{ fontSize: 50 }} />
-                </div>
-                <div className="mt-4 mb-2 text-center">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {type.tipo}
-                  </h5>
-                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {type.marca}
-                  </p>
-                  <p
-                    className={`mb-3 font-normal text-gray-700 dark:text-gray-400 ${
-                      type.disponibles <= 3 ? "text-red-800" : ""
+        <div className="overflow-x-auto">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="pl-3 py-3">
+                  ID
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Descripcion
+              </th>
+              <th scope="col" className="px-6 py-3">
+                  Modelo
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Serie
+              </th>
+              <th scope="col" className="px-6 py-3">
+                  Responsable
+              </th>
+              <th scope="col" className="py-3  text-center">
+                Imagen
+              </th>
+              <th scope="col" className="px-6 py-3  text-center">
+                Disponibilidad
+              </th>
+                <th scope="col" className="py-3 text-center">
+                  Acciones
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredRecords.map((record) => (
+              <tr
+                key={record.id}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300"
+              >
+                <th
+                  scope="row"
+                  className="pl-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {record.id}
+                </th>
+                <td className="px-6 py-4">{record.descripcion}</td>
+                <td className="px-6 py-4">{record.modelo}</td>
+                <td className="px-6 py-4">{record.serie}</td>
+                <td className="px-6 py-4">{record.responsable}</td>
+                <td className="py-4">
+                  <div className="flex justify-center items-center">
+                    <img
+                      src={
+                        record.imagen
+                          ? `${endpoints.base}${record.imagen}`
+                          : "/inventory.jpg"
+                      }
+                      alt="img"
+                      className="max-w-[300px] max-h-[200px] object-cover rounded-lg mr-6"
+                    />
+                  </div>
+                </td>
+                <td className="text-center py-4">
+                  <span
+                    className={`px-2 py-1 rounded-full text-white ${
+                      record.disponible
+                        ? "bg-green-500 shadow-md shadow-green-700"
+                        : "bg-red-500 shadow-md shadow-red-700"
                     }`}
                   >
-                    Disponibles: {type.disponibles}
-                  </p>
-                </div>
-              </div>
-              <div className="flex justify-center">
-                <button
-                  onClick={() => handleViewRecords(type.tipo, type.marca)}
-                  className="py-2 px-3 text-base font-medium justify-center inline-flex items-center rounded-lg text-white transition ease-in-out delay-150 bg-blue-tlax hover:-translate-y-1 hover:scale-100 hover:bg-blue-tlax-light duration-300"
-                >
-                  Ver Registros
-                  <ArrowForwardIcon className="w-6 h-6 ml-2" />
-                </button>
-              </div>
-            </div>
-          ))}
+                    {record.disponible ? "DISPONIBLE" : "NO DISPONIBLE"}
+                  </span>
+                </td>
+                  <td className="flex justify-self-center mt-24">
+                  {(role === "Administrador" || role === "Moderador") && (
+                    <div className="flex items-center">
+                    <Tooltip color="primary" content="Editar registro">
+                      <Link to={`/updateconsumible/${record.id}`}>
+                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-blue-tlax">
+                          <EditIcon />
+                        </span>
+                      </Link>
+                    </Tooltip>
+                    <Tooltip color="primary" content="Eliminar registro">
+                      <Link>
+                        <span
+                          className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-800"
+                          onClick={() => deleteRegistro(record.id)}
+                        >
+                          <DeleteForeverIcon />
+                        </span>
+                      </Link>
+                    </Tooltip>
+                    <Popover
+                      trigger="hover"
+                      placement="left"
+                      content={
+                        <div className="p-4">
+                          <ul>
+                            <li>
+                              <strong>DATOS DE REGISTRO</strong>
+                            </li>
+                            <li>
+                              <strong>Creado por: </strong>
+                              {record.creatorC
+                                ? `${record.creatorC.nombre} ${record.creatorC.apellidop} ${record.creatorC.apellidom}`
+                                : "Desconocido"}
+                            </li>
+                            <li>
+                              <strong>Fecha: </strong>
+                              {record.createdAt}
+                            </li>
+                            <li>
+                              <strong>Ultima actualización: </strong>
+                              {record.updatedAt}
+                            </li>
+                          </ul>
+                        </div>
+                      }
+                    >
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-gray-500">
+                        <InfoIcon />
+                      </span>
+                    </Popover>
+                    </div>
+                  )}
+                    {isInList(record.id) ? (
+                      <Tooltip color="danger" content="Quitar de solicitud">
+                        <button onClick={() => handleRemoveFromList(record.id)}>
+                          <span className="text-lg text-default-400 cursor-pointer active:opacity-50 text-red-700">
+                            <IndeterminateCheckBoxIcon />
+                          </span>
+                        </button>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip color="primary" content={`${
+                              !record.disponible
+                                ? "No disponible"
+                                : "Agregar a solicitud"
+                            }`}>
+                        <button
+                          onClick={() => handleAddToList(record)}
+                          disabled={!record.disponible}
+                        >
+                          <span
+                            className={`text-lg text-default-400 cursor-pointer active:opacity-50 ${
+                              !record.disponible
+                                ? "text-gray-400"
+                                : "text-green-700"
+                            }`}
+                          >
+                            <AddBoxIcon />
+                          </span>
+                        </button>
+                      </Tooltip>
+                    )}
+                  </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         </div>
       )}
     </div>

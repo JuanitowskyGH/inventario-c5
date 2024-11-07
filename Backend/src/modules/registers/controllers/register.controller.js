@@ -1,4 +1,5 @@
 const { Inventario, User } = require("../../index.model");
+const { Op } = require('sequelize');
 
 // FUNCION PARA TRANSFORMAR LOS DATOS EN MAYUSCULAS
 const toUpperCaseFields = (obj) => {
@@ -144,7 +145,12 @@ const update = async (req, res) => {
     }
 
     // BUSCAR FUNCION PARA HACER QUE NO CUENTE LA PROPIA ETIQUETA DEL REGISTRO QUE SE QUIERE ACTUALIZAR
-    const etiquetaExistente = await Inventario.findOne({ where: { etiqueta } });
+    const etiquetaExistente = await Inventario.findOne({
+      where: {
+        etiqueta,
+        id: { [Op.ne]: id },
+      },
+    });
     if (etiquetaExistente) {
       return res.status(400).json({
         message: "La etiqueta ya está registrada",

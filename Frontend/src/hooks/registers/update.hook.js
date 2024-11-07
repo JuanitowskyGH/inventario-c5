@@ -129,7 +129,7 @@ export const updateHook = () => {
       } catch (error) {
         Swal.fire({
           icon: "error",
-          title: "Error del servidor",
+          title: "Error al actualizar",
           text:
           error.response?.data?.message,
           showConfirmButton: false,

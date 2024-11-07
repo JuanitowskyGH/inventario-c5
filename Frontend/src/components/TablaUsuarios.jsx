@@ -49,14 +49,12 @@ export const TablaUsuarios = ({ role }) => {
           Lista de usuarios
           <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
             Aquí puedes ver la lista de los usuarios con detalles. <br />
-            Realiza la búsqueda de un registro en específico con:
-            <b> ID, Nombre, Apellidos, Nombre de usuario y Permisos</b>
           </p>
         <div className="grid grid-cols-2">
           <div className="items-center mt-4">
             <div className="relative w-auto">
               <label htmlFor="table-search" className="sr-only">
-                Buscar
+                Buscar 
               </label>
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <SearchIcon />
@@ -67,7 +65,7 @@ export const TablaUsuarios = ({ role }) => {
                 onChange={(e) => setGlobalFilter(e.target.value)}
                 id="table-search"
                 className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 focus:ring-blue-tlax focus:border-blue-tlax dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Buscar"
+                placeholder="Buscar ID, nombre, apellidos, nombre de usuario o permisos"
               />
             </div>
           </div>

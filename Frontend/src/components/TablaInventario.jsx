@@ -66,7 +66,7 @@ export const TablaInventario = ({ role }) => {
                 onChange={(e) => setGlobalFilter(e.target.value)}
                 id="table-search"
                 className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 focus:ring-blue-tlax focus:border-blue-tlax-light"
-                placeholder="ID, Tipo, Marca, Serie, Departamento, Responsable o Ubicacion."
+                placeholder="Buscar ID, tipo, marca, serie, departamento, responsable o ubicacion."
               />
             </div>
           </div>
@@ -134,6 +134,8 @@ export const TablaInventario = ({ role }) => {
           <p className="mb-5 text-lg font-semibold text-gray-700 dark:text-gray-400">
             Aún no hay registros disponibles.
           </p>
+          {(role === "Administrador" || role === "Moderador") && (
+            <div>
           <Link
             to="/addinventario"
             className="px-5 py-3 text-base font-medium text-center inline-flex items-center rounded-lg text-blue-tlax transition ease-in-out delay-150 border-2 border-blue-tlax hover:-translate-y-1 hover:scale-100 hover:border-blue-tlax-light hover:text-blue-tlax-light duration-300"
@@ -141,6 +143,8 @@ export const TablaInventario = ({ role }) => {
             <PostAddOutlinedIcon className="w-6 h-6 mr-2" />
             Agregar Consumibles
           </Link>
+          </div>
+          )}
           <hr className="border-t-2 mt-4 border-gray-200 dark:border-gray-700" />
         </div>
       ) : (

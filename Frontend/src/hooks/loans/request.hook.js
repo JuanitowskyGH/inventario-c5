@@ -53,7 +53,7 @@ export const requestHook = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.reload();
+
         setSolicitudes((prevSolicitud) =>
           prevSolicitud.filter((solicitud) => solicitud.id !== solicitudId)
         );
@@ -67,7 +67,8 @@ export const requestHook = () => {
           showConfirmButton: true,
           confirmButtonColor: "#d33",
         });
-      });
+      })
+      window.location.reload();;
     }
   };
 

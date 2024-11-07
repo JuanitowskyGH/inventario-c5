@@ -20,6 +20,8 @@ export const Permisos = () => {
                     El <b>Lector</b> puede: <br />
                     - Acceder al sistema <br />
                     - Ver el listado de registros <br />
+                    - Ver el listado de consumibles <br />
+                    - Agregar y solicitar consumibles <br />
                     - Ver su perfl de usuario <br />
                     <br />
                     El <b>Moderador</b> puede: <br />
@@ -27,10 +29,12 @@ export const Permisos = () => {
                     <br />
                     - Ver el listado de usuarios <br />
                     - Agregar, editar y eliminar registros <br />
+                    - Agregar, editar y eliminar consumibles <br />
                     <br />
                     El <b>Administrador</b> puede: <br />
                     - Permisos de Moderador <br />
                     - Agregar, eliminar y asignar permisos a usuarios <br />
+                    - Aprobar o rechazar solicitudes de prestamo <br />
                     </p>
                 </div>
               </div>
