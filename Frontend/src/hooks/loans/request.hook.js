@@ -52,8 +52,9 @@ export const requestHook = () => {
           title: "Solicitud aprobada",
           showConfirmButton: false,
           timer: 1500,
-        });
-
+        }).then(() => {
+          window.location.reload();
+        })
         setSolicitudes((prevSolicitud) =>
           prevSolicitud.filter((solicitud) => solicitud.id !== solicitudId)
         );
@@ -68,7 +69,6 @@ export const requestHook = () => {
           confirmButtonColor: "#d33",
         });
       })
-      window.location.reload();;
     }
   };
 
@@ -99,7 +99,9 @@ export const requestHook = () => {
           title: "Solicitud rechazada",
           showConfirmButton: false,
           timer: 1500,
-        });
+        }).then(() => {
+          window.location.reload();
+        })
         setSolicitudes((prevSolicitud) =>
           prevSolicitud.filter((solicitud) => solicitud.id !== solicitudId)
         );

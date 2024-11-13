@@ -65,7 +65,7 @@ const App = () => {
           <Route element={<ProtectedRoute roles={["Administrador"]} />}>
             <Route path="/updateusuarios/:id" element={<UpdateUsuarios />} />
             <Route path="/addusuarios" element={<AddUsuarios />} />
-            <Route path="/aprobarsolicitudes" element={<Solicitudes />} />
+            <Route path="/solicitudes" element={<Solicitudes />} />
           </Route>
         </Routes>
       </Router>

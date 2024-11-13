@@ -69,23 +69,6 @@ export const TablaConsumibles = ({ role }) => {
               placeholder="Buscar modelo, serie o responsable"
             />
           </div>
-          <div className="flex items-center">
-            <label
-              htmlFor="itemsPerPage"
-              className="mr-2 text-sm text-gray-700 dark:text-gray-400"
-            >
-              Registros por página:
-            </label>
-            <select
-              id="itemsPerPage"
-              className="py-1 px-0 w-14 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-            >
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={15}>15</option>
-              <option value={20}>20</option>
-            </select>
-          </div>
         </div>
       </div>
       {filteredRecords.length === 0 ? (
