@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a {
+  font-weight: 500;
+  color: blue-tlx;
+  text-decoration: inherit;
+}
+a:hover {
+  color: blue-tlx;
+}
+
+body {
+  background-color: #000546;
+}
+
+.input-error {
+  border-color: red;
+}
