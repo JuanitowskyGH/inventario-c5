@@ -1,4 +1,4 @@
-# inventario-c5
+# Inventario-C5i
 
 # INICIAR EL PROYECTO
 En la terminal:
@@ -28,6 +28,7 @@ npx sequelize <command>
 
 
 Commands:
+Migrations:
  - sequelize-cli migration:generate --name [name] Create a migration
  - sequelize db:migrate                        Run pending migrations
  - sequelize db:migrate:schema:timestamps:add  Update migration table to have timestamps
@@ -35,6 +36,7 @@ Commands:
  - sequelize db:migrate:undo                   Reverts a migration
  - sequelize db:migrate:undo:all               Revert all migrations ran
   
+Seeders
  - sequelize-cli seed:generate --name [name] Create a seeder 
  - sequelize db:seed                           Run specified seeder
  - sequelize db:seed --seed [name] Run seeder with name
@@ -42,8 +44,9 @@ Commands:
  - sequelize db:seed:all                       Run every seeder
  - sequelize db:seed:undo:all                  Deletes data from the database
  - sequelize db:create                         Create database specified by configuration
-  
  - sequelize db:drop                           Drop database specified by configuration
+ 
+ Sequelize
  - sequelize init                              Initializes project
  - sequelize init:config                       Initializes configuration
  - sequelize init:migrations                   Initializes migrations
